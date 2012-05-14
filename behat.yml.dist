@@ -1,5 +1,0 @@
-default:
-  extensions:
-    Behat\MinkExtension\Extension:
-      base_url: http://en.wikipedia.org/
-      goutte:   ~
