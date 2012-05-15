@@ -1,7 +1,7 @@
 Symfony2Extension
 =================
 
-Provides integrartion layer for Symfony2:
+Provides integration layer for Symfony2:
 
 * Complete integration into Symfony2 bundle structure - you can run isolated
   bundle suite by bundle shortname, classname or even full path
