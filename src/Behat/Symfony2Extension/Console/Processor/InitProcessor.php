@@ -127,10 +127,8 @@ return <<<'PHP'
 
 namespace %NAMESPACE%\Features\Context;
 
-use Symfony\Bundle\FrameworkBundle\HttpKernel;
-
+use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
-
 use Behat\MinkExtension\Context\MinkContext;
 
 use Behat\Behat\Context\BehatContext,
@@ -168,9 +166,9 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
      * Sets HttpKernel instance.
      * This method will be automatically called by Symfony2Extension ContextInitializer.
      *
-     * @param HttpKernel $kernel
+     * @param KernelInterface $kernel
      */
-    public function setKernel(HttpKernel $kernel)
+    public function setKernel(KernelInterface $kernel)
     {
         $this->kernel = $kernel;
     }
