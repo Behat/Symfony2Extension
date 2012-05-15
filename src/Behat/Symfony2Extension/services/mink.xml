@@ -4,15 +4,14 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <parameters>
 
-        <parameter key="behat.mink.default_session">symfony</parameter>
-        <parameter key="behat.symfony2_extension.driver.symfony.class">Behat\Symfony2Extension\Driver\HttpKernelDriver</parameter>
+        <parameter key="behat.symfony2_extension.driver.kernel.class">Behat\Symfony2Extension\Driver\KernelDriver</parameter>
 
     </parameters>
     <services>
 
         <service id="behat.symfony2_extension.session.symfony" class="%behat.mink.session.class%">
             <argument type="service">
-                <service class="%behat.symfony2_extension.driver.symfony.class%">
+                <service class="%behat.symfony2_extension.driver.kernel.class%">
                     <argument type="service" id="behat.symfony2_extension.kernel" />
                 </service>
             </argument>

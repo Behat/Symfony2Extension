@@ -2,7 +2,9 @@
 
 namespace Behat\Symfony2Extension\Driver;
 
-use Symfony\Bundle\FrameworkBundle\HttpKernel;
+use Symfony\Component\HttpKernel\KernelInterface;
+
+use Behat\Mink\Driver\HttpKernelDriver;
 
 /*
  * This file is part of the Behat\Symfony2Extension
@@ -14,13 +16,13 @@ use Symfony\Bundle\FrameworkBundle\HttpKernel;
  */
 
 /**
- * HttpKernel driver for Mink.
+ * Kernel driver for Mink.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class HttpKernelDriver
+class KernelDriver extends HttpKernelDriver
 {
-    public function __construct(HttpKernel $kernel)
+    public function __construct(KernelInterface $kernel)
     {
         $kernel->boot();
         parent::__construct($kernel->getContainer()->get('test.client'));

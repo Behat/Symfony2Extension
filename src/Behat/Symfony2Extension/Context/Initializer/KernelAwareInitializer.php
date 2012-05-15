@@ -4,7 +4,7 @@ namespace Behat\Symfony2Extension\Context\Initializer;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-use Symfony\Bundle\FrameworkBundle\HttpKernel;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 use Behat\Behat\Context\Initializer\InitializerInterface,
     Behat\Behat\Context\ContextInterface,
@@ -34,9 +34,9 @@ class KernelAwareInitializer implements InitializerInterface, EventSubscriberInt
     /**
      * Initializes initializer.
      *
-     * @param HttpKernel $kernel
+     * @param KernelInterface $kernel
      */
-    public function __construct(HttpKernel $kernel)
+    public function __construct(KernelInterface $kernel)
     {
         $this->kernel = $kernel;
     }

@@ -2,7 +2,7 @@
 
 namespace Behat\Symfony2Extension\Context;
 
-use Symfony\Bundle\FrameworkBundle\HttpKernel;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /*
  * This file is part of the Behat\Symfony2Extension.
@@ -22,11 +22,11 @@ trait KernelDictionary
     private $kernel;
 
     /**
-     * Sets HttpKernel instance.
+     * Sets Kernel instance.
      *
-     * @param HttpKernel $kernel HttpKernel
+     * @param KernelInterface $kernel HttpKernel instance
      */
-    public function setKernel(HttpKernel $kernel)
+    public function setKernel(KernelInterface $kernel);
     {
         $this->kernel = $kernel;
     }
