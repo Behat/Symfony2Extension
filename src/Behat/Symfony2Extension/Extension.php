@@ -63,26 +63,26 @@ class Extension implements ExtensionInterface
                 arrayNode('kernel')->
                     children()->
                         scalarNode('path')->
-                            defaultNull()->
+                            defaultValue('app/AppKernel.php')->
                         end()->
                         scalarNode('class')->
-                            defaultNull()->
+                            defaultValue('AppKernel')->
                         end()->
                         scalarNode('env')->
-                            defaultNull()->
+                            defaultValue('test')->
                         end()->
-                        scalarNode('debug')->
-                            defaultNull()->
+                        booleanNode('debug')->
+                            defaultTrue()->
                         end()->
                     end()->
                 end()->
                 arrayNode('context')->
                     children()->
                         scalarNode('path_suffix')->
-                            defaultNull()->
+                            defaultValue('Features')->
                         end()->
                         scalarNode('class_suffix')->
-                            defaultNull()->
+                            defaultValue('Features\\Context\\FeatureContext')->
                         end()->
                     end()->
                 end()->
