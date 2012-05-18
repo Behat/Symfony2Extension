@@ -38,6 +38,10 @@ class Extension implements ExtensionInterface
         $loader->load('core.xml');
         $loader->load('mink.xml');
 
+        if (isset($config['bundle'])) {
+            $container->setParameter('behat.symfony2_extension.bundle');
+        }
+
         if (isset($config['kernel'])) {
             foreach ($config['kernel'] as $key => $val) {
                 $container->setParameter('behat.symfony2_extension.kernel.'.$key, $val);
@@ -60,6 +64,9 @@ class Extension implements ExtensionInterface
     {
         $builder->
             children()->
+                scalarNode('bundle')->
+                    defaultNull()->
+                end()->
                 arrayNode('kernel')->
                     children()->
                         scalarNode('path')->
@@ -98,7 +105,7 @@ class Extension implements ExtensionInterface
     public function getCompilerPasses()
     {
         return array(
-            new Compiler\KernelLoaderPass()
+            new Compiler\KernelInitializationPass()
         );
     }
 }

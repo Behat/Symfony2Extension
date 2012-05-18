@@ -15,11 +15,12 @@ use Symfony\Component\DependencyInjection\ContainerBuilder,
  */
 
 /**
- * Kernel loader compilation pass. Loads kernel file.
+ * Kernel initialization pass.
+ * Loads kernel file and initializes kernel.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class KernelLoaderPass implements CompilerPassInterface
+class KernelInitializationPass implements CompilerPassInterface
 {
     /**
      * Loads kernel file.
@@ -32,12 +33,27 @@ class KernelLoaderPass implements CompilerPassInterface
             return;
         }
 
+        // find and require kernel
         $basePath   = $container->getParameter('behat.paths.base');
         $kernelPath = $container->getParameter('behat.symfony2_extension.kernel.path');
         if (file_exists($kernel = $basePath.DIRECTORY_SEPARATOR.$kernelPath)) {
             require($kernel);
         } else {
             require($kernelPath);
+        }
+
+        // boot kernel
+        $kernel = $container->get('behat.symfony2_extension.kernel');
+        $kernel->boot();
+
+        // if bundle name specified - direct behat.paths.features to it
+        if ($bundleName = $container->getParameter('behat.symfony2_extension.bundle')) {
+            $bundle = $kernel->getBundle($bundleName);
+            $container->setParameter(
+                'behat.paths.features',
+                $bundle->getPath().DIRECTORY_SEPARATOR.
+                    $this->container->getParameter('behat.symfony2_extension.context.path_suffix');
+            );
         }
     }
 }

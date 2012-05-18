@@ -48,6 +48,7 @@ class InitProcessor extends BaseProcessor
             throw new \InvalidArgumentException('Provide features argument in order to init suite');
         }
 
+        // initialize bundle structure and exit
         if ($input->getOption('init')) {
             $this->initBundleDirectoryStructure($input, $output);
 
@@ -66,29 +67,32 @@ class InitProcessor extends BaseProcessor
         $kernel   = $this->container->get('behat.symfony2_extension.kernel');
         $features = $input->getArgument('features');
 
-        $bundleFound = null;
-        if (preg_match('/^\@([^\/\\\\]+)(.*)$/', $features, $matches)) {
-            $bundleFound = $kernel->getBundle($matches[1]);
-        } else {
-            $bundlePath = preg_replace('/Bundle[\/\\\\]Features.*$/', 'Bundle', $features);
-            foreach ($kernel->getBundles() as $bundle) {
-                if (realpath($bundle->getPath()) === realpath($bundlePath)) {
-                    $bundleFound = $bundle;
+        // get bundle specified in behat.yml
+        if ($bundleName = $this->container->getParameter('behat.symfony2_extension.bundle')) {
+            $bundle = $kernel->getBundle($bundleName);
+        }
+        // get bundle from short notation if path starts from @
+        if ($featuresPath && preg_match('/^\@([^\/\\\\]+)(.*)$/', $featuresPath, $matches)) {
+            $bundle = $kernel->getBundle($matches[1]);
+        // get bundle from provided features path
+        } elseif ($featuresPath && file_exists($featuresPath)) {
+            $featuresPath = realpath($featuresPath);
+            foreach ($kernel->getBundles() as $kernelBundle) {
+                if (false !== strpos($featuresPath, realpath($kernelBundle->getPath()))) {
+                    $bundle = $kernelBundle;
                     break;
                 }
             }
         }
 
-        if (null === $bundleFound) {
-            throw new \InvalidArgumentException(
-                sprintf('Can not find bundle at path "%s". Have you enabled it?', $bundlePath)
-            );
+        if (null === $bundle) {
+            throw new \InvalidArgumentException('Can not find bundle to initialize.');
         }
 
-        $featuresPath = $bundlePath.DIRECTORY_SEPARATOR.'Features';
+        $featuresPath = $bundle->getPath().DIRECTORY_SEPARATOR.'Features';
         $basePath     = $this->container->getParameter('behat.paths.base').DIRECTORY_SEPARATOR;
         $contextPath  = $featuresPath.DIRECTORY_SEPARATOR.'Context';
-        $namespace    = $bundleFound->getNamespace();
+        $namespace    = $bundle->getNamespace();
 
         if (!is_dir($featuresPath)) {
             mkdir($featuresPath, 0777, true);

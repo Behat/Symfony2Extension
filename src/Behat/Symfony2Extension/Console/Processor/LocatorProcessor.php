@@ -45,7 +45,7 @@ class LocatorProcessor extends BaseProcessor
      */
     public function configure(Command $command)
     {
-        $command->addArgument('features', InputArgument::REQUIRED,
+        $command->addArgument('features', InputArgument::OPTIONAL,
             "Feature(s) to run. Could be:".
             "\n- a dir (<comment>src/to/Bundle/Features/</comment>), " .
             "\n- a feature (<comment>src/to/Bundle/Features/*.feature</comment>), " .
@@ -65,17 +65,27 @@ class LocatorProcessor extends BaseProcessor
     public function process(InputInterface $input, OutputInterface $output)
     {
         $featuresPath = $input->getArgument('features');
-        $pathSuffix   = $this->container->getParameter('behat.symfony2_extension.context.path_suffix');
+        $kernel       = $this->container->get('behat.symfony2_extension.kernel');
 
-        $kernel = $this->container->get('behat.symfony2_extension.kernel');
-        if (preg_match('/^\@([^\/\\\\]+)(.*)$/', $featuresPath, $matches)) {
-            $bundle          = $kernel->getBundle($matches[1]);
-            $featuresPath    = $bundle->getPath().DIRECTORY_SEPARATOR.$pathSuffix;
-            $bundleNamespace = $bundle->getNamespace();
-        } else {
-            foreach ($kernel->getBundles() as $bundle) {
-                if (false !== strpos(realpath($featuresPath), realpath($bundle->getPath()))) {
-                    $bundleNamespace = $bundle->getNamespace();
+        // get bundle specified in behat.yml
+        if ($bundleName = $this->container->getParameter('behat.symfony2_extension.bundle')) {
+            $bundle = $kernel->getBundle($bundleName);
+        }
+
+        // get bundle from short notation if path starts from @
+        if ($featuresPath && preg_match('/^\@([^\/\\\\]+)(.*)$/', $featuresPath, $matches)) {
+            $bundle = $kernel->getBundle($matches[1]);
+            $featuresPath = str_replace(
+                '@'.$bundle->getName(),
+                $bundle->getPath().DIRECTORY_SEPARATOR.$pathSuffix,
+                $featuresPath
+            );
+        // get bundle from provided features path
+        } elseif ($featuresPath && file_exists($featuresPath)) {
+            $featuresPath = realpath($featuresPath);
+            foreach ($kernel->getBundles() as $kernelBundle) {
+                if (false !== strpos($featuresPath, realpath($kernelBundle->getPath()))) {
+                    $bundle = $kernelBundle;
                     break;
                 }
             }
@@ -87,6 +97,6 @@ class LocatorProcessor extends BaseProcessor
 
         $this->container
             ->get('behat.symfony2_extension.context.class_guesser')
-            ->setBundleNamespace($bundleNamespace);
+            ->setBundleNamespace($bundle->getNamespace());
     }
 }
