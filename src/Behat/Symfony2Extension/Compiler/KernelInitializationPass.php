@@ -1,6 +1,6 @@
 <?php
 
-namespace Behat\MinkExtension\Compiler;
+namespace Behat\Symfony2Extension\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder,
     Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -52,7 +52,7 @@ class KernelInitializationPass implements CompilerPassInterface
             $container->setParameter(
                 'behat.paths.features',
                 $bundle->getPath().DIRECTORY_SEPARATOR.
-                    $this->container->getParameter('behat.symfony2_extension.context.path_suffix');
+                    $this->container->getParameter('behat.symfony2_extension.context.path_suffix')
             );
         }
     }

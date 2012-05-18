@@ -26,7 +26,7 @@ trait KernelDictionary
      *
      * @param KernelInterface $kernel HttpKernel instance
      */
-    public function setKernel(KernelInterface $kernel);
+    public function setKernel(KernelInterface $kernel)
     {
         $this->kernel = $kernel;
     }

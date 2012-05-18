@@ -9,6 +9,8 @@
  * with this source code in the file LICENSE.
  */
 
+chdir(__DIR__);
+
 $filename = 'symfony2_extension.phar';
 
 if (file_exists($filename)) {

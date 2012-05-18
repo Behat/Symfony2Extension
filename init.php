@@ -9,14 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-require __DIR__.'/src/Behat/Symfony2Extension/Compiler/KernelInitializationPass.php';
-require __DIR__.'/src/Behat/Symfony2Extension/Console/Processor/InitProcessor.php';
-require __DIR__.'/src/Behat/Symfony2Extension/Console/Processor/LocatorProcessor.php';
-require __DIR__.'/src/Behat/Symfony2Extension/Context/ClassGuesser/BundleContextClassGuesser.php';
-require __DIR__.'/src/Behat/Symfony2Extension/Context/Initializer/KernelAwareInitializer.php';
-require __DIR__.'/src/Behat/Symfony2Extension/Context/KernelAwareInterface.php';
-require __DIR__.'/src/Behat/Symfony2Extension/Context/KernelDictionary.php';
-require __DIR__.'/src/Behat/Symfony2Extension/Driver/KernelDriver.php';
-require __DIR__.'/src/Behat/Symfony2Extension/Driver/Extension.php';
+spl_autoload_register(function($class) {
+    if (false !== strpos($class, 'Behat\\Symfony2Extension')) {
+        require_once(__DIR__.'/src/'.str_replace('\\', '/', $class).'.php');
+        return true;
+    }
+}, true, false);
 
 return new Behat\Symfony2Extension\Extension;
