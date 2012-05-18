@@ -1,0 +1,3 @@
+default:
+    extensions:
+        symfony2_extension.phar: ~
