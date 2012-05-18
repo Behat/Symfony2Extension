@@ -45,7 +45,7 @@ class InitProcessor extends BaseProcessor
     {
         // throw exception if no features argument provided
         if (!$input->getArgument('features') && $input->getOption('init')) {
-            throw new \InvalidArgumentException('Provide features argument in order to init suite');
+            throw new \InvalidArgumentException('Provide features argument in order to init suite.');
         }
 
         // initialize bundle structure and exit
