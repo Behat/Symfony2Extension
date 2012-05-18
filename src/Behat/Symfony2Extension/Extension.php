@@ -34,24 +34,25 @@ class Extension implements ExtensionInterface
     public function load(array $config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/services'));
-
         $loader->load('core.xml');
-        $loader->load('mink.xml');
 
         if (isset($config['bundle'])) {
-            $container->setParameter('behat.symfony2_extension.bundle');
+            $bundleName = preg_replace('/^\@/', '', $config['bundle']);
+            $container->setParameter('behat.symfony2_extension.bundle', $bundleName);
         }
-
         if (isset($config['kernel'])) {
             foreach ($config['kernel'] as $key => $val) {
                 $container->setParameter('behat.symfony2_extension.kernel.'.$key, $val);
             }
         }
-
         if (isset($config['context'])) {
             foreach ($config['context'] as $key => $val) {
                 $container->setParameter('behat.symfony2_extension.context.'.$key, $val);
             }
+        }
+
+        if ($config['mink']) {
+            $loader->load('mink.xml');
         }
     }
 
@@ -93,6 +94,7 @@ class Extension implements ExtensionInterface
                         end()->
                     end()->
                 end()->
+                booleanNode('mink')->defaultFalse()->end()->
             end()->
         end();
     }

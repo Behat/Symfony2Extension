@@ -52,7 +52,7 @@ class KernelInitializationPass implements CompilerPassInterface
             $container->setParameter(
                 'behat.paths.features',
                 $bundle->getPath().DIRECTORY_SEPARATOR.
-                    $this->container->getParameter('behat.symfony2_extension.context.path_suffix')
+                    $container->getParameter('behat.symfony2_extension.context.path_suffix')
             );
         }
     }

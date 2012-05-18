@@ -64,8 +64,10 @@ class InitProcessor extends BaseProcessor
      */
     protected function initBundleDirectoryStructure(InputInterface $input, OutputInterface $output)
     {
-        $kernel   = $this->container->get('behat.symfony2_extension.kernel');
-        $features = $input->getArgument('features');
+        $featuresPath = $input->getArgument('features');
+
+        $kernel = $this->container->get('behat.symfony2_extension.kernel');
+        $bundle = null;
 
         // get bundle specified in behat.yml
         if ($bundleName = $this->container->getParameter('behat.symfony2_extension.bundle')) {
@@ -86,7 +88,7 @@ class InitProcessor extends BaseProcessor
         }
 
         if (null === $bundle) {
-            throw new \InvalidArgumentException('Can not find bundle to initialize.');
+            throw new \InvalidArgumentException('Can not find bundle to initialize suite.');
         }
 
         $featuresPath = $bundle->getPath().DIRECTORY_SEPARATOR.'Features';

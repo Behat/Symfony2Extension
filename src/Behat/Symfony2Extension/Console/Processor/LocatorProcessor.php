@@ -65,7 +65,10 @@ class LocatorProcessor extends BaseProcessor
     public function process(InputInterface $input, OutputInterface $output)
     {
         $featuresPath = $input->getArgument('features');
-        $kernel       = $this->container->get('behat.symfony2_extension.kernel');
+        $pathSuffix   = $this->container->getParameter('behat.symfony2_extension.context.path_suffix');
+
+        $kernel = $this->container->get('behat.symfony2_extension.kernel');
+        $bundle = null;
 
         // get bundle specified in behat.yml
         if ($bundleName = $this->container->getParameter('behat.symfony2_extension.bundle')) {
@@ -81,22 +84,24 @@ class LocatorProcessor extends BaseProcessor
                 $featuresPath
             );
         // get bundle from provided features path
-        } elseif ($featuresPath && file_exists($featuresPath)) {
-            $featuresPath = realpath($featuresPath);
+        } elseif ($featuresPath) {
+            $path = realpath(preg_replace('/\.feature\:.*$/', '.feature', $featuresPath));
             foreach ($kernel->getBundles() as $kernelBundle) {
-                if (false !== strpos($featuresPath, realpath($kernelBundle->getPath()))) {
+                if (false !== strpos($path, realpath($kernelBundle->getPath()))) {
                     $bundle = $kernelBundle;
                     break;
                 }
             }
         }
 
-        $this->container
-            ->get('behat.console.command')
-            ->setFeaturesPaths($featuresPath);
+        if ($bundle) {
+            $this->container
+                ->get('behat.symfony2_extension.context.class_guesser')
+                ->setBundleNamespace($bundle->getNamespace());
+        }
 
         $this->container
-            ->get('behat.symfony2_extension.context.class_guesser')
-            ->setBundleNamespace($bundle->getNamespace());
+            ->get('behat.console.command')
+            ->setFeaturesPaths(array($featuresPath));
     }
 }
