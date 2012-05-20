@@ -13,25 +13,18 @@
     ],
 
     "require": {
-        "php":                 ">=5.3.2",
-        "behat/behat":         ">=2.4.0,<2.4.x-dev",
-        "symfony/http-kernel": ">=2.0.0,<2.1.x-dev"
+        "php":                       ">=5.3.2",
+        "behat/behat":               ">=2.4.0,<2.4.x-dev",
+        "symfony/framework-bundle":  ">=2.0.0,<2.2.x-dev"
     },
 
     "require-dev": {
         "symfony/symfony":       "dev-master",
         "behat/mink-extension":  "dev-master",
-        "behat/mink":            ">=1.4.0beta3,<1.5.0-dev"
+        "behat/mink":            ">=1.4.0beta4,<1.4.x-dev"
     },
 
     "autoload": {
         "psr-0": { "Behat\\Symfony2Extension": "src/" }
-    },
-
-    "repositories": {
-        "behat/mink-deps": {
-            "type": "composer",
-            "url":  "behat.org"
-        }
     }
 }
