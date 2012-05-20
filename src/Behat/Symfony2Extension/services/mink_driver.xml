@@ -16,7 +16,7 @@
                 </service>
             </argument>
             <argument type="service" id="behat.mink.selector.handler" />
-            <tag name="behat.mink.session" alias="symfony" />
+            <tag name="behat.mink.session" alias="symfony2" />
         </service>
 
     </services>

@@ -35,7 +35,7 @@
 
         <service id="behat.symfony2_extension.context.class_guesser" class="%behat.symfony2_extension.context.class_guesser.class%">
             <argument>%behat.symfony2_extension.context.class_suffix%</argument>
-            <tag name="behat.context.class_guesser" priority="10" />
+            <tag name="behat.context.class_guesser" priority="5" />
         </service>
 
     </services>
