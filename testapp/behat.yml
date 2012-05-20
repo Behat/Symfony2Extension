@@ -1,3 +1,19 @@
 default:
     extensions:
-        symfony2_extension.phar: ~
+        Behat\Symfony2Extension\Extension:
+            bundle: 'BehatSf2DemoBundle'
+
+simple:
+    filters:
+        tags: '~@web'
+
+web:
+    filters:
+        tags: '@web'
+    context:
+        class: 'Behat\Sf2DemoBundle\Features\Context\WebContext'
+    extensions:
+        Behat\Symfony2Extension\Extension:
+            mink_driver: true
+        Behat\MinkExtension\Extension:
+            default_session: 'symfony2'

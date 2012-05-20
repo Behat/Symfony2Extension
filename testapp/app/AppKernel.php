@@ -11,8 +11,7 @@ class AppKernel extends Kernel
     {
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle(),
+            new Behat\Sf2DemoBundle\BehatSf2DemoBundle(),
         );
 
         return $bundles;

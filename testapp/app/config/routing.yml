@@ -1,4 +1,3 @@
-# Internal routing configuration to handle ESI
-#_internal:
-#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
-#   prefix:   /_internal
+test:
+    pattern:  /
+    defaults: { _controller: BehatSf2DemoBundle:Test:index }
