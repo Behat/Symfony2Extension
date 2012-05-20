@@ -51,8 +51,8 @@ class Extension implements ExtensionInterface
             }
         }
 
-        if ($config['mink']) {
-            $loader->load('mink.xml');
+        if ($config['mink_driver']) {
+            $loader->load('mink_driver.xml');
         }
     }
 
@@ -94,7 +94,7 @@ class Extension implements ExtensionInterface
                         end()->
                     end()->
                 end()->
-                booleanNode('mink')->defaultFalse()->end()->
+                booleanNode('mink_driver')->defaultFalse()->end()->
             end()->
         end();
     }
