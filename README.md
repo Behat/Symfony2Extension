@@ -21,6 +21,9 @@ This extension requires:
 
 * Behat 2.4+
 
+Through PHAR
+~~~~~~~~~~~~
+
 Download Behat phar from:
 
 * [Behat downloads](https://github.com/Behat/Behat/downloads)
@@ -42,6 +45,38 @@ activate `Symfony2Extension`:
 
     For all configuration options, check [extension configuration
     class](https://github.com/Behat/MinkExtension/blob/master/src/Behat/Symfony2Extension.php#L61-90).
+
+Through Composer
+~~~~~~~~~~~~~~~~
+
+1. Set dependencies in your `composer.json`:
+
+    ``` json
+    {
+        "require": {
+            ...
+
+            "behat/symfony2-extension": "*"
+        }
+    }
+    ```
+
+2. Install/update your vendors:
+
+    ``` bash
+    $> curl http://getcomposer.org/installer | php
+    $> php composer.phar install
+    ```
+
+3. Activate extension in your `behat.yml`:
+
+    ``` yaml
+    # behat.yml
+    defaults:
+      # ...
+      extensions:
+        Behat\Symfony2Extension\Extension: ~
+    ```
 
 Usage
 -----
