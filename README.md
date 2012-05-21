@@ -143,7 +143,7 @@ Copyright (c) 2012 Konstantin Kudryashov (ever.zet). See LICENSE for details.
 ## Contributors
 
 * Konstantin Kudryashov [everzet](http://github.com/everzet) [lead developer]
-* Other [awesome developers](https://github.com/Behat/MinkExtension/graphs/contributors)
+* Other [awesome developers](https://github.com/Behat/Symfony2Extension/graphs/contributors)
 
 ## Sponsors
 
