@@ -1,4 +1,7 @@
 default:
+    formatter:
+        parameters:
+            paths: false
     extensions:
         Behat\Symfony2Extension\Extension:
             bundle: 'BehatSf2DemoBundle'

@@ -1,13 +1,16 @@
 Symfony2Extension
 =================
 
+[![Build
+Status](https://secure.travis-ci.org/Behat/Symfony2Extension.png?branch=master)](http://travis-ci.org/Behat/Symfony2Extension)
+
 Provides integration layer for Symfony2:
 
 * Complete integration into Symfony2 bundle structure - you can run isolated
   bundle suite by bundle shortname, classname or even full path
 * `KernelAwareInterface`, which provides initialized and booted kernel instance
   for your contexts
-* Additional `symfony` session (sets as default) for Mink (if `MinkExtension` is installed)
+* Additional `symfony2` session (sets as default) for Mink (if `MinkExtension` is installed)
 
 between Behat 2.4+ and Symfony2+
 
@@ -55,7 +58,8 @@ After installing extension, there would be 2 usage options available for you:
    is mink instance.
 
 There's common thing between those 2 methods. In each of those, target context will implement
-`setKernel(HttpKernel $kernel)` method. This method would be automatically called **immediately after** each context creation before each scenario. Note that this kernel will be automatically
+`setKernel(HttpKernel $kernel)` method. This method would be automatically called **immediately after**
+each context creation before each scenario. Note that this kernel will be automatically
 rebooted between scenarios, so your scenarios would have almost absolutely isolated state.
 
 Initialize bundle suite
@@ -72,6 +76,37 @@ Run bundle suite
 
 ``` bash
 $> php behat.phar @YouBundleName
+```
+
+Using `symfony2` Mink session
+-----------------------------
+
+Symfony2Extension comes bundled with custom `symfony2` session for Mink, which is disabled
+by default. In order to use it, you should download/install/activate MinkExtension and enabling
+`mink_driver` in Symfony2Extension:
+
+``` yaml
+# behat.yml
+defaults:
+  # ...
+  extensions:
+    symfony2_extension.phar:
+      mink_driver: true
+    mink_extension.phar: ~
+```
+
+Also, you can make `symfony2` session default one by setting `default_session` option in
+MinkExtension:
+
+``` yaml
+# behat.yml
+defaults:
+  # ...
+  extensions:
+    symfony2_extension.phar:
+      mink_driver: true
+    mink_extension.phar:
+      default_session: 'symfony2'
 ```
 
 Copyright
