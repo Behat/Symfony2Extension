@@ -1,5 +1,4 @@
-Symfony2Extension
-=================
+# Symfony2Extension
 
 [![Build
 Status](https://secure.travis-ci.org/Behat/Symfony2Extension.png?branch=master)](http://travis-ci.org/Behat/Symfony2Extension)
@@ -14,15 +13,13 @@ Provides integration layer for Symfony2:
 
 between Behat 2.4+ and Symfony2+
 
-Installation
-------------
+## Installation
 
 This extension requires:
 
 * Behat 2.4+
 
-Through PHAR
-~~~~~~~~~~~~
+### Through PHAR
 
 Download Behat phar from:
 
@@ -46,8 +43,7 @@ activate `Symfony2Extension`:
     For all configuration options, check [extension configuration
     class](https://github.com/Behat/MinkExtension/blob/master/src/Behat/Symfony2Extension.php#L61-90).
 
-Through Composer
-~~~~~~~~~~~~~~~~
+### Through Composer
 
 1. Set dependencies in your `composer.json`:
 
@@ -78,8 +74,7 @@ Through Composer
         Behat\Symfony2Extension\Extension: ~
     ```
 
-Usage
------
+## Usage
 
 After installing extension, there would be 2 usage options available for you:
 
@@ -97,8 +92,7 @@ There's common thing between those 2 methods. In each of those, target context w
 each context creation before each scenario. Note that this kernel will be automatically
 rebooted between scenarios, so your scenarios would have almost absolutely isolated state.
 
-Initialize bundle suite
------------------------
+## Initialize bundle suite
 
 Just run:
 
@@ -106,15 +100,13 @@ Just run:
 $> php behat.phar --init @YouBundleName
 ```
 
-Run bundle suite
-----------------
+## Run bundle suite
 
 ``` bash
 $> php behat.phar @YouBundleName
 ```
 
-Using `symfony2` Mink session
------------------------------
+## Using `symfony2` Mink session
 
 Symfony2Extension comes bundled with custom `symfony2` session for Mink, which is disabled
 by default. In order to use it, you should download/install/activate MinkExtension and enabling
@@ -144,18 +136,15 @@ defaults:
       default_session: 'symfony2'
 ```
 
-Copyright
----------
+## Copyright
 
 Copyright (c) 2012 Konstantin Kudryashov (ever.zet). See LICENSE for details.
 
-Contributors
-------------
+## Contributors
 
 * Konstantin Kudryashov [everzet](http://github.com/everzet) [lead developer]
 * Other [awesome developers](https://github.com/Behat/MinkExtension/graphs/contributors)
 
-Sponsors
---------
+## Sponsors
 
 * knpLabs [knpLabs](http://www.knplabs.com/) [main sponsor]
