@@ -36,6 +36,11 @@ class Extension implements ExtensionInterface
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/services'));
         $loader->load('core.xml');
 
+        // starting from Behat 2.4.1, we can check for activated extensions
+        $extensions = $container->hasParameter('behat.extension.classes')
+                    ? $container->getParameter('behat.extension.classes')
+                    : array();
+
         if (isset($config['bundle'])) {
             $bundleName = preg_replace('/^\@/', '', $config['bundle']);
             $container->setParameter('behat.symfony2_extension.bundle', $bundleName);
@@ -51,7 +56,8 @@ class Extension implements ExtensionInterface
             }
         }
 
-        if ($config['mink_driver']) {
+        // if mink_driver is set to true OR MinkExtension is activated
+        if ($config['mink_driver'] || in_array('Behat\\MinkExtension\\Extension', $extensions)) {
             $loader->load('mink_driver.xml');
         }
     }
