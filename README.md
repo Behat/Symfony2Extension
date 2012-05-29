@@ -109,8 +109,22 @@ $> php behat.phar @YouBundleName
 ## Using `symfony2` Mink session
 
 Symfony2Extension comes bundled with a custom `symfony2` session for Mink, which is disabled
-by default. In order to use it you should download/install/activate MinkExtension and enable
-`mink_driver` in Symfony2Extension:
+by default. In order to use it you should download/install/activate MinkExtension and BrowserKit
+driver for Mink:
+
+``` json
+{
+    "require": {
+        ...
+
+        "behat/symfony2-extension":      "*",
+        "behat/mink-extension":          "*",
+        "behat/mink-browserkit-driver":  "*"
+    }
+}
+```
+
+Now just enable `mink_driver` in Symfony2Extension:
 
 ``` yaml
 # behat.yml
