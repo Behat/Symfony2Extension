@@ -34,7 +34,7 @@ activate `Symfony2Extension`:
 
     ``` yaml
     # behat.yml
-    defaults:
+    default:
       # ...
       extensions:
         symfony2_extension.phar: ~
@@ -68,7 +68,7 @@ activate `Symfony2Extension`:
 
     ``` yaml
     # behat.yml
-    defaults:
+    default:
       # ...
       extensions:
         Behat\Symfony2Extension\Extension: ~
@@ -114,7 +114,7 @@ by default. In order to use it, you should download/install/activate MinkExtensi
 
 ``` yaml
 # behat.yml
-defaults:
+default:
   # ...
   extensions:
     symfony2_extension.phar:
@@ -127,7 +127,7 @@ MinkExtension:
 
 ``` yaml
 # behat.yml
-defaults:
+default:
   # ...
   extensions:
     symfony2_extension.phar:
