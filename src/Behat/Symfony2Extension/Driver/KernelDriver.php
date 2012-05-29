@@ -4,7 +4,7 @@ namespace Behat\Symfony2Extension\Driver;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 
-use Behat\Mink\Driver\HttpKernelDriver;
+use Behat\Mink\Driver\BrowserKitDriver;
 
 /*
  * This file is part of the Behat\Symfony2Extension
@@ -20,7 +20,7 @@ use Behat\Mink\Driver\HttpKernelDriver;
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class KernelDriver extends HttpKernelDriver
+class KernelDriver extends BrowserKitDriver
 {
     public function __construct(KernelInterface $kernel)
     {
