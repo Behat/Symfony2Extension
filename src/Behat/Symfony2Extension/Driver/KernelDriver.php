@@ -24,7 +24,6 @@ class KernelDriver extends HttpKernelDriver
 {
     public function __construct(KernelInterface $kernel)
     {
-        $kernel->boot();
         parent::__construct($kernel->getContainer()->get('test.client'));
     }
 }
