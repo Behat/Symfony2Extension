@@ -56,8 +56,15 @@ class Extension implements ExtensionInterface
             }
         }
 
-        // if mink_driver is set to true OR MinkExtension is activated
-        if ($config['mink_driver'] || in_array('Behat\\MinkExtension\\Extension', $extensions)) {
+        if ($config['mink_driver']) {
+            if (!class_exists('Behat\\Mink\\Driver\\BrowserKitDriver')) {
+                throw new \RuntimeException(
+                    'Install MinkBrowserKitDriver in order to activate symfony2 session.'
+                );
+            }
+
+            $loader->load('mink_driver.xml');
+        } elseif (in_array('Behat\\MinkExtension\\Extension', $extensions) && class_exists('Behat\\Mink\\Driver\\BrowserKitDriver')) {
             $loader->load('mink_driver.xml');
         }
     }
