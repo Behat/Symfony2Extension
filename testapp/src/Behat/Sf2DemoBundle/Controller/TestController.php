@@ -20,7 +20,7 @@ class TestController extends Controller
         You are?:
         <a href="?type=human">Human</a>
         <a href="?type=orc">Orc</a>
-        <a href="?type=elf">Efl</a>
+        <a href="?type=elf">Elf</a>
     </body>
 </html>
 RESPONSE
