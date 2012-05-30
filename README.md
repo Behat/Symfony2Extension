@@ -41,7 +41,7 @@ activate `Symfony2Extension`:
     ```
 
     For all configuration options, check [extension configuration
-    class](https://github.com/Behat/MinkExtension/blob/master/src/Behat/Symfony2Extension.php#L61-90).
+    class](https://github.com/Behat/Symfony2Extension/blob/master/src/Behat/Symfony2Extension/Extension.php#L72-105).
 
 ### Through Composer
 
