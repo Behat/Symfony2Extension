@@ -24,5 +24,5 @@ interface KernelAwareInterface
      *
      * @param KernelInterface $kernel HttpKernel instance
      */
-    function setKernel(KernelInterface $kernel);
+    public function setKernel(KernelInterface $kernel);
 }
