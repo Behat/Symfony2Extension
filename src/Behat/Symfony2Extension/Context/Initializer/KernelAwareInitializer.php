@@ -59,7 +59,7 @@ class KernelAwareInitializer implements InitializerInterface, EventSubscriberInt
      *
      * @return array The event names to listen to
      */
-    static function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return array(
             'beforeScenario' => array('bootKernel', 1),
