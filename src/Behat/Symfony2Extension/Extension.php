@@ -83,6 +83,9 @@ class Extension implements ExtensionInterface
                 end()->
                 arrayNode('kernel')->
                     children()->
+                        scalarNode('bootstrap')->
+                            defaultValue('app/autoload.php')->
+                        end()->
                         scalarNode('path')->
                             defaultValue('app/AppKernel.php')->
                         end()->

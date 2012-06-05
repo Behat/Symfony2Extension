@@ -32,14 +32,25 @@ class KernelInitializationPass implements CompilerPassInterface
         if (!$container->hasParameter('behat.symfony2_extension.kernel.path')) {
             return;
         }
+        // get base path
+        $basePath = $container->getParameter('behat.paths.base');
+
+        // find and require bootstrap
+        $bootstrapPath = $container->getParameter('behat.symfony2_extension.kernel.bootstrap');
+        if ($bootstrapPath) {
+            if (file_exists($bootstrap = $basePath.DIRECTORY_SEPARATOR.$bootstrapPath)) {
+                require_once($bootstrap);
+            } elseif (file_exists($bootstrapPath)) {
+                require_once($bootstrapPath);
+            }
+        }
 
         // find and require kernel
-        $basePath   = $container->getParameter('behat.paths.base');
         $kernelPath = $container->getParameter('behat.symfony2_extension.kernel.path');
         if (file_exists($kernel = $basePath.DIRECTORY_SEPARATOR.$kernelPath)) {
-            require($kernel);
-        } else {
-            require($kernelPath);
+            require_once($kernel);
+        } elseif (file_exists($kernelPath)) {
+            require_once($kernelPath);
         }
 
         // boot kernel

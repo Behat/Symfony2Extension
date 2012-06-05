@@ -6,6 +6,7 @@
 
         <parameter key="behat.symfony2_extension.bundle">null</parameter>
 
+        <parameter key="behat.symfony2_extension.kernel.bootstrap">app/autoload.php</parameter>
         <parameter key="behat.symfony2_extension.kernel.path">app/AppKernel.php</parameter>
         <parameter key="behat.symfony2_extension.kernel.class">AppKernel</parameter>
         <parameter key="behat.symfony2_extension.kernel.env">test</parameter>
