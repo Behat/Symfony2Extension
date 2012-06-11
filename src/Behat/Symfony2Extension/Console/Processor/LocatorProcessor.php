@@ -102,6 +102,6 @@ class LocatorProcessor extends BaseProcessor
 
         $this->container
             ->get('behat.console.command')
-            ->setFeaturesPaths(array($featuresPath));
+            ->setFeaturesPaths($featuresPath ? array($featuresPath) : array());
     }
 }
