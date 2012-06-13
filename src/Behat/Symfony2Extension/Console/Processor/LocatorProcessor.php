@@ -100,6 +100,10 @@ class LocatorProcessor extends BaseProcessor
                 ->setBundleNamespace($bundle->getNamespace());
         }
 
+        if (!$featuresPath) {
+            $featuresPath = $this->container->getParameter('behat.paths.features');
+        }
+
         $this->container
             ->get('behat.console.command')
             ->setFeaturesPaths($featuresPath ? array($featuresPath) : array());
