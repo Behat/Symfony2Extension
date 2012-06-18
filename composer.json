@@ -19,6 +19,7 @@
     },
 
     "require-dev": {
+        "behat/mink":                    "1.4@stable",
         "symfony/symfony":               "dev-master",
         "behat/mink-extension":          "dev-master",
         "behat/mink-browserkit-driver":  "dev-master"
