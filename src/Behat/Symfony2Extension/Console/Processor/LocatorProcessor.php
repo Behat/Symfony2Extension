@@ -84,7 +84,7 @@ class LocatorProcessor extends BaseProcessor
                 $featuresPath
             );
         // get bundle from provided features path
-        } elseif ($featuresPath) {
+        } elseif (!$bundle && $featuresPath) {
             $path = realpath(preg_replace('/\.feature\:.*$/', '.feature', $featuresPath));
             foreach ($kernel->getBundles() as $kernelBundle) {
                 if (false !== strpos($path, realpath($kernelBundle->getPath()))) {
@@ -92,6 +92,9 @@ class LocatorProcessor extends BaseProcessor
                     break;
                 }
             }
+        // if bundle is configured for profile and feature provided
+        } elseif ($bundle && $featuresPath) {
+            $featuresPath = $bundle->getPath().DIRECTORY_SEPARATOR.$pathSuffix.DIRECTORY_SEPARATOR.$featuresPath;
         }
 
         if ($bundle) {
