@@ -88,7 +88,7 @@ After installing extension, there would be 2 usage options available for you:
    parent contexts from subcontexts when the only thing you need is a kernel instance.
 
 There's a common thing between those 2 methods. In each of those, target context
-will implement ``setKernel(HttpKernelInterface $kernel)`` method. This method would be
+will implement ``setKernel(KernelInterface $kernel)`` method. This method would be
 automatically called **immediately after** each context creation before each scenario.
 After context constructor, but before any instance hook or definition call.
 
