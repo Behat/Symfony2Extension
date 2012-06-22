@@ -85,10 +85,10 @@ After installing extension, there would be 2 usage options available for you:
 2. Implementing ``Behat\Symfony2Extension\Context\KernelAwareInterface`` with
    your context or its subcontexts. This will give you more customization options.
    Also, you can use this mechanism on multiple contexts avoiding the need to call
-   parent contexts from subcontexts when the only thing you need is a mink instance.
+   parent contexts from subcontexts when the only thing you need is a kernel instance.
 
 There's a common thing between those 2 methods. In each of those, target context
-will implement ``setKernel(HttpKernel $kernel)`` method. This method would be
+will implement ``setKernel(HttpKernelInterface $kernel)`` method. This method would be
 automatically called **immediately after** each context creation before each scenario.
 After context constructor, but before any instance hook or definition call.
 
