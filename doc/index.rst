@@ -208,6 +208,54 @@ option in MinkExtension:
             mink_extension.phar:
                 default_session: 'symfony2'
 
+Application Level Feature Suite
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You are not forced to use bundle-centric structure for your feature suites.
+If you want to keep your suite application level, you can simply do it by specifiyng
+proper ``feautres`` path and ``context.class`` in your ``behat.yml``:
+
+.. code-block:: yaml
+
+    default:
+        paths:
+            features: features
+        context:
+            class:  YourApp\Behat\ContextClass
+
+.. note::
+
+    Keep in mind, that ``Symfony2Extension`` relies on ``Symfony2`` autoloader for
+    context discover and disables Behat bundled autoloader (aka ``bootstrap`` folder).
+    So make sure that your context class is discoverable by ``Symfony2`` autoloader
+    (place it in proper folder/namespace).
+
+.. note::
+
+    If you're using both ``Symfony2Extension`` and ``MinkExtension`` and have defined
+    wrong classname for your context class, you can run into problem where suite
+    will still be runnable, but some of your custom definitions/hooks/methods will
+    not be available. This happens because ``Behat`` uses bundled with ``MinkExtension``
+    context class instead.
+
+    So here's what's happening:
+
+    1. Behat tryes to check existense of FeatureContext class (default) with
+       `PredefinedClassGuesser <https://github.com/Behat/Behat/blob/master/src/Behat/Behat/Context/ClassGuesser/PredefinedClassGuesser.php>`_
+       and obviously can't.
+    2. Behat `tries another guessers <https://github.com/Behat/Behat/blob/master/src/Behat/Behat/Context/ContextDispatcher.php#L62-66>`_
+       with lower priorities.
+    3. `There is one
+       <https://github.com/Behat/MinkExtension/blob/master/src/Behat/MinkExtension/Context/ClassGuesser/MinkContextClassGuesser.php#L20>`_
+       defined by ``MinkExtension``, which gets matched and tells Behat to use
+       ``Behat\MinkExtension\Context\MinkContext`` as main context class.
+        
+    So, your ``FeatureContext`` isn't used really. ``Behat\MinkExtension\Context\MinkContext``
+    used instead.
+
+    So be sure to check that your suite is runned in proper context (by looking at
+    paths next to steps) and that you've defined proper, discoverable context classname.
+
 Configuration
 -------------
 
