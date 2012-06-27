@@ -20,7 +20,7 @@ and several drivers (like `MinkSeleniumDriver <https://github.com/Behat/MinkSele
 `MinkBrowserkitDriver <https://github.com/Behat/MinkBrowserkitDriver>`_).
 
 Here's an example ``composer.json`` snippet taken from a Symfony project using
-both ``selenium`` and ``browserkit`` drivers:
+both ``selenium2`` and ``browserkit`` drivers:
 
 .. code-block:: js
 
@@ -61,10 +61,6 @@ Instead of configuring Behat in Symfony you'll need to create a new
         Behat\MinkExtension\Extension:
           base_url: 'http://www.acme.dev/app_test.php/'
           default_session: symfony2
-          javascript_session: selenium
-          selenium:
-            host: 33.33.33.1
-            port: 4444
 
 You'll have to remove your previous configuration (typically placed in
 ``app/config/config_test.yml``). Otherwise dependency injection container will
@@ -96,7 +92,7 @@ This way Behat will be accessible via:
 
 .. code-block:: bash
 
-    ./bin/behat
+    $ bin/behat
 
 Including autoloader from composer
 ----------------------------------
