@@ -22,15 +22,17 @@ and several drivers (like `MinkSeleniumDriver <https://github.com/Behat/MinkSele
 Here's an example ``composer.json`` snippet taken from a Symfony project using
 both ``selenium`` and ``browserkit`` drivers:
 
-.. code-block:: json
+.. code-block:: js
 
     {
         "require": {
-            "behat/behat":                  "*",
-            "behat/symfony2-extension":     "*",
-            "behat/mink-extension":         "*",
-            "behat/mink-browserkit-driver": "*",
-            "behat/mink-selenium-driver":   "*"
+            "behat/behat":  "2.4.*@stable",
+            "behat/mink":   "1.4.*@stable",
+
+            "behat/symfony2-extension":      "*",
+            "behat/mink-extension":          "*",
+            "behat/mink-browserkit-driver":  "*",
+            "behat/mink-selenium2-driver":   "*"
         }
     }
 
@@ -82,7 +84,7 @@ Symfony specific command anymore. Behat is now run through its own script.
 When using composer it's good to specify the directory you want the commands
 to be installed in:
 
-.. code-block:: json
+.. code-block:: js
 
     {
         "config": {
