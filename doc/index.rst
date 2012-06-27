@@ -13,7 +13,8 @@ Symfony2Extension provides:
 * Additional ``symfony2`` session for Mink (if ``MinkExtension`` is used)
 
 Symfony2Extension is here to replace obsolete BehatBundle. To migrate
-your proces, `read migration guide </symfony2/migrating_from_2.3_to_2.4.html>`_.
+your Behat 2.3 + Symfony2 feature suite,
+`read migration guide </symfony2/migrating_from_2.3_to_2.4.html>`_.
 
 Installation
 ------------
