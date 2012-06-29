@@ -63,7 +63,9 @@ class KernelAwareInitializer implements InitializerInterface, EventSubscriberInt
     {
         return array(
             'beforeScenario' => array('bootKernel', 1),
-            'afterScenario'  => array('shutdownKernel', -1)
+            'beforeOutlineExample' => array('bootKernel', 1),
+            'afterScenario'  => array('shutdownKernel', -1),
+            'afterOutlineExample'  => array('shutdownKernel', -1)
         );
     }
 
