@@ -30,7 +30,7 @@ First, download phar archives:
 
 * `behat.phar <http://behat.org/downloads/behat.phar>`_ - Behat itself
 * `symfony2_extension.phar <http://behat.org/downloads/symfony2_extension.phar>`_
-  - integratino extension
+  - integration extension
 
 After downloading and placing ``*.phar`` into project directory, you need to
 activate ``Symfony2Extension`` in your ``behat.yml``:
