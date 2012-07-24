@@ -76,6 +76,36 @@ The easiest way to keep your suite updated is to use `Composer <http://getcompos
             extensions:
                 Behat\Symfony2Extension\Extension: ~
 
+.. note::
+
+    If you're using Symfony2.1 with Composer, there could be conflict of
+    Symfony2 with Behat, that will prevent Symfony2 from loading Doctrine
+    or Validation annotations. In this case, just update your ``app/autoload.php``:
+
+    .. code-block:: php
+
+        <?php
+
+        use Doctrine\Common\Annotations\AnnotationRegistry;
+
+        if (!class_exists('Composer\\Autoload\\ClassLoader', false)) {
+            $loader = require __DIR__.'/../vendor/autoload.php';
+        } else {
+            $loader = new Composer\Autoload\ClassLoader();
+            $loader->register();
+        }
+
+        // intl
+        if (!function_exists('intl_get_error_code')) {
+            require_once __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs/functions.php';
+
+            $loader->add('', __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs');
+        }
+
+        AnnotationRegistry::registerLoader('class_exists');
+
+        return $loader;
+
 Usage
 -----
 
