@@ -246,8 +246,8 @@ Application Level Feature Suite
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You are not forced to use bundle-centric structure for your feature suites.
-If you want to keep your suite application level, you can simply do it by specifiyng
-proper ``feautres`` path and ``context.class`` in your ``behat.yml``:
+If you want to keep your suite application level, you can simply do it by specifying
+proper ``features`` path and ``context.class`` in your ``behat.yml``:
 
 .. code-block:: yaml
 
@@ -274,7 +274,7 @@ proper ``feautres`` path and ``context.class`` in your ``behat.yml``:
 
     So here's what's happening:
 
-    1. Behat tryes to check existense of FeatureContext class (default) with
+    1. Behat tries to check existence of FeatureContext class (default) with
        `PredefinedClassGuesser <https://github.com/Behat/Behat/blob/master/src/Behat/Behat/Context/ClassGuesser/PredefinedClassGuesser.php>`_
        and obviously can't.
     2. Behat `tries another guessers <https://github.com/Behat/Behat/blob/master/src/Behat/Behat/Context/ContextDispatcher.php#L62-66>`_
@@ -294,7 +294,7 @@ Configuration
 -------------
 
 Symfony2Extension comes with flexible configuration system, that gives you ability to
-configure Symfony2 kernel inside Behat to fullfil all your needs.
+configure Symfony2 kernel inside Behat to fulfil all your needs.
 
 * ``bundle`` - specifies bundle to be runned for specific profile
 * ``kernel`` - specifies options to instantiate kernel:
