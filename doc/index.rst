@@ -78,9 +78,11 @@ The easiest way to keep your suite updated is to use `Composer <http://getcompos
 
 .. note::
 
-    If you're using Symfony2.1 with Composer, there could be conflict of
+    If you're using Symfony2.1 with Composer, there could be a conflict of
     Symfony2 with Behat, that will prevent Symfony2 from loading Doctrine
-    or Validation annotations. In this case, just update your ``app/autoload.php``:
+    or Validation annotations. This is not a problem with the latest version
+    of Composer, but if you are running an older version and see errors,
+    just update your ``app/autoload.php``:
 
     .. code-block:: php
 
@@ -106,6 +108,22 @@ The easiest way to keep your suite updated is to use `Composer <http://getcompos
 
         return $loader;
 
+.. note::
+
+    Most of the examples in this document show behat being run via ``php behat.phar``.
+    However, if you install via Composer, you have the option of running via ``/bin/behat``
+    instead.  To make this possible, add the following into your `composer.json` before
+    installing or updating vendors:
+    
+    .. code-block:: js
+    
+        "config": {
+            "bin-dir": "bin/"
+        },
+        
+    This will make the ``behat`` command available from the ``/bin`` directory.  If you run
+    behat this way, you do not need to download ``behat.phar``.
+    
 Usage
 -----
 
@@ -240,6 +258,18 @@ option in MinkExtension:
             symfony2_extension.phar:
                 mink_driver: true
             mink_extension.phar:
+                default_session: 'symfony2'
+                
+If you have installed via Composer, your ``behat.yml`` would instead look something like the below:
+
+.. code-block:: yaml
+
+    default:
+        # ...
+        extensions:
+            Behat\Symfony2Extension\Extension:
+                mink_driver: true
+            Behat\MinkExtension\Extension:
                 default_session: 'symfony2'
 
 Application Level Feature Suite
