@@ -3,6 +3,7 @@
 namespace Behat\Symfony2Extension\Context;
 
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /*
  * This file is part of the Behat\Symfony2Extension.
@@ -34,7 +35,7 @@ trait KernelDictionary
     /**
      * Returns HttpKernel instance.
      *
-     * @return HttpKernel
+     * @return KernelInterface
      */
     public function getKernel()
     {
@@ -44,7 +45,7 @@ trait KernelDictionary
     /**
      * Returns HttpKernel service container.
      *
-     * @return ServiceContainer
+     * @return ContainerInterface
      */
     public function getContainer()
     {
