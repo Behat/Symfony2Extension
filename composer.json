@@ -19,13 +19,19 @@
     },
 
     "require-dev": {
-        "behat/mink":                    "1.4@stable",
-        "symfony/symfony":               "dev-master",
-        "behat/mink-extension":          "dev-master",
-        "behat/mink-browserkit-driver":  "dev-master"
+        "behat/mink":                    ">=1.4,<2.5-dev",
+        "symfony/symfony":               ">=2.1,<2.3-dev",
+        "behat/mink-extension":          "1.0.*",
+        "behat/mink-browserkit-driver":  "1.0.*"
     },
 
     "autoload": {
         "psr-0": { "Behat\\Symfony2Extension": "src/" }
-    }
+    },
+
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
 }
