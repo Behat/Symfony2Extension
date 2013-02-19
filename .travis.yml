@@ -1,8 +1,10 @@
 language: php
 
-php: 
-  - 5.3
-  - 5.4
+php: [5.3, 5.4, 5.5]
+
+env:
+  - SYMFONY_VERSION='2.1.*'
+  - SYMFONY_VERSION='2.2.*@dev'
 
 branches:
   only:
@@ -10,6 +12,7 @@ branches:
 
 before_script:
   - curl http://getcomposer.org/installer | php
-  - php composer.phar install --dev
+  - php composer.phar require --no-update symfony/symfony=$SYMFONY_VERSION
+  - php composer.phar install --dev --prefer-source
 
 script: 'vendor/bin/behat -c=testapp/behat.yml -p=simple && vendor/bin/behat -c=testapp/behat.yml -p=web'
