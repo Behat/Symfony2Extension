@@ -1,14 +1,16 @@
 framework:
-    #esi:             ~
-    #translator:      { fallback: %locale% }
     secret:          test_blah
-    default_locale:  en
-    router:          { resource: "%kernel.root_dir%/config/routing.yml" }
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: "%kernel.debug%"
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
-    session:
-        auto_start:     true
+    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    default_locale:  en
+    trust_proxy_headers: false # Deprecated in 2.0; will be removed in 2.3 (used trusted_proxies instead)
+    trusted_proxies: ~
+    session:         ~
 
 parameters:
     custom_app: 'behat-test-app'
