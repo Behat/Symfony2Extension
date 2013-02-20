@@ -2,7 +2,6 @@ framework:
     #esi:             ~
     #translator:      { fallback: %locale% }
     secret:          test_blah
-    charset:         UTF-8
     default_locale:  en
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
     form:            true
