@@ -45,27 +45,31 @@ class Extension implements ExtensionInterface
             $bundleName = preg_replace('/^\@/', '', $config['bundle']);
             $container->setParameter('behat.symfony2_extension.bundle', $bundleName);
         }
+
         if (isset($config['kernel'])) {
             foreach ($config['kernel'] as $key => $val) {
                 $container->setParameter('behat.symfony2_extension.kernel.'.$key, $val);
             }
         }
+
         if (isset($config['context'])) {
             foreach ($config['context'] as $key => $val) {
                 $container->setParameter('behat.symfony2_extension.context.'.$key, $val);
             }
         }
 
-        if ($config['mink_driver']) {
-            if (!class_exists('Behat\\Mink\\Driver\\BrowserKitDriver')) {
-                throw new \RuntimeException(
-                    'Install MinkBrowserKitDriver in order to activate symfony2 session.'
-                );
-            }
+        if (!isset($config['kernel'], $config['kernel']['env']) || 'test' === $config['kernel']['env']) {
+            if ($config['mink_driver']) {
+                if (!class_exists('Behat\\Mink\\Driver\\BrowserKitDriver')) {
+                    throw new \RuntimeException(
+                        'Install MinkBrowserKitDriver in order to activate symfony2 session.'
+                    );
+                }
 
-            $loader->load('mink_driver.xml');
-        } elseif (in_array('Behat\\MinkExtension\\Extension', $extensions) && class_exists('Behat\\Mink\\Driver\\BrowserKitDriver')) {
-            $loader->load('mink_driver.xml');
+                $loader->load('mink_driver.xml');
+            } elseif (in_array('Behat\\MinkExtension\\Extension', $extensions) && class_exists('Behat\\Mink\\Driver\\BrowserKitDriver')) {
+                $loader->load('mink_driver.xml');
+            }
         }
     }
 
