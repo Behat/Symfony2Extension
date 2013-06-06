@@ -4,15 +4,16 @@ php: [5.3, 5.4, 5.5]
 
 env:
   - SYMFONY_VERSION='2.1.*'
-  - SYMFONY_VERSION='2.2.*@dev'
+  - SYMFONY_VERSION='2.2.*'
+  - SYMFONY_VERSION='2.3.*'
 
 branches:
   only:
     - master
 
 before_script:
-  - curl http://getcomposer.org/installer | php
-  - php composer.phar require --no-update symfony/symfony=$SYMFONY_VERSION
-  - php composer.phar install --dev --prefer-source
+  - composer self-update
+  - composer require --no-update symfony/symfony=$SYMFONY_VERSION
+  - composer install --dev --prefer-source --no-interaction --no-progress
 
 script: 'vendor/bin/behat -c=testapp/behat.yml -p=simple && vendor/bin/behat -c=testapp/behat.yml -p=web'
