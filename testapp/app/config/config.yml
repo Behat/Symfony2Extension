@@ -7,7 +7,6 @@ framework:
     csrf_protection: true
     validation:      { enable_annotations: true }
     default_locale:  en
-    trust_proxy_headers: false # Deprecated in 2.0; will be removed in 2.3 (used trusted_proxies instead)
     trusted_proxies: ~
     session:         ~
 
