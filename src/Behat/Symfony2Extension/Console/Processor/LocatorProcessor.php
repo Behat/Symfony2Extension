@@ -50,6 +50,8 @@ class LocatorProcessor extends BaseProcessor
             "\n- a dir (<comment>src/to/Bundle/Features/</comment>), " .
             "\n- a feature (<comment>src/to/Bundle/Features/*.feature</comment>), " .
             "\n- a scenario at specific line (<comment>src/to/Bundle/Features/*.feature:10</comment>). " .
+            "\n- all scenarios at or after a specific line (<comment>src/to/Bundle/Features/*.feature:10-*</comment>)." .
+            "\n- all scenarios at a line within a specific range (<comment>src/to/Bundle/Features/*.feature:10-20</comment>)." .
             "\n- Also, you can use short bundle notation (<comment>@BundleName/*.feature:10</comment>)"
         );
     }
