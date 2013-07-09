@@ -22,7 +22,8 @@
         "behat/mink":                    "~1.4.3",
         "symfony/symfony":               "~2.1",
         "behat/mink-extension":          "~1.0.1",
-        "behat/mink-browserkit-driver":  "~1.0.4"
+        "behat/mink-browserkit-driver":  "~1.0.4",
+        "phpunit/phpunit":               "~3.7"
     },
 
     "autoload": {
