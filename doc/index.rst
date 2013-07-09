@@ -156,7 +156,7 @@ In order to start with your feature suite for specific bundle, execute:
 
 .. code-block:: bash
 
-    $ php behat.phar --init "@YouBundleName"
+    $ php behat.phar --init "@YourBundleName"
 
 .. note::
 
@@ -173,7 +173,7 @@ In order to run feature suite of specific bundle, execute:
 
 .. code-block:: bash
 
-    $ php behat.phar "@YouBundleName"
+    $ php behat.phar "@YourBundleName"
 
 .. note::
 
@@ -182,7 +182,7 @@ In order to run feature suite of specific bundle, execute:
 
     .. code-block:: bash
 
-        $ php behat.phar "@YouBundleName/registration.feature"
+        $ php behat.phar "@YourBundleName/registration.feature"
         $ php behat.phar src/YourCompany/YourBundleName/Features/registration.feature
 
 If you run specific bundle suite quite often, it might be useful to
