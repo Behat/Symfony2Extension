@@ -29,6 +29,8 @@ use Behat\Symfony2Extension\Context\KernelAwareInterface;
  */
 class KernelAwareInitializer implements InitializerInterface, EventSubscriberInterface
 {
+    const KERNEL_DICTIONARY_TRAIT_FILE = 'Behat\\Symfony2Extension\\Context\\KernelDictionary';
+
     private $kernel;
 
     /**
@@ -83,15 +85,8 @@ class KernelAwareInitializer implements InitializerInterface, EventSubscriberInt
             return true;
         }
 
-        // if context/subcontext uses KernelDictionary trait
-        $refl = new \ReflectionObject($context);
-        if (method_exists($refl, 'getTraitNames')) {
-            if (in_array('Behat\\Symfony2Extension\\Context\\KernelDictionary', $refl->getTraitNames())) {
-                return true;
-            }
-        }
-
-        return false;
+        // If context/subcontext uses KernelDictionary trait
+        return $this->hasBehatKernelDictionaryTrait($context);
     }
 
     /**
@@ -122,5 +117,47 @@ class KernelAwareInitializer implements InitializerInterface, EventSubscriberInt
     public function shutdownKernel($event)
     {
         $this->kernel->shutdown();
+    }
+
+    /**
+     * Returns trait names for a given object
+     *
+     * @param stdClass $object
+     */
+    private function verifyBehatKernelDictionaryTrait($object)
+    {
+        $refl = new \ReflectionObject($object);
+        if (method_exists($refl, 'getTraitNames')) {
+            return $this->hasKernelDictionaryTrait($refl->getTraitNames());
+        }
+
+        return false;
+    }
+
+    /**
+     * Recursively checks traits to see if it contains BehatKernelDictionary
+     *
+     * @param array $traitList
+     */
+    private function hasKernelDictionaryTrait(array $traitList)
+    {
+        foreach ($traitList as $trait) {
+            if (self::KERNEL_DICTIONARY_TRAIT_FILE === $trait) {
+                return true;
+            } else {
+                $trait = new $trait;
+                $refl = new \ReflectionObject($trait);
+
+                if (method_exists($refl, 'isTrait')) {
+                    if ($refl->isTrait()) {
+                        $traits = $this->returnTraitNames($trait);
+
+                        return $this->hasKernelDictionary($traits);
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }
