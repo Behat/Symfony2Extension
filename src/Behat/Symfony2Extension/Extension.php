@@ -76,6 +76,12 @@ class Extension implements ExtensionInterface
      */
     public function getConfig(ArrayNodeDefinition $builder)
     {
+        $boolFilter = function ($v) {
+            $filtered = filter_var($v, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+
+            return (null === $filtered) ? $v : $filtered;
+        };
+
         $builder->
             children()->
                 scalarNode('bundle')->
@@ -96,6 +102,9 @@ class Extension implements ExtensionInterface
                             defaultValue('test')->
                         end()->
                         booleanNode('debug')->
+                            beforeNormalization()->
+                                ifString()->then($boolFilter)->
+                            end()->
                             defaultTrue()->
                         end()->
                     end()->
@@ -110,7 +119,12 @@ class Extension implements ExtensionInterface
                         end()->
                     end()->
                 end()->
-                booleanNode('mink_driver')->defaultFalse()->end()->
+                booleanNode('mink_driver')->
+                    beforeNormalization()->
+                        ifString()->then($boolFilter)->
+                    end()->
+                    defaultFalse()->
+                end()->
             end()->
         end();
     }
