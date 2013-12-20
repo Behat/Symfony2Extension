@@ -140,4 +140,14 @@ class Extension implements ExtensionInterface
             new Compiler\KernelInitializationPass()
         );
     }
+
+    /**
+     * Returns the extension name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'Symfony2Extension';
+    }
 }

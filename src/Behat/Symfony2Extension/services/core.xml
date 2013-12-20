@@ -30,7 +30,7 @@
 
         <service id="behat.symfony2_extension.context.initializer" class="%behat.symfony2_extension.context.initializer.class%">
             <argument type="service" id="behat.symfony2_extension.kernel" />
-            <tag name="behat.context.initializer" />
+            <tag name="context.initializer" />
             <tag name="behat.event_subscriber" />
         </service>
 

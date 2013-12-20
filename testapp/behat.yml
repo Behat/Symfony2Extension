@@ -1,10 +1,19 @@
 default:
-    formatter:
-        parameters:
-            paths: false
+    autoload:
+        'Behat\\Sf2DemoBundle\\Features\\Context': %paths.base%/src/Behat/Sf2DemoBundle/Features/Context
+        'Behat\\Symfony2Extension\\Context': %paths.base%/src/Behat/Symfony2Extension/Context
+    suites:
+        default:
+            contexts:
+                - Behat\Sf2DemoBundle\Features\Context\FeatureContext
+                - Behat\MinkExtension\Context\MinkContext
+            path: %paths.base%/src/Behat/Sf2DemoBundle/Features
     extensions:
         Behat\Symfony2Extension\Extension:
             bundle: 'BehatSf2DemoBundle'
+            mink_driver: true
+        Behat\MinkExtension\Extension:
+            default_session: 'symfony2'
 
 simple:
     filters:

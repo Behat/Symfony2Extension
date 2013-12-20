@@ -6,6 +6,7 @@ env:
   - SYMFONY_VERSION='2.1.*'
   - SYMFONY_VERSION='2.2.*'
   - SYMFONY_VERSION='2.3.*'
+  - SYMFONY_VERSION='2.4.*'
 
 branches:
   only:
@@ -13,7 +14,7 @@ branches:
 
 before_script:
   - composer self-update
-  - composer require --no-update symfony/symfony=$SYMFONY_VERSION
+  - composer require --no-update --dev symfony/symfony=$SYMFONY_VERSION
   - composer install --dev --prefer-source --no-interaction --no-progress
 
-script: 'vendor/bin/behat -c=testapp/behat.yml -p=simple && vendor/bin/behat -c=testapp/behat.yml -p=web'
+script: 'bin/behat -c=testapp/behat.yml'
