@@ -92,7 +92,7 @@ class InitProcessor extends BaseProcessor
         }
 
         $featuresPath = $bundle->getPath().DIRECTORY_SEPARATOR.'Features';
-        $basePath     = $this->container->getParameter('behat.paths.base').DIRECTORY_SEPARATOR;
+        $basePath     = $this->container->getParameter('paths.base').DIRECTORY_SEPARATOR;
         $contextPath  = $featuresPath.DIRECTORY_SEPARATOR.'Context';
         $namespace    = $bundle->getNamespace();
 
