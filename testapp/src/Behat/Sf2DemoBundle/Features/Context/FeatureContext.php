@@ -4,15 +4,8 @@ namespace Behat\Sf2DemoBundle\Features\Context;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
-use Behat\MinkExtension\Context\MinkContext;
 
-use Behat\Behat\Context\BehatContext,
-    Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode,
-    Behat\Gherkin\Node\TableNode;
-
-require_once 'PHPUnit/Autoload.php';
-require_once 'PHPUnit/Framework/Assert/Functions.php';
+use Behat\Behat\Context\BehatContext;
 
 class FeatureContext extends BehatContext implements KernelAwareInterface
 {
@@ -47,7 +40,7 @@ class FeatureContext extends BehatContext implements KernelAwareInterface
      */
     public function iHaveAKernelInstance()
     {
-        assertInstanceOf('Symfony\\Component\\HttpKernel\\KernelInterface', $this->kernel);
+        \PHPUnit_Framework_Assert::assertInstanceOf('Symfony\\Component\\HttpKernel\\KernelInterface', $this->kernel);
     }
 
     /**
@@ -63,7 +56,7 @@ class FeatureContext extends BehatContext implements KernelAwareInterface
      */
     public function thereShouldBeParameter($key)
     {
-        assertArrayHasKey($key, $this->containerParameters);
+        \PHPUnit_Framework_Assert::assertArrayHasKey($key, $this->containerParameters);
         $this->parameterKey = $key;
     }
 
@@ -72,7 +65,7 @@ class FeatureContext extends BehatContext implements KernelAwareInterface
      */
     public function thereShouldNotBeParameter($key)
     {
-        assertArrayNotHasKey($key, $this->containerParameters);
+        \PHPUnit_Framework_Assert::assertArrayNotHasKey($key, $this->containerParameters);
     }
 
     /**
@@ -80,6 +73,6 @@ class FeatureContext extends BehatContext implements KernelAwareInterface
      */
     public function itShouldBeSetToValue($val)
     {
-        assertSame($val, $this->containerParameters[$this->parameterKey]);
+        \PHPUnit_Framework_Assert::assertSame($val, $this->containerParameters[$this->parameterKey]);
     }
 }
