@@ -14,11 +14,6 @@ class KernelAwareInitializerSpec extends ObjectBehavior
         $this->beConstructedWith($kernel);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType('Behat\Symfony2Extension\Context\Initializer\KernelAwareInitializer');
-    }
-
     function it_is_a_context_initializer()
     {
         $this->shouldHaveType('Behat\Behat\Context\Initializer\ContextInitializer');

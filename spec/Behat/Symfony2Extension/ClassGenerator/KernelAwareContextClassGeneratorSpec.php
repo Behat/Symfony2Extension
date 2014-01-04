@@ -6,11 +6,6 @@ use PhpSpec\ObjectBehavior;
 
 class KernelAwareContextClassGeneratorSpec extends ObjectBehavior
 {
-    function it_is_initializable()
-    {
-        $this->shouldHaveType('Behat\Symfony2Extension\ClassGenerator\KernelAwareContextClassGenerator');
-    }
-
     function it_is_a_class_generator()
     {
         $this->shouldHaveType('Behat\Behat\Context\ClassGenerator\ContextClassGenerator');

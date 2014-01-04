@@ -14,11 +14,6 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
         $this->beConstructedWith($kernel);
     }
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType('Behat\Symfony2Extension\Suite\SymfonySuiteGenerator');
-    }
-
     function it_is_a_suite_generator()
     {
         $this->shouldHaveType('Behat\Testwork\Suite\Generator\SuiteGenerator');
