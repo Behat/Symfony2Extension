@@ -9,20 +9,22 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Behat\Symfony2Extension\Driver;
+namespace Behat\Symfony2Extension\Context;
 
-use Behat\Mink\Driver\BrowserKitDriver;
+use Behat\Behat\Context\Context;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
- * Kernel driver for Mink.
+ * HttpKernel aware interface for contexts.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class KernelDriver extends BrowserKitDriver
+interface KernelAwareContext extends Context
 {
-    public function __construct(KernelInterface $kernel)
-    {
-        parent::__construct($kernel->getContainer()->get('test.client'));
-    }
+    /**
+     * Sets Kernel instance.
+     *
+     * @param KernelInterface $kernel
+     */
+    public function setKernel(KernelInterface $kernel);
 }

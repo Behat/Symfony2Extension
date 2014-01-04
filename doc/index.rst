@@ -8,7 +8,7 @@ Symfony2Extension provides:
 
 * Complete integration into Symfony2 bundle structure - you can run an
   isolated bundle suite by bundle shortname, classname or even full path
-* KernelAwareInterface, which provides an initialized and booted kernel
+* KernelAwareContext, which provides an initialized and booted kernel
   instance for your contexts
 * Additional ``symfony2`` session for Mink (if ``MinkExtension`` is used)
 
@@ -114,16 +114,16 @@ The easiest way to keep your suite updated is to use `Composer <http://getcompos
     However, if you install via Composer, you have the option of running via ``/bin/behat``
     instead.  To make this possible, add the following into your `composer.json` before
     installing or updating vendors:
-    
+
     .. code-block:: js
-    
+
         "config": {
             "bin-dir": "bin/"
         },
-        
+
     This will make the ``behat`` command available from the ``/bin`` directory.  If you run
     behat this way, you do not need to download ``behat.phar``.
-    
+
 Usage
 -----
 
@@ -134,7 +134,7 @@ After installing the extension, there are 2 usage options available:
    ``FeatureContext`` or any of its subcontexts. This trait will provide the
    ``getKernel()`` and ``getContainer()`` methods for you.
 
-2. Implementing ``Behat\Symfony2Extension\Context\KernelAwareInterface`` with
+2. Implementing ``Behat\Symfony2Extension\Context\KernelAwareContext`` with
    your context or its subcontexts. This will give you more customization options.
    Also, you can use this mechanism on multiple contexts avoiding the need to call
    parent contexts from subcontexts when the only thing you need is a kernel instance.
@@ -221,7 +221,7 @@ This will run ``registration.feature`` tests inside ``UserBundle``.
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Symfony2Extension comes bundled with a custom ``symfony2`` session (driver) for Mink,
-which is disabled by default. In order to use it you should download/install/activate 
+which is disabled by default. In order to use it you should download/install/activate
 MinkExtension and BrowserKit driver for Mink:
 
 .. code-block:: js
@@ -259,7 +259,7 @@ option in MinkExtension:
                 mink_driver: true
             mink_extension.phar:
                 default_session: 'symfony2'
-                
+
 If you installed via Composer, your ``behat.yml`` would instead look something like the below:
 
 .. code-block:: yaml
@@ -313,7 +313,7 @@ a proper ``features`` path and ``context.class`` in your ``behat.yml``:
        <https://github.com/Behat/MinkExtension/blob/master/src/Behat/MinkExtension/Context/ClassGuesser/MinkContextClassGuesser.php#L20>`_
        defined by ``MinkExtension``, which gets matched and tells Behat to use
        ``Behat\MinkExtension\Context\MinkContext`` as main context class.
-        
+
     So, your ``FeatureContext`` isn't used, and ``Behat\MinkExtension\Context\MinkContext`` is
     used instead.
 

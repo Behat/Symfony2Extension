@@ -12,6 +12,4 @@ before_script:
   - composer require --no-update symfony/symfony=$SYMFONY_VERSION
   - composer install --prefer-source --no-interaction --no-progress
 
-script:
-  - vendor/bin/behat -c=testapp/behat.yml -p=simple
-  - vendor/bin/behat -c=testapp/behat.yml -p=web
+script: vendor/bin/behat -c=testapp/behat.yml

@@ -1,22 +1,19 @@
 default:
-    formatter:
-        parameters:
+    formatters:
+        progress:
             paths: false
-    extensions:
-        Behat\Symfony2Extension\Extension:
-            bundle: 'BehatSf2DemoBundle'
-
-simple:
-    filters:
-        tags: '~@web'
-
-web:
-    filters:
-        tags: '@web'
-    context:
-        class: 'Behat\Sf2DemoBundle\Features\Context\WebContext'
     extensions:
         Behat\Symfony2Extension\Extension:
             mink_driver: true
         Behat\MinkExtension\Extension:
             default_session: 'symfony2'
+    suites:
+        simple:
+            bundle: 'BehatSf2DemoBundle'
+            filters:
+                tags: '~@web'
+        web:
+            context: 'Behat\Sf2DemoBundle\Features\Context\WebContext'
+            bundle: 'BehatSf2DemoBundle'
+            filters:
+                tags: '@web'
