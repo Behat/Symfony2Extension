@@ -12,4 +12,6 @@ before_script:
   - composer require --no-update symfony/symfony=$SYMFONY_VERSION
   - composer install --prefer-source --no-interaction --no-progress
 
-script: vendor/bin/behat -c=testapp/behat.yml
+script:
+  - vendor/bin/phpspec run -f pretty --no-interaction
+  - vendor/bin/behat -c=testapp/behat.yml

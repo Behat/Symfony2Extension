@@ -22,6 +22,7 @@
         "symfony/symfony":               "~2.1",
         "behat/mink-extension":          "~2.0@dev",
         "behat/mink-browserkit-driver":  "~1.0",
+        "phpspec/phpspec":               "2.0.*@dev",
         "phpunit/phpunit":               "~3.7"
     },
 
