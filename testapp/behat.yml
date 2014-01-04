@@ -3,8 +3,7 @@ default:
         progress:
             paths: false
     extensions:
-        Behat\Symfony2Extension\Extension:
-            mink_driver: true
+        Behat\Symfony2Extension\Extension: ~
         Behat\MinkExtension\Extension:
             default_session: 'symfony2'
     suites:
