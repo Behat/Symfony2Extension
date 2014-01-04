@@ -90,7 +90,7 @@ class Extension implements ExtensionInterface
                             ->defaultValue('Features')
                         ->end()
                         ->scalarNode('class_suffix')
-                            ->defaultValue('Features\\Context\\FeatureContext')
+                            ->defaultValue('Features\Context\FeatureContext')
                         ->end()
                     ->end()
                 ->end()
@@ -98,7 +98,7 @@ class Extension implements ExtensionInterface
                     ->beforeNormalization()
                         ->ifString()->then($boolFilter)
                     ->end()
-                    ->defaultValue(class_exists('Behat\Mink\Driver\BrowserKitDriver'))
+                    ->defaultValue(class_exists('Behat\Mink\Driver\BrowserKitDriver') && class_exists('Behat\MinkExtension\Extension'))
                 ->end()
             ->end()
         ->end();
@@ -163,13 +163,13 @@ class Extension implements ExtensionInterface
 
     private function loadMinkDriver(ContainerBuilder $container)
     {
-        if (!class_exists('Behat\\Mink\\Driver\\BrowserKitDriver')) {
+        if (!class_exists('Behat\Mink\Driver\BrowserKitDriver')) {
             throw new \RuntimeException(
                 'Install MinkBrowserKitDriver in order to activate the symfony2 session.'
             );
         }
 
-        if (!class_exists('Behat\\MinkExtension\\Extension')) {
+        if (!class_exists('Behat\MinkExtension\Extension')) {
             throw new \RuntimeException(
                 'Install MinkExtension in order to activate the symfony2 session.'
             );
