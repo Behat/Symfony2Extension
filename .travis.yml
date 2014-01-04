@@ -8,7 +8,7 @@ env:
   - SYMFONY_VERSION='2.4.*'
 
 before_script:
-  - composer require --no-update symfony/symfony=$SYMFONY_VERSION
+  - composer require --dev --no-update symfony/symfony=$SYMFONY_VERSION
   - composer install --prefer-source --no-interaction --no-progress
 
 script:
