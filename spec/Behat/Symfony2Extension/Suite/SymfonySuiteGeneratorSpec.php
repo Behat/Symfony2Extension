@@ -29,9 +29,21 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
         $this->supportsTypeAndSettings(null, array('bundle' => 'TestBundle'))->shouldBe(false);
     }
 
-    function it_does_not_support_suites_without_a_bundle_setting()
+    function it_supports_symfony_bundle_suites_without_a_bundle_setting()
     {
-        $this->supportsTypeAndSettings('symfony-bundle', array())->shouldBe(false);
+        $this->supportsTypeAndSettings('symfony-bundle', array())->shouldBe(true);
+    }
+
+    function it_fails_for_symfony_bundle_suites_without_a_bundle_setting()
+    {
+        $this->shouldThrow('Behat\Testwork\Suite\Exception\SuiteConfigurationException')->duringGenerateSuite('my_suite', array());
+    }
+
+    function it_fails_for_invalid_bundle_setting($kernel)
+    {
+        $kernel->getBundle('invalid')->willThrow('InvalidArgumentException');
+
+        $this->shouldThrow('Behat\Testwork\Suite\Exception\SuiteConfigurationException')->duringGenerateSuite('my_suite', array('bundle' => 'invalid'));
     }
 
     function it_generates_suites_with_conventional_settings(BundleInterface $bundle, $kernel)
@@ -40,13 +52,14 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
         $bundle->getNamespace()->willReturn('TestBundle');
         $bundle->getPath()->willReturn(__DIR__.'/TestBundle');
 
-        $suite = $this->generateSuite(null, array('bundle' => 'test'), array());
+        $suite = $this->generateSuite('my_suite', array('bundle' => 'test'), array());
 
         $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
         $suite->shouldHaveSetting('context');
         $suite->getSetting('context')->shouldReturn('TestBundle\Features\Context\FeatureContext');
         $suite->shouldHaveSetting('path');
         $suite->getSetting('path')->shouldReturn(__DIR__.'/TestBundle/Features');
+        $suite->getSetting('bundle_instance')->shouldBe($bundle);
     }
 
     function it_does_not_overwrite_explicit_context(BundleInterface $bundle, $kernel)
@@ -54,13 +67,14 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
         $kernel->getBundle('test')->willReturn($bundle);
         $bundle->getPath()->willReturn(__DIR__.'/TestBundle');
 
-        $suite = $this->generateSuite(null, array('bundle' => 'test', 'context' => 'FeatureContext'), array());
+        $suite = $this->generateSuite('my_suite', array('bundle' => 'test', 'context' => 'FeatureContext'));
 
         $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
         $suite->shouldHaveSetting('context');
         $suite->getSetting('context')->shouldReturn('FeatureContext');
         $suite->shouldHaveSetting('path');
         $suite->getSetting('path')->shouldReturn(__DIR__.'/TestBundle/Features');
+        $suite->getSetting('bundle_instance')->shouldBe($bundle);
     }
 
     function it_does_not_overwrite_explicit_path(BundleInterface $bundle, $kernel)
@@ -68,12 +82,13 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
         $kernel->getBundle('test')->willReturn($bundle);
         $bundle->getNamespace()->willReturn('TestBundle');
 
-        $suite = $this->generateSuite(null, array('bundle' => 'test', 'path' => 'features'), array());
+        $suite = $this->generateSuite('my_suite', array('bundle' => 'test', 'path' => 'features'));
 
         $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
         $suite->shouldHaveSetting('context');
         $suite->getSetting('context')->shouldReturn('TestBundle\Features\Context\FeatureContext');
         $suite->shouldHaveSetting('path');
         $suite->getSetting('path')->shouldReturn('features');
+        $suite->getSetting('bundle_instance')->shouldBe($bundle);
     }
 }

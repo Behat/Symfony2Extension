@@ -10,8 +10,10 @@
 
 namespace Behat\Symfony2Extension\Suite;
 
+use Behat\Testwork\Suite\Exception\SuiteConfigurationException;
 use Behat\Testwork\Suite\Generator\SuiteGenerator;
 use Behat\Testwork\Suite\GenericSuite;
+use InvalidArgumentException;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -40,7 +42,7 @@ class SymfonySuiteGenerator implements SuiteGenerator
      */
     public function supportsTypeAndSettings($type, array $settings)
     {
-        return 'symfony-bundle' === $type && isset($settings['bundle']);
+        return 'symfony-bundle' === $type;
     }
 
     /**
@@ -48,20 +50,32 @@ class SymfonySuiteGenerator implements SuiteGenerator
      */
     public function generateSuite($suiteName, array $settings)
     {
-        return new GenericSuite($suiteName, $this->mergeDefaultSettings($settings));
+        return new GenericSuite($suiteName, $this->mergeDefaultSettings($suiteName, $settings));
     }
 
-    private function mergeDefaultSettings(array $settings)
+    private function mergeDefaultSettings($suiteName, array $settings)
     {
-        if (!isset($settings['context']) && empty($settings['contexts'])) {
-            $bundle = $this->kernel->getBundle($settings['bundle']);
+        if (!isset($settings['bundle'])) {
+            throw new SuiteConfigurationException('The "bundle" setting is mandatory for "symfony-bundle" suites', $suiteName);
+        }
 
+        try {
+            $bundle = $this->kernel->getBundle($settings['bundle']);
+        } catch (InvalidArgumentException $e) {
+            throw new SuiteConfigurationException(
+                sprintf('The bundle "%s" does not exist in the project', $settings['bundle']),
+                $suiteName,
+                $e
+            );
+        }
+
+        $settings['bundle_instance'] = $bundle;
+
+        if (!isset($settings['context']) && empty($settings['contexts'])) {
             $settings['context'] = $bundle->getNamespace() . $this->contextClassSuffix;
         }
 
         if (!isset($settings['path']) && empty($settings['paths'])) {
-            $bundle = $this->kernel->getBundle($settings['bundle']);
-
             $settings['path'] = $bundle->getPath() . $this->pathSuffix;
         }
 
