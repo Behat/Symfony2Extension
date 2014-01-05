@@ -116,7 +116,7 @@ class Extension implements ExtensionInterface
         // find and require bootstrap
         $bootstrapPath = $container->getParameter('symfony2_extension.kernel.bootstrap');
         if ($bootstrapPath) {
-            if (file_exists($bootstrap = $basePath.DIRECTORY_SEPARATOR.$bootstrapPath)) {
+            if (file_exists($bootstrap = $basePath . '/' . $bootstrapPath)) {
                 require_once($bootstrap);
             } elseif (file_exists($bootstrapPath)) {
                 require_once($bootstrapPath);
@@ -125,7 +125,7 @@ class Extension implements ExtensionInterface
 
         // find and require kernel
         $kernelPath = $container->getParameter('symfony2_extension.kernel.path');
-        if (file_exists($kernel = $basePath.DIRECTORY_SEPARATOR.$kernelPath)) {
+        if (file_exists($kernel = $basePath . '/' . $kernelPath)) {
             $container->getDefinition(self::KERNEL_ID)->setFile($kernel);
         } elseif (file_exists($kernelPath)) {
             $container->getDefinition(self::KERNEL_ID)->setFile($kernelPath);
@@ -147,7 +147,6 @@ class Extension implements ExtensionInterface
         $definition->addTag(ContextExtension::INITIALIZER_TAG, array('priority' => 0));
         $definition->addTag(EventDispatcherExtension::SUBSCRIBER_TAG, array('priority' => 0));
         $container->setDefinition('symfony2_extension.context_initializer.kernel_aware', $definition);
-
     }
 
     private function loadKernel(ContainerBuilder $container, array $config)
@@ -158,8 +157,8 @@ class Extension implements ExtensionInterface
         ));
         $definition->addMethodCall('boot');
         $container->setDefinition(self::KERNEL_ID, $definition);
-        $container->setParameter(self::KERNEL_ID.'.path', $config['path']);
-        $container->setParameter(self::KERNEL_ID.'.bootstrap', $config['bootstrap']);
+        $container->setParameter(self::KERNEL_ID . '.path', $config['path']);
+        $container->setParameter(self::KERNEL_ID . '.bootstrap', $config['bootstrap']);
     }
 
     private function loadMinkDriver(ContainerBuilder $container)

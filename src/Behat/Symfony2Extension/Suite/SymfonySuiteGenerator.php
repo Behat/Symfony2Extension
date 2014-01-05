@@ -26,8 +26,8 @@ class SymfonySuiteGenerator implements SuiteGenerator
     public function __construct(KernelInterface $kernel, $pathSuffix = 'Features', $contextClassSuffix = 'Features\\Context\\FeatureContext')
     {
         $this->kernel = $kernel;
-        $this->pathSuffix = '/'.ltrim($pathSuffix, '/'.DIRECTORY_SEPARATOR);
-        $this->contextClassSuffix = '\\'.ltrim($contextClassSuffix, '\\');
+        $this->pathSuffix = '/' . ltrim($pathSuffix, '/' . DIRECTORY_SEPARATOR);
+        $this->contextClassSuffix = '\\' . ltrim($contextClassSuffix, '\\');
     }
 
     /**

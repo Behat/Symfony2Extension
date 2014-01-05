@@ -41,7 +41,7 @@ class {className} implements TurnipAcceptingContext, KernelAwareContext
     private $kernel;
 
     /**
-     * Initializes context. Every scenario gets it's own context object.
+     * Initializes context. Every scenario gets its own context object.
      *
      * @param array $parameters Suite parameters (set them up through behat.yml)
      */
