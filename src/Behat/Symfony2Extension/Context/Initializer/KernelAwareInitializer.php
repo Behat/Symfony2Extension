@@ -13,6 +13,7 @@ namespace Behat\Symfony2Extension\Context\Initializer;
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\Initializer\ContextInitializer;
+use Behat\Behat\Tester\Event\ExampleTested;
 use Behat\Behat\Tester\Event\ScenarioTested;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -45,7 +46,9 @@ class KernelAwareInitializer implements ContextInitializer, EventSubscriberInter
     {
         return array(
             ScenarioTested::BEFORE => array('bootKernel', 15),
+            ExampleTested::BEFORE  => array('bootKernel', 15),
             ScenarioTested::AFTER  => array('shutdownKernel', -15),
+            ExampleTested::AFTER   => array('shutdownKernel', -15),
         );
     }
 

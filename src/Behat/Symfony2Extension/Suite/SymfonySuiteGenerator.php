@@ -12,7 +12,6 @@ namespace Behat\Symfony2Extension\Suite;
 
 use Behat\Testwork\Suite\Generator\SuiteGenerator;
 use Behat\Testwork\Suite\GenericSuite;
-use Behat\Testwork\Suite\Suite;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
