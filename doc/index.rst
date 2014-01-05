@@ -78,6 +78,7 @@ The easiest way to keep your suite updated is to use `Composer <http://getcompos
         default:
             suites:
                 my_suite:
+                    type: symfony-bundle
                     bundle: AcmeDemoBundle
 
 .. note::
