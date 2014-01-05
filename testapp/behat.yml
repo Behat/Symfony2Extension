@@ -8,10 +8,12 @@ default:
             default_session: 'symfony2'
     suites:
         simple:
+            type: symfony-bundle
             bundle: 'BehatSf2DemoBundle'
             filters:
                 tags: '~@web'
         web:
+            type: symfony-bundle
             context: 'Behat\Sf2DemoBundle\Features\Context\WebContext'
             bundle: 'BehatSf2DemoBundle'
             filters:

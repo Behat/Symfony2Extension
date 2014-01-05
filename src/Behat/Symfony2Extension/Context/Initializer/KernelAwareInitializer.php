@@ -52,29 +52,12 @@ class KernelAwareInitializer implements ContextInitializer, EventSubscriberInter
     /**
      * {@inheritdoc}
      */
-    public function supportsContext(Context $context)
-    {
-        // if context/subcontext implements KernelAwareContext
-        if ($context instanceof KernelAwareContext) {
-            return true;
-        }
-
-        // if context/subcontext uses KernelDictionary trait
-        $refl = new \ReflectionObject($context);
-        if (method_exists($refl, 'getTraitNames')) {
-            if (in_array('Behat\\Symfony2Extension\\Context\\KernelDictionary', $refl->getTraitNames())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function initializeContext(Context $context)
     {
+        if (!$context instanceof KernelAwareContext && !$this->usesKernelDictionary($context)) {
+            return;
+        }
+
         $context->setKernel($this->kernel);
     }
 
@@ -92,5 +75,24 @@ class KernelAwareInitializer implements ContextInitializer, EventSubscriberInter
     public function shutdownKernel()
     {
         $this->kernel->shutdown();
+    }
+
+    /**
+     * Checks whether the context uses the KernelDictionary trait.
+     *
+     * @param Context $context
+     *
+     * @return boolean
+     */
+    private function usesKernelDictionary(Context $context)
+    {
+        $refl = new \ReflectionObject($context);
+        if (method_exists($refl, 'getTraitNames')) {
+            if (in_array('Behat\\Symfony2Extension\\Context\\KernelDictionary', $refl->getTraitNames())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

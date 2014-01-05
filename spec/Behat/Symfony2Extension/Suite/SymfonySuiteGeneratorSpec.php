@@ -19,14 +19,19 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
         $this->shouldHaveType('Behat\Testwork\Suite\Generator\SuiteGenerator');
     }
 
-    function it_supports_suites_with_a_bundle_setting()
+    function it_supports_symfony_bundle_suites_with_a_bundle_setting()
     {
-        $this->supportsTypeAndSettings(null, array('bundle' => 'TestBundle'))->shouldBe(true);
+        $this->supportsTypeAndSettings('symfony-bundle', array('bundle' => 'TestBundle'))->shouldBe(true);
+    }
+
+    function it_does_not_support_other_suite_types()
+    {
+        $this->supportsTypeAndSettings(null, array('bundle' => 'TestBundle'))->shouldBe(false);
     }
 
     function it_does_not_support_suites_without_a_bundle_setting()
     {
-        $this->supportsTypeAndSettings(null, array())->shouldBe(false);
+        $this->supportsTypeAndSettings('symfony-bundle', array())->shouldBe(false);
     }
 
     function it_generates_suites_with_conventional_settings(BundleInterface $bundle, $kernel)
@@ -37,7 +42,7 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
 
         $suite = $this->generateSuite(null, array('bundle' => 'test'), array());
 
-        $suite->shouldBeAnInstanceOf('Behat\Behat\Gherkin\Suite\GherkinSuite');
+        $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
         $suite->shouldHaveSetting('context');
         $suite->getSetting('context')->shouldReturn('TestBundle\Features\Context\FeatureContext');
         $suite->shouldHaveSetting('path');
@@ -51,7 +56,7 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
 
         $suite = $this->generateSuite(null, array('bundle' => 'test', 'context' => 'FeatureContext'), array());
 
-        $suite->shouldBeAnInstanceOf('Behat\Behat\Gherkin\Suite\GherkinSuite');
+        $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
         $suite->shouldHaveSetting('context');
         $suite->getSetting('context')->shouldReturn('FeatureContext');
         $suite->shouldHaveSetting('path');
@@ -65,7 +70,7 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
 
         $suite = $this->generateSuite(null, array('bundle' => 'test', 'path' => 'features'), array());
 
-        $suite->shouldBeAnInstanceOf('Behat\Behat\Gherkin\Suite\GherkinSuite');
+        $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
         $suite->shouldHaveSetting('context');
         $suite->getSetting('context')->shouldReturn('TestBundle\Features\Context\FeatureContext');
         $suite->shouldHaveSetting('path');

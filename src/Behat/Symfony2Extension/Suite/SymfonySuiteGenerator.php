@@ -10,8 +10,8 @@
 
 namespace Behat\Symfony2Extension\Suite;
 
-use Behat\Behat\Gherkin\Suite\GherkinSuite;
 use Behat\Testwork\Suite\Generator\SuiteGenerator;
+use Behat\Testwork\Suite\GenericSuite;
 use Behat\Testwork\Suite\Suite;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -41,21 +41,15 @@ class SymfonySuiteGenerator implements SuiteGenerator
      */
     public function supportsTypeAndSettings($type, array $settings)
     {
-        return isset($settings['bundle']);
+        return 'symfony-bundle' === $type && isset($settings['bundle']);
     }
 
     /**
-     * Generate suite with provided name, settings and parameters.
-     *
-     * @param string $suiteName
-     * @param array  $settings
-     * @param array  $parameters
-     *
-     * @return Suite
+     * {@inheritdoc}
      */
-    public function generateSuite($suiteName, array $settings, array $parameters)
+    public function generateSuite($suiteName, array $settings)
     {
-        return new GherkinSuite($suiteName, $this->mergeDefaultSettings($settings), $parameters);
+        return new GenericSuite($suiteName, $this->mergeDefaultSettings($settings));
     }
 
     private function mergeDefaultSettings(array $settings)

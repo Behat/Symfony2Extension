@@ -12,6 +12,7 @@
 namespace Behat\Symfony2Extension;
 
 use Behat\Behat\Context\ServiceContainer\ContextExtension;
+use Behat\MinkExtension\Extension as MinkExtension;
 use Behat\Testwork\EventDispatcher\ServiceContainer\EventDispatcherExtension;
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\Suite\ServiceContainer\SuiteExtension;
@@ -179,9 +180,9 @@ class Extension implements ExtensionInterface
             new Definition('Behat\Symfony2Extension\Driver\KernelDriver', array(
                 new Reference(self::KERNEL_ID)
             )),
-            new Reference('behat.mink.selector.handler'),
+            new Reference(MinkExtension::SELECTORS_HANDLER_ID),
         ));
-        $definition->addTag('behat.mink.session', array('alias' => 'symfony2'));
+        $definition->addTag(MinkExtension::SESSION_TAG, array('alias' => 'symfony2'));
         $container->setDefinition('symfony_extension.mink_session.symfony2', $definition);
     }
 

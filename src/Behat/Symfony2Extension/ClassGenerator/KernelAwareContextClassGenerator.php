@@ -11,6 +11,7 @@
 namespace Behat\Symfony2Extension\ClassGenerator;
 
 use Behat\Behat\Context\ClassGenerator\SimpleContextClassGenerator;
+use Behat\Testwork\Suite\Suite;
 
 /**
  * @author Christophe Coevoet <stof@notk.org>
@@ -61,4 +62,9 @@ class {className} implements TurnipAcceptingContext, KernelAwareContext
 }
 
 PHP;
+
+    public function supportsSuiteAndClassname(Suite $suite, $classname)
+    {
+        return $suite->hasSetting('bundle');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace spec\Behat\Symfony2Extension\ClassGenerator;
 
+use Behat\Testwork\Suite\Suite;
 use PhpSpec\ObjectBehavior;
 
 class KernelAwareContextClassGeneratorSpec extends ObjectBehavior
@@ -11,12 +12,21 @@ class KernelAwareContextClassGeneratorSpec extends ObjectBehavior
         $this->shouldHaveType('Behat\Behat\Context\ClassGenerator\ContextClassGenerator');
     }
 
-    function it_supports_any_class()
+    function it_supports_symfony_suites(Suite $suite)
     {
-        $this->supportsClassname('test\classname')->shouldBe(true);
+        $suite->hasSetting('bundle')->willReturn(true);
+
+        $this->supportsSuiteAndClassname($suite, 'test\classname')->shouldBe(true);
     }
 
-    function it_generates_classes_in_the_global_namespace()
+    function it_does_not_support_other_suites(Suite $suite)
+    {
+        $suite->hasSetting('bundle')->willReturn(false);
+
+        $this->supportsSuiteAndClassname($suite, 'test\classname')->shouldBe(false);
+    }
+
+    function it_generates_classes_in_the_global_namespace(Suite $suite)
     {
         $code = <<<'PHP'
 <?php
@@ -59,10 +69,10 @@ class TestContext implements TurnipAcceptingContext, KernelAwareContext
 }
 
 PHP;
-        $this->generateClass('TestContext')->shouldReturn($code);
+        $this->generateClass($suite, 'TestContext')->shouldReturn($code);
     }
 
-    function it_generates_namespaced_classes()
+    function it_generates_namespaced_classes(Suite $suite)
     {
         $code = <<<'PHP'
 <?php
@@ -107,6 +117,6 @@ class TestContext implements TurnipAcceptingContext, KernelAwareContext
 }
 
 PHP;
-        $this->generateClass('Test\TestContext')->shouldReturn($code);
+        $this->generateClass($suite, 'Test\TestContext')->shouldReturn($code);
     }
 }

@@ -24,14 +24,9 @@ class KernelAwareInitializerSpec extends ObjectBehavior
         $this->shouldHaveType('Symfony\Component\EventDispatcher\EventSubscriberInterface');
     }
 
-    function it_supports_kernel_aware_contexts(KernelAwareContext $context)
+    function it_does_nothing_for_non_kernel_aware_contexts(Context $context)
     {
-        $this->supportsContext($context)->shouldBe(true);
-    }
-
-    function it_does_not_support_basic_contexts(Context $context)
-    {
-        $this->supportsContext($context)->shouldBe(false);
+        $this->initializeContext($context);
     }
 
     function it_injects_the_kernel_in_kernel_aware_contexts(KernelAwareContext $context, $kernel)
