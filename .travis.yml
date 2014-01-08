@@ -14,3 +14,4 @@ before_script:
 script:
   - vendor/bin/behat -c=testapp/behat.yml -p=simple
   - vendor/bin/behat -c=testapp/behat.yml -p=web
+  - vendor/bin/behat -c=testapp/behat.yml -p=web_base_url

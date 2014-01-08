@@ -12,7 +12,7 @@ simple:
 
 web:
     filters:
-        tags: '@web'
+        tags: '@web&&~@base_url'
     context:
         class: 'Behat\Sf2DemoBundle\Features\Context\WebContext'
     extensions:
@@ -20,3 +20,15 @@ web:
             mink_driver: true
         Behat\MinkExtension\Extension:
             default_session: 'symfony2'
+
+web_base_url:
+    filters:
+        tags: '@web&&@base_url'
+    context:
+        class: 'Behat\Sf2DemoBundle\Features\Context\WebContext'
+    extensions:
+        Behat\Symfony2Extension\Extension:
+            mink_driver: true
+        Behat\MinkExtension\Extension:
+            default_session: 'symfony2'
+            base_url: http://localhost/foo/
