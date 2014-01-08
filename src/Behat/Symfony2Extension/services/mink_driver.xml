@@ -13,6 +13,7 @@
             <argument type="service">
                 <service class="%behat.symfony2_extension.driver.kernel.class%">
                     <argument type="service" id="behat.symfony2_extension.kernel" />
+                    <argument>%behat.mink.base_url%</argument>
                 </service>
             </argument>
             <argument type="service" id="behat.mink.selector.handler" />
