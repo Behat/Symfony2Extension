@@ -14,7 +14,7 @@ default:
                 tags: '~@web'
         web:
             type: symfony-bundle
-            context: 'Behat\Sf2DemoBundle\Features\Context\WebContext'
+            contexts: ['Behat\Sf2DemoBundle\Features\Context\WebContext']
             bundle: 'BehatSf2DemoBundle'
             filters:
                 tags: '@web'

@@ -1,15 +1,15 @@
 <?php
 
-namespace spec\Behat\Symfony2Extension\ClassGenerator;
+namespace spec\Behat\Symfony2Extension\Context\ContextClass;
 
 use Behat\Testwork\Suite\Suite;
 use PhpSpec\ObjectBehavior;
 
-class KernelAwareContextClassGeneratorSpec extends ObjectBehavior
+class KernelAwareClassGeneratorSpec extends ObjectBehavior
 {
     function it_is_a_class_generator()
     {
-        $this->shouldHaveType('Behat\Behat\Context\ClassGenerator\ContextClassGenerator');
+        $this->shouldHaveType('Behat\Behat\Context\ContextClass\ClassGenerator');
     }
 
     function it_supports_symfony_suites(Suite $suite)

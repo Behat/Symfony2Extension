@@ -134,7 +134,7 @@ class Extension implements ExtensionInterface
 
     private function loadClassGenerator(ContainerBuilder $container)
     {
-        $definition = new Definition('Behat\Symfony2Extension\ClassGenerator\KernelAwareContextClassGenerator');
+        $definition = new Definition('Behat\Symfony2Extension\Context\ContextClass\KernelAwareClassGenerator');
         $definition->addTag(ContextExtension::CLASS_GENERATOR_TAG, array('priority' => 100));
         $container->setDefinition('symfony2_extension.class_generator.kernel_aware', $definition);
     }

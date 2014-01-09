@@ -55,10 +55,10 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
         $suite = $this->generateSuite('my_suite', array('bundle' => 'test'), array());
 
         $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
-        $suite->shouldHaveSetting('context');
-        $suite->getSetting('context')->shouldReturn('TestBundle\Features\Context\FeatureContext');
-        $suite->shouldHaveSetting('path');
-        $suite->getSetting('path')->shouldReturn(__DIR__.'/TestBundle/Features');
+        $suite->shouldHaveSetting('contexts');
+        $suite->getSetting('contexts')->shouldReturn(array('TestBundle\Features\Context\FeatureContext'));
+        $suite->shouldHaveSetting('paths');
+        $suite->getSetting('paths')->shouldReturn(array(__DIR__.'/TestBundle/Features'));
         $suite->getSetting('bundle_instance')->shouldBe($bundle);
     }
 
@@ -67,13 +67,13 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
         $kernel->getBundle('test')->willReturn($bundle);
         $bundle->getPath()->willReturn(__DIR__.'/TestBundle');
 
-        $suite = $this->generateSuite('my_suite', array('bundle' => 'test', 'context' => 'FeatureContext'));
+        $suite = $this->generateSuite('my_suite', array('bundle' => 'test', 'contexts' => array('FeatureContext')));
 
         $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
-        $suite->shouldHaveSetting('context');
-        $suite->getSetting('context')->shouldReturn('FeatureContext');
-        $suite->shouldHaveSetting('path');
-        $suite->getSetting('path')->shouldReturn(__DIR__.'/TestBundle/Features');
+        $suite->shouldHaveSetting('contexts');
+        $suite->getSetting('contexts')->shouldReturn(array('FeatureContext'));
+        $suite->shouldHaveSetting('paths');
+        $suite->getSetting('paths')->shouldReturn(array(__DIR__.'/TestBundle/Features'));
         $suite->getSetting('bundle_instance')->shouldBe($bundle);
     }
 
@@ -82,13 +82,13 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
         $kernel->getBundle('test')->willReturn($bundle);
         $bundle->getNamespace()->willReturn('TestBundle');
 
-        $suite = $this->generateSuite('my_suite', array('bundle' => 'test', 'path' => 'features'));
+        $suite = $this->generateSuite('my_suite', array('bundle' => 'test', 'paths' => array('features')));
 
         $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
-        $suite->shouldHaveSetting('context');
-        $suite->getSetting('context')->shouldReturn('TestBundle\Features\Context\FeatureContext');
-        $suite->shouldHaveSetting('path');
-        $suite->getSetting('path')->shouldReturn('features');
+        $suite->shouldHaveSetting('contexts');
+        $suite->getSetting('contexts')->shouldReturn(array('TestBundle\Features\Context\FeatureContext'));
+        $suite->shouldHaveSetting('paths');
+        $suite->getSetting('paths')->shouldReturn(array('features'));
         $suite->getSetting('bundle_instance')->shouldBe($bundle);
     }
 }

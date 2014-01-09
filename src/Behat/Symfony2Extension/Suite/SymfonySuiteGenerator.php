@@ -71,12 +71,12 @@ class SymfonySuiteGenerator implements SuiteGenerator
 
         $settings['bundle_instance'] = $bundle;
 
-        if (!isset($settings['context']) && empty($settings['contexts'])) {
-            $settings['context'] = $bundle->getNamespace() . $this->contextClassSuffix;
+        if (empty($settings['contexts'])) {
+            $settings['contexts'] = array($bundle->getNamespace() . $this->contextClassSuffix);
         }
 
-        if (!isset($settings['path']) && empty($settings['paths'])) {
-            $settings['path'] = $bundle->getPath() . $this->pathSuffix;
+        if (empty($settings['paths'])) {
+            $settings['paths'] = array($bundle->getPath() . $this->pathSuffix);
         }
 
         return $settings;

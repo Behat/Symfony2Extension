@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Behat\Symfony2Extension\ClassGenerator;
+namespace Behat\Symfony2Extension\Context\ContextClass;
 
-use Behat\Behat\Context\ClassGenerator\SimpleContextClassGenerator;
+use Behat\Behat\Context\ContextClass\SimpleClassGenerator;
 use Behat\Testwork\Suite\Suite;
 
 /**
  * @author Christophe Coevoet <stof@notk.org>
  */
-class KernelAwareContextClassGenerator extends SimpleContextClassGenerator
+class KernelAwareClassGenerator extends SimpleClassGenerator
 {
     /**
      * @var string
