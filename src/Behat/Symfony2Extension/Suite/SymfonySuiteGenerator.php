@@ -42,7 +42,7 @@ class SymfonySuiteGenerator implements SuiteGenerator
      */
     public function supportsTypeAndSettings($type, array $settings)
     {
-        return 'symfony-bundle' === $type;
+        return 'symfony_bundle' === $type;
     }
 
     /**
@@ -56,7 +56,7 @@ class SymfonySuiteGenerator implements SuiteGenerator
     private function mergeDefaultSettings($suiteName, array $settings)
     {
         if (!isset($settings['bundle'])) {
-            throw new SuiteConfigurationException('The "bundle" setting is mandatory for "symfony-bundle" suites', $suiteName);
+            throw new SuiteConfigurationException('The "bundle" setting is mandatory for "symfony_bundle" suites', $suiteName);
         }
 
         try {

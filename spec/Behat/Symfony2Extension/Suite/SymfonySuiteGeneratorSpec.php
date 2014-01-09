@@ -21,7 +21,7 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
 
     function it_supports_symfony_bundle_suites_with_a_bundle_setting()
     {
-        $this->supportsTypeAndSettings('symfony-bundle', array('bundle' => 'TestBundle'))->shouldBe(true);
+        $this->supportsTypeAndSettings('symfony_bundle', array('bundle' => 'TestBundle'))->shouldBe(true);
     }
 
     function it_does_not_support_other_suite_types()
@@ -31,7 +31,7 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
 
     function it_supports_symfony_bundle_suites_without_a_bundle_setting()
     {
-        $this->supportsTypeAndSettings('symfony-bundle', array())->shouldBe(true);
+        $this->supportsTypeAndSettings('symfony_bundle', array())->shouldBe(true);
     }
 
     function it_fails_for_symfony_bundle_suites_without_a_bundle_setting()
