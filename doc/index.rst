@@ -172,6 +172,20 @@ In order to run the feature suite for a specific bundle, execute:
 
     $ php behat.phar -s my_suite
 
+You can also use the bundle name to limit the features being run when using the default
+convention for features files (putting them in the ``Features`` folder of the bundle):
+
+.. code-block:: bash
+
+    $ php behat.phar "@AcmeDemoBundle"
+
+This can also be used to run specific features in the bundle:
+
+.. code-block:: bash
+
+    $ php behat.phar "@AcmeDemoBundle/registration.feature"
+    $ php behat.phar src/Acme/DemoBundle/Features/registration.feature
+
 ``symfony2`` Mink Session
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 

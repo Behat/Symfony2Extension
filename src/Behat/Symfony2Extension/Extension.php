@@ -12,9 +12,11 @@
 namespace Behat\Symfony2Extension;
 
 use Behat\Behat\Context\ServiceContainer\ContextExtension;
+use Behat\Behat\Gherkin\ServiceContainer\GherkinExtension;
 use Behat\MinkExtension\Extension as MinkExtension;
 use Behat\Testwork\EventDispatcher\ServiceContainer\EventDispatcherExtension;
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
+use Behat\Testwork\Subject\ServiceContainer\SubjectExtension;
 use Behat\Testwork\Suite\ServiceContainer\SuiteExtension;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -37,6 +39,7 @@ class Extension implements ExtensionInterface
     {
         $this->loadClassGenerator($container);
         $this->loadContextInitializer($container);
+        $this->loadFeatureLocator($container);
         $this->loadKernel($container, $config['kernel']);
         $this->loadSuiteGenerator($container, $config['context']);
 
@@ -147,6 +150,16 @@ class Extension implements ExtensionInterface
         $definition->addTag(ContextExtension::INITIALIZER_TAG, array('priority' => 0));
         $definition->addTag(EventDispatcherExtension::SUBSCRIBER_TAG, array('priority' => 0));
         $container->setDefinition('symfony2_extension.context_initializer.kernel_aware', $definition);
+    }
+
+    private function loadFeatureLocator(ContainerBuilder $container)
+    {
+        $definition = new Definition('Behat\Symfony2Extension\Subject\BundleFeatureLocator', array(
+            new Reference(GherkinExtension::MANAGER_ID),
+            '%paths.base%'
+        ));
+        $definition->addTag(SubjectExtension::LOCATOR_TAG, array('priority' => 100));
+        $container->setDefinition('symfony2_extension.subject_locator.bundle_feature', $definition);
     }
 
     private function loadKernel(ContainerBuilder $container, array $config)
