@@ -2,6 +2,7 @@
 
 namespace spec\Behat\Symfony2Extension\Context\ContextClass;
 
+use Behat\Symfony2Extension\Suite\SymfonyBundleSuite;
 use Behat\Testwork\Suite\Suite;
 use PhpSpec\ObjectBehavior;
 
@@ -12,21 +13,17 @@ class KernelAwareClassGeneratorSpec extends ObjectBehavior
         $this->shouldHaveType('Behat\Behat\Context\ContextClass\ClassGenerator');
     }
 
-    function it_supports_symfony_suites(Suite $suite)
+    function it_supports_symfony_suites(SymfonyBundleSuite $suite)
     {
-        $suite->hasSetting('bundle')->willReturn(true);
-
         $this->supportsSuiteAndClassname($suite, 'test\classname')->shouldBe(true);
     }
 
     function it_does_not_support_other_suites(Suite $suite)
     {
-        $suite->hasSetting('bundle')->willReturn(false);
-
         $this->supportsSuiteAndClassname($suite, 'test\classname')->shouldBe(false);
     }
 
-    function it_generates_classes_in_the_global_namespace(Suite $suite)
+    function it_generates_classes_in_the_global_namespace(SymfonyBundleSuite $suite)
     {
         $code = <<<'PHP'
 <?php
@@ -72,7 +69,7 @@ PHP;
         $this->generateClass($suite, 'TestContext')->shouldReturn($code);
     }
 
-    function it_generates_namespaced_classes(Suite $suite)
+    function it_generates_namespaced_classes(SymfonyBundleSuite $suite)
     {
         $code = <<<'PHP'
 <?php

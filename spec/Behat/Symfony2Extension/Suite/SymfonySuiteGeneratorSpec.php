@@ -54,12 +54,12 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
 
         $suite = $this->generateSuite('my_suite', array('bundle' => 'test'), array());
 
-        $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
+        $suite->shouldBeAnInstanceOf('Behat\Symfony2Extension\Suite\SymfonyBundleSuite');
         $suite->shouldHaveSetting('contexts');
         $suite->getSetting('contexts')->shouldReturn(array('TestBundle\Features\Context\FeatureContext'));
         $suite->shouldHaveSetting('paths');
         $suite->getSetting('paths')->shouldReturn(array(__DIR__.'/TestBundle/Features'));
-        $suite->getSetting('bundle_instance')->shouldBe($bundle);
+        $suite->getBundle()->shouldBe($bundle);
     }
 
     function it_does_not_overwrite_explicit_context(BundleInterface $bundle, $kernel)
@@ -69,12 +69,12 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
 
         $suite = $this->generateSuite('my_suite', array('bundle' => 'test', 'contexts' => array('FeatureContext')));
 
-        $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
+        $suite->shouldBeAnInstanceOf('Behat\Symfony2Extension\Suite\SymfonyBundleSuite');
         $suite->shouldHaveSetting('contexts');
         $suite->getSetting('contexts')->shouldReturn(array('FeatureContext'));
         $suite->shouldHaveSetting('paths');
         $suite->getSetting('paths')->shouldReturn(array(__DIR__.'/TestBundle/Features'));
-        $suite->getSetting('bundle_instance')->shouldBe($bundle);
+        $suite->getBundle()->shouldBe($bundle);
     }
 
     function it_does_not_overwrite_explicit_path(BundleInterface $bundle, $kernel)
@@ -84,11 +84,11 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
 
         $suite = $this->generateSuite('my_suite', array('bundle' => 'test', 'paths' => array('features')));
 
-        $suite->shouldBeAnInstanceOf('Behat\Testwork\Suite\GenericSuite');
+        $suite->shouldBeAnInstanceOf('Behat\Symfony2Extension\Suite\SymfonyBundleSuite');
         $suite->shouldHaveSetting('contexts');
         $suite->getSetting('contexts')->shouldReturn(array('TestBundle\Features\Context\FeatureContext'));
         $suite->shouldHaveSetting('paths');
         $suite->getSetting('paths')->shouldReturn(array('features'));
-        $suite->getSetting('bundle_instance')->shouldBe($bundle);
+        $suite->getBundle()->shouldBe($bundle);
     }
 }

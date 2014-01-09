@@ -12,8 +12,8 @@ namespace Behat\Symfony2Extension\Suite;
 
 use Behat\Testwork\Suite\Exception\SuiteConfigurationException;
 use Behat\Testwork\Suite\Generator\SuiteGenerator;
-use Behat\Testwork\Suite\GenericSuite;
 use InvalidArgumentException;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -50,11 +50,6 @@ class SymfonySuiteGenerator implements SuiteGenerator
      */
     public function generateSuite($suiteName, array $settings)
     {
-        return new GenericSuite($suiteName, $this->mergeDefaultSettings($suiteName, $settings));
-    }
-
-    private function mergeDefaultSettings($suiteName, array $settings)
-    {
         if (!isset($settings['bundle'])) {
             throw new SuiteConfigurationException('The "bundle" setting is mandatory for "symfony_bundle" suites', $suiteName);
         }
@@ -69,8 +64,11 @@ class SymfonySuiteGenerator implements SuiteGenerator
             );
         }
 
-        $settings['bundle_instance'] = $bundle;
+        return new SymfonyBundleSuite($suiteName, $bundle, $this->mergeDefaultSettings($bundle, $settings));
+    }
 
+    private function mergeDefaultSettings(BundleInterface $bundle, array $settings)
+    {
         if (empty($settings['contexts'])) {
             $settings['contexts'] = array($bundle->getNamespace() . $this->contextClassSuffix);
         }

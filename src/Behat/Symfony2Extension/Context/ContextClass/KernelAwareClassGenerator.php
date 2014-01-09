@@ -11,6 +11,7 @@
 namespace Behat\Symfony2Extension\Context\ContextClass;
 
 use Behat\Behat\Context\ContextClass\SimpleClassGenerator;
+use Behat\Symfony2Extension\Suite\SymfonyBundleSuite;
 use Behat\Testwork\Suite\Suite;
 
 /**
@@ -65,6 +66,6 @@ PHP;
 
     public function supportsSuiteAndClassname(Suite $suite, $classname)
     {
-        return $suite->hasSetting('bundle');
+        return $suite instanceof SymfonyBundleSuite;
     }
 }
