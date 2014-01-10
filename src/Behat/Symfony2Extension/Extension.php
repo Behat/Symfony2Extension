@@ -16,6 +16,7 @@ use Behat\Behat\Gherkin\ServiceContainer\GherkinExtension;
 use Behat\MinkExtension\Extension as MinkExtension;
 use Behat\Testwork\EventDispatcher\ServiceContainer\EventDispatcherExtension;
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
+use Behat\Testwork\ServiceContainer\ExtensionManager;
 use Behat\Testwork\Subject\ServiceContainer\SubjectExtension;
 use Behat\Testwork\Suite\ServiceContainer\SuiteExtension;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -35,31 +36,20 @@ class Extension implements ExtensionInterface
     /**
      * {@inheritdoc}
      */
-    public function load(ContainerBuilder $container, array $config)
-    {
-        $this->loadClassGenerator($container);
-        $this->loadContextInitializer($container);
-        $this->loadFeatureLocator($container);
-        $this->loadKernel($container, $config['kernel']);
-        $this->loadSuiteGenerator($container, $config['context']);
-
-        if ($config['mink_driver']) {
-            $this->loadMinkDriver($container);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigKey()
     {
         return 'symfony2';
     }
 
     /**
-     * Setups configuration for current extension.
-     *
-     * @param ArrayNodeDefinition $builder
+     * {@inheritdoc}
+     */
+    public function initialize(ExtensionManager $extensionManager)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function configure(ArrayNodeDefinition $builder)
     {
@@ -106,6 +96,22 @@ class Extension implements ExtensionInterface
                 ->end()
             ->end()
         ->end();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function load(ContainerBuilder $container, array $config)
+    {
+        $this->loadClassGenerator($container);
+        $this->loadContextInitializer($container);
+        $this->loadFeatureLocator($container);
+        $this->loadKernel($container, $config['kernel']);
+        $this->loadSuiteGenerator($container, $config['context']);
+
+        if ($config['mink_driver']) {
+            $this->loadMinkDriver($container);
+        }
     }
 
     /**
