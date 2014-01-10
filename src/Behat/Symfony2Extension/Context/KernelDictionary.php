@@ -1,17 +1,18 @@
 <?php
 
+/*
+ * This file is part of the Behat Symfony2Extension
+ *
+ * (c) Konstantin Kudryashov <ever.zet@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Behat\Symfony2Extension\Context;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
-/*
- * This file is part of the Behat\Symfony2Extension.
- * (c) Konstantin Kudryashov <ever.zet@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 /**
  * Kernel support methods for Symfony2Extension.
@@ -25,7 +26,7 @@ trait KernelDictionary
     /**
      * Sets Kernel instance.
      *
-     * @param KernelInterface $kernel HttpKernel instance
+     * @param KernelInterface $kernel
      */
     public function setKernel(KernelInterface $kernel)
     {

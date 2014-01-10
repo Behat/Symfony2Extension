@@ -12,5 +12,5 @@ before_script:
   - composer install --prefer-source --no-interaction --no-progress
 
 script:
-  - vendor/bin/behat -c=testapp/behat.yml -p=simple
-  - vendor/bin/behat -c=testapp/behat.yml -p=web
+  - vendor/bin/phpspec run -f pretty --no-interaction
+  - vendor/bin/behat -c=testapp/behat.yml

@@ -2,16 +2,11 @@
 
 namespace Behat\Sf2DemoBundle\Features\Context;
 
-use Symfony\Component\HttpKernel\KernelInterface;
-use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\MinkExtension\Context\MinkContext;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Behat\Symfony2Extension\Context\KernelAwareContext;
 
-use Behat\Behat\Context\BehatContext,
-    Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode,
-    Behat\Gherkin\Node\TableNode;
-
-class WebContext extends MinkContext implements KernelAwareInterface
+class WebContext extends MinkContext implements KernelAwareContext
 {
     private $kernel;
     private $parameters;
