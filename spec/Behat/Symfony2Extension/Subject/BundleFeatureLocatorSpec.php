@@ -6,7 +6,6 @@ use Behat\Gherkin\Gherkin;
 use Behat\Symfony2Extension\Suite\SymfonyBundleSuite;
 use Behat\Testwork\Suite\Suite;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class BundleFeatureLocatorSpec extends ObjectBehavior
