@@ -13,4 +13,4 @@ before_script:
 
 script:
   - vendor/bin/phpspec run -f pretty --no-interaction
-  - vendor/bin/behat -c=testapp/behat.yml
+  - vendor/bin/behat
