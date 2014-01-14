@@ -6,6 +6,9 @@ default:
         Behat\Symfony2Extension\Extension: ~
         Behat\MinkExtension\Extension:
             default_session: 'symfony2'
+            sessions:
+                symfony2:
+                    symfony2: ~
     suites:
         simple:
             type: symfony_bundle

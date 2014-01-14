@@ -13,7 +13,7 @@ namespace Behat\Symfony2Extension;
 
 use Behat\Behat\Context\ServiceContainer\ContextExtension;
 use Behat\Behat\Gherkin\ServiceContainer\GherkinExtension;
-use Behat\MinkExtension\Extension as MinkExtension;
+use Behat\Symfony2Extension\ServiceContainer\Driver\SymfonyFactory;
 use Behat\Testwork\EventDispatcher\ServiceContainer\EventDispatcherExtension;
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
@@ -46,6 +46,9 @@ class Extension implements ExtensionInterface
      */
     public function initialize(ExtensionManager $extensionManager)
     {
+        if (null !== $minkExtension = $extensionManager->getExtension('mink')) {
+            $minkExtension->registerDriverFactory(new SymfonyFactory());
+        }
     }
 
     /**
@@ -88,12 +91,6 @@ class Extension implements ExtensionInterface
                         ->end()
                     ->end()
                 ->end()
-                ->booleanNode('mink_driver')
-                    ->beforeNormalization()
-                        ->ifString()->then($boolFilter)
-                    ->end()
-                    ->defaultValue(class_exists('Behat\Mink\Driver\BrowserKitDriver') && class_exists('Behat\MinkExtension\Extension'))
-                ->end()
             ->end()
         ->end();
     }
@@ -108,10 +105,6 @@ class Extension implements ExtensionInterface
         $this->loadFeatureLocator($container);
         $this->loadKernel($container, $config['kernel']);
         $this->loadSuiteGenerator($container, $config['context']);
-
-        if ($config['mink_driver']) {
-            $this->loadMinkDriver($container);
-        }
     }
 
     /**
@@ -178,30 +171,6 @@ class Extension implements ExtensionInterface
         $container->setDefinition(self::KERNEL_ID, $definition);
         $container->setParameter(self::KERNEL_ID . '.path', $config['path']);
         $container->setParameter(self::KERNEL_ID . '.bootstrap', $config['bootstrap']);
-    }
-
-    private function loadMinkDriver(ContainerBuilder $container)
-    {
-        if (!class_exists('Behat\Mink\Driver\BrowserKitDriver')) {
-            throw new \RuntimeException(
-                'Install MinkBrowserKitDriver in order to activate the symfony2 session.'
-            );
-        }
-
-        if (!class_exists('Behat\MinkExtension\Extension')) {
-            throw new \RuntimeException(
-                'Install MinkExtension in order to activate the symfony2 session.'
-            );
-        }
-
-        $definition = new Definition('Behat\Mink\Session', array(
-            new Definition('Behat\Symfony2Extension\Driver\KernelDriver', array(
-                new Reference(self::KERNEL_ID)
-            )),
-            new Reference(MinkExtension::SELECTORS_HANDLER_ID),
-        ));
-        $definition->addTag(MinkExtension::SESSION_TAG, array('alias' => 'symfony2'));
-        $container->setDefinition('symfony_extension.mink_session.symfony2', $definition);
     }
 
     private function loadSuiteGenerator(ContainerBuilder $container, array $config)
