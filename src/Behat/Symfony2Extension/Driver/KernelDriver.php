@@ -22,8 +22,8 @@ use Behat\Mink\Driver\BrowserKitDriver;
  */
 class KernelDriver extends BrowserKitDriver
 {
-    public function __construct(KernelInterface $kernel)
+    public function __construct(KernelInterface $kernel, $baseUrl = null)
     {
-        parent::__construct($kernel->getContainer()->get('test.client'));
+        parent::__construct($kernel->getContainer()->get('test.client'), $baseUrl);
     }
 }
