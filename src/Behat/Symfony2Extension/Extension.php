@@ -17,7 +17,7 @@ use Behat\Symfony2Extension\ServiceContainer\Driver\SymfonyFactory;
 use Behat\Testwork\EventDispatcher\ServiceContainer\EventDispatcherExtension;
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
-use Behat\Testwork\Subject\ServiceContainer\SubjectExtension;
+use Behat\Testwork\Specification\ServiceContainer\SpecificationExtension;
 use Behat\Testwork\Suite\ServiceContainer\SuiteExtension;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -153,12 +153,12 @@ class Extension implements ExtensionInterface
 
     private function loadFeatureLocator(ContainerBuilder $container)
     {
-        $definition = new Definition('Behat\Symfony2Extension\Subject\BundleFeatureLocator', array(
+        $definition = new Definition('Behat\Symfony2Extension\Specification\BundleFeatureLocator', array(
             new Reference(GherkinExtension::MANAGER_ID),
             '%paths.base%'
         ));
-        $definition->addTag(SubjectExtension::LOCATOR_TAG, array('priority' => 100));
-        $container->setDefinition('symfony2_extension.subject_locator.bundle_feature', $definition);
+        $definition->addTag(SpecificationExtension::LOCATOR_TAG, array('priority' => 100));
+        $container->setDefinition('symfony2_extension.specification_locator.bundle_feature', $definition);
     }
 
     private function loadKernel(ContainerBuilder $container, array $config)
