@@ -58,7 +58,7 @@ PHP;
     /**
      * {@inheritdoc}
      */
-    public function supportsSuiteAndClassname(Suite $suite, $classname)
+    public function supportsSuiteAndClass(Suite $suite, $classname)
     {
         return $suite instanceof SymfonyBundleSuite;
     }
