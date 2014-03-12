@@ -10,19 +10,19 @@
 
 namespace Behat\Symfony2Extension\Context\ContextClass;
 
-use Behat\Behat\Context\ContextClass\SimpleClassGenerator;
+use Behat\Behat\Context\ContextClass\ClassGenerator;
 use Behat\Symfony2Extension\Suite\SymfonyBundleSuite;
 use Behat\Testwork\Suite\Suite;
 
 /**
  * @author Christophe Coevoet <stof@notk.org>
  */
-class KernelAwareClassGenerator extends SimpleClassGenerator
+class KernelAwareClassGenerator implements ClassGenerator
 {
     /**
      * @var string
      */
-    protected static $template = <<<'PHP'
+    private static $template = <<<'PHP'
 <?php
 
 {namespace}use Behat\Behat\Context\SnippetAcceptingContext;
@@ -42,15 +42,6 @@ class {className} implements SnippetAcceptingContext, KernelAwareContext
     private $kernel;
 
     /**
-     * Initializes context. Every scenario gets its own context object.
-     *
-     * @param array $parameters Suite parameters (set them up through behat.yml)
-     */
-    public function __construct(array $parameters)
-    {
-    }
-
-    /**
      * Sets Kernel instance.
      * This method will be automatically called by Symfony2Extension ContextInitializer.
      *
@@ -64,8 +55,33 @@ class {className} implements SnippetAcceptingContext, KernelAwareContext
 
 PHP;
 
+    /**
+     * {@inheritdoc}
+     */
     public function supportsSuiteAndClassname(Suite $suite, $classname)
     {
         return $suite instanceof SymfonyBundleSuite;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function generateClass(Suite $suite, $contextClass)
+    {
+        $fqn = $contextClass;
+
+        $namespace = '';
+        if (false !== $pos = strrpos($fqn, '\\')) {
+            $namespace = 'namespace ' . substr($fqn, 0, $pos) . ";\n\n";
+            $contextClass = substr($fqn, $pos + 1);
+        }
+
+        return strtr(
+            static::$template,
+            array(
+                '{namespace}' => $namespace,
+                '{className}' => $contextClass,
+            )
+        );
     }
 }
