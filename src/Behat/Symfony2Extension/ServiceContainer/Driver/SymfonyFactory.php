@@ -58,6 +58,7 @@ class SymfonyFactory implements DriverFactory
 
         return new Definition('Behat\Symfony2Extension\Driver\KernelDriver', array(
             new Reference(Extension::KERNEL_ID),
+            '%mink.base_url%',
         ));
     }
 }
