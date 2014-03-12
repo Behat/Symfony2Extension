@@ -24,6 +24,11 @@ class KernelAwareInitializerSpec extends ObjectBehavior
         $this->shouldHaveType('Symfony\Component\EventDispatcher\EventSubscriberInterface');
     }
 
+    function it_subscribes_to_events()
+    {
+        $this->getSubscribedEvents()->shouldHaveCount(4);
+    }
+
     function it_does_nothing_for_non_kernel_aware_contexts(Context $context)
     {
         $this->initializeContext($context);
