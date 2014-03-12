@@ -25,7 +25,7 @@ class KernelAwareClassGenerator extends SimpleClassGenerator
     protected static $template = <<<'PHP'
 <?php
 
-{namespace}use Behat\Behat\Context\TurnipAcceptingContext;
+{namespace}use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
@@ -34,7 +34,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 /**
  * Behat context class.
  */
-class {className} implements TurnipAcceptingContext, KernelAwareContext
+class {className} implements SnippetAcceptingContext, KernelAwareContext
 {
     /**
      * @var KernelInterface

@@ -9,17 +9,6 @@ use Behat\Symfony2Extension\Context\KernelAwareContext;
 class WebContext extends MinkContext implements KernelAwareContext
 {
     private $kernel;
-    private $parameters;
-
-    /**
-     * Initializes context with parameters from behat.yml.
-     *
-     * @param array $parameters
-     */
-    public function __construct(array $parameters)
-    {
-        $this->parameters = $parameters;
-    }
 
     /**
      * Sets HttpKernel instance.

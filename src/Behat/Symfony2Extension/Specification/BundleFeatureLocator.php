@@ -9,11 +9,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Behat\Symfony2Extension\Subject;
+namespace Behat\Symfony2Extension\Specification;
 
-use Behat\Behat\Gherkin\Subject\Locator\FilesystemFeatureLocator;
+use Behat\Behat\Gherkin\Specification\Locator\FilesystemFeatureLocator;
 use Behat\Symfony2Extension\Suite\SymfonyBundleSuite;
-use Behat\Testwork\Subject\EmptySubjectIterator;
+use Behat\Testwork\Specification\NoSpecificationsIterator;
 use Behat\Testwork\Suite\Suite;
 
 /**
@@ -21,20 +21,20 @@ use Behat\Testwork\Suite\Suite;
  */
 class BundleFeatureLocator extends FilesystemFeatureLocator
 {
-    public function locateSubjects(Suite $suite, $locator)
+    public function locateSpecifications(Suite $suite, $locator)
     {
         if (!$suite instanceof SymfonyBundleSuite) {
-            return new EmptySubjectIterator($suite);
+            return new noSpecificationsIterator($suite);
         }
 
         $bundle = $suite->getBundle();
 
         if (0 !== strpos($locator, '@' . $bundle->getName())) {
-            return new EmptySubjectIterator($suite);
+            return new NoSpecificationsIterator($suite);
         }
 
         $locatorSuffix = substr($locator, strlen($bundle->getName()) + 1);
 
-        return parent::locateSubjects($suite, $bundle->getPath() . '/Features' . $locatorSuffix);
+        return parent::locateSpecifications($suite, $bundle->getPath() . '/Features' . $locatorSuffix);
     }
 }

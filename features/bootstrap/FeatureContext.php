@@ -1,6 +1,6 @@
 <?php
 
-use Behat\Behat\Context\TurnipAcceptingContext;
+use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
@@ -8,7 +8,7 @@ use Symfony\Component\Process\Process;
 /**
  * Behat context class.
  */
-class FeatureContext implements TurnipAcceptingContext
+class FeatureContext implements SnippetAcceptingContext
 {
     /**
      * @var string

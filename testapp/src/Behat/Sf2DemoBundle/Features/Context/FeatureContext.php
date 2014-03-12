@@ -8,19 +8,8 @@ use Behat\Symfony2Extension\Context\KernelAwareContext;
 class FeatureContext implements KernelAwareContext
 {
     private $kernel;
-    private $parameters;
     private $containerParameters;
     private $parameterKey;
-
-    /**
-     * Initializes context with parameters from behat.yml.
-     *
-     * @param array $parameters
-     */
-    public function __construct(array $parameters)
-    {
-        $this->parameters = $parameters;
-    }
 
     /**
      * Sets HttpKernel instance.
