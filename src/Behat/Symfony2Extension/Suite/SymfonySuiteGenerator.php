@@ -50,12 +50,10 @@ class SymfonySuiteGenerator implements SuiteGenerator
      */
     public function generateSuite($suiteName, array $settings)
     {
-        if (!isset($settings['bundle'])) {
-            throw new SuiteConfigurationException('The "bundle" setting is mandatory for "symfony_bundle" suites', $suiteName);
-        }
+        $bundleName = isset($settings['bundle']) ? $settings['bundle'] : $suiteName;
 
         try {
-            $bundle = $this->kernel->getBundle($settings['bundle']);
+            $bundle = $this->kernel->getBundle($bundleName);
         } catch (InvalidArgumentException $e) {
             throw new SuiteConfigurationException(
                 sprintf('The bundle "%s" does not exist in the project', $settings['bundle']),
