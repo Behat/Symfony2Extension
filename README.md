@@ -1,9 +1,11 @@
 # Symfony2Extension
 
-[![Build
-Status](https://secure.travis-ci.org/Behat/Symfony2Extension.png?branch=master)](http://travis-ci.org/Behat/Symfony2Extension) master version, for Behat 3.x
-[![Build
-Status](https://secure.travis-ci.org/Behat/Symfony2Extension.png?branch=1.1.x)](http://travis-ci.org/Behat/Symfony2Extension) older 1.1.x version for Behat 2.5
+master version, for Behat 3.x: 
+[![Build Status](https://secure.travis-ci.org/Behat/Symfony2Extension.png?branch=master)](http://travis-ci.org/Behat/Symfony2Extension)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Behat/Symfony2Extension/badges/quality-score.png?s=b49d2ecf9c3e9de8cc33df444d248154ac11db44)](https://scrutinizer-ci.com/g/Behat/Symfony2Extension/)
+
+older 1.1.x version for Behat 2.5: 
+[![Build Status](https://secure.travis-ci.org/Behat/Symfony2Extension.png?branch=1.1.x)](http://travis-ci.org/Behat/Symfony2Extension)
 
 Provides integration layer for Symfony2:
 
@@ -11,9 +13,9 @@ Provides integration layer for Symfony2:
   bundle suite by bundle shortname, classname or even full path
 * `KernelAwareContext`, which provides an initialized and booted kernel instance
   for your contexts
-* Additional `symfony2` session (sets as default) for Mink (if `MinkExtension` is installed)
+* Additional `symfony2` driver for Mink (if `MinkExtension` is installed)
 
-between Behat 2.5+ and Symfony2+
+between Behat 3.0+ and Symfony2+
 
 ## Documentation
 
@@ -21,7 +23,7 @@ between Behat 2.5+ and Symfony2+
 
 ## Copyright
 
-Copyright (c) 2012 Konstantin Kudryashov (ever.zet). See LICENSE for details.
+Copyright (c) 2012-2014 Konstantin Kudryashov (ever.zet). See LICENSE for details.
 
 ## Contributors
 
