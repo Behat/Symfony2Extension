@@ -41,6 +41,7 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
 
         $suite->shouldBeAnInstanceOf('Behat\Symfony2Extension\Suite\SymfonyBundleSuite');
         $suite->getBundle()->shouldReturn($bundle);
+        $suite->getSetting('bundle')->shouldReturn('my_suite');
     }
 
     function it_fails_for_invalid_bundle_setting($kernel)
@@ -71,6 +72,7 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
         $suite->shouldHaveSetting('paths');
         $suite->getSetting('paths')->shouldReturn(array(__DIR__.'/TestBundle/Features'));
         $suite->getBundle()->shouldBe($bundle);
+        $suite->getSetting('bundle')->shouldReturn('test');
     }
 
     function it_does_not_overwrite_explicit_context(BundleInterface $bundle, $kernel)

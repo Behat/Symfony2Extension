@@ -62,6 +62,8 @@ class SymfonySuiteGenerator implements SuiteGenerator
             );
         }
 
+        $settings['bundle'] = $bundleName;
+
         return new SymfonyBundleSuite($suiteName, $bundle, $this->mergeDefaultSettings($bundle, $settings));
     }
 
