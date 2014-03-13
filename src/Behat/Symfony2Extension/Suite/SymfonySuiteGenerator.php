@@ -56,7 +56,7 @@ class SymfonySuiteGenerator implements SuiteGenerator
             $bundle = $this->kernel->getBundle($bundleName);
         } catch (InvalidArgumentException $e) {
             throw new SuiteConfigurationException(
-                sprintf('The bundle "%s" does not exist in the project', $settings['bundle']),
+                sprintf('The bundle "%s" does not exist in the project', $bundleName),
                 $suiteName,
                 $e
             );

@@ -50,6 +50,13 @@ class SymfonySuiteGeneratorSpec extends ObjectBehavior
         $this->shouldThrow('Behat\Testwork\Suite\Exception\SuiteConfigurationException')->duringGenerateSuite('my_suite', array('bundle' => 'invalid'));
     }
 
+    function it_fails_for_invalid_bundle_taken_from_suite_name($kernel)
+    {
+        $kernel->getBundle('my_suite')->willThrow('InvalidArgumentException');
+
+        $this->shouldThrow('Behat\Testwork\Suite\Exception\SuiteConfigurationException')->duringGenerateSuite('my_suite', array());
+    }
+
     function it_generates_suites_with_conventional_settings(BundleInterface $bundle, $kernel)
     {
         $kernel->getBundle('test')->willReturn($bundle);
