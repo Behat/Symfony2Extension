@@ -17,7 +17,7 @@ use Behat\Testwork\Suite\Suite;
 /**
  * @author Christophe Coevoet <stof@notk.org>
  */
-class KernelAwareClassGenerator implements ClassGenerator
+final class KernelAwareClassGenerator implements ClassGenerator
 {
     /**
      * @var string

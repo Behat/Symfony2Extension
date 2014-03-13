@@ -25,7 +25,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-class KernelAwareInitializer implements ContextInitializer, EventSubscriberInterface
+final class KernelAwareInitializer implements ContextInitializer, EventSubscriberInterface
 {
     private $kernel;
 

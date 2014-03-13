@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Christophe Coevoet <stof@notk.org>
  */
-class SymfonyFactory implements DriverFactory
+final class SymfonyFactory implements DriverFactory
 {
     /**
      * {@inheritdoc}

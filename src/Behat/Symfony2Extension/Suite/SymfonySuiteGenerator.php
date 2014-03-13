@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 /**
  * @author Christophe Coevoet <stof@notk.org>
  */
-class SymfonySuiteGenerator implements SuiteGenerator
+final class SymfonySuiteGenerator implements SuiteGenerator
 {
     private $kernel;
     private $pathSuffix;

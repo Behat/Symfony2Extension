@@ -19,7 +19,7 @@ use Behat\Testwork\Suite\Suite;
 /**
  * @author Christophe Coevoet <stof@notk.org>
  */
-class BundleFeatureLocator implements SpecificationLocator
+final class BundleFeatureLocator implements SpecificationLocator
 {
     /**
      * SpecificationLocator
