@@ -15,12 +15,12 @@ class KernelAwareClassGeneratorSpec extends ObjectBehavior
 
     function it_supports_symfony_suites(SymfonyBundleSuite $suite)
     {
-        $this->supportsSuiteAndClassname($suite, 'test\classname')->shouldBe(true);
+        $this->supportsSuiteAndClass($suite, 'test\classname')->shouldBe(true);
     }
 
     function it_does_not_support_other_suites(Suite $suite)
     {
-        $this->supportsSuiteAndClassname($suite, 'test\classname')->shouldBe(false);
+        $this->supportsSuiteAndClass($suite, 'test\classname')->shouldBe(false);
     }
 
     function it_generates_classes_in_the_global_namespace(SymfonyBundleSuite $suite)
@@ -43,15 +43,6 @@ class TestContext implements SnippetAcceptingContext, KernelAwareContext
      * @var KernelInterface
      */
     private $kernel;
-
-    /**
-     * Initializes context. Every scenario gets its own context object.
-     *
-     * @param array $parameters Suite parameters (set them up through behat.yml)
-     */
-    public function __construct(array $parameters)
-    {
-    }
 
     /**
      * Sets Kernel instance.
@@ -91,15 +82,6 @@ class TestContext implements SnippetAcceptingContext, KernelAwareContext
      * @var KernelInterface
      */
     private $kernel;
-
-    /**
-     * Initializes context. Every scenario gets its own context object.
-     *
-     * @param array $parameters Suite parameters (set them up through behat.yml)
-     */
-    public function __construct(array $parameters)
-    {
-    }
 
     /**
      * Sets Kernel instance.

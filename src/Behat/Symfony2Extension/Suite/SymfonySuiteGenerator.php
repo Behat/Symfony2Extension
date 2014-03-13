@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 /**
  * @author Christophe Coevoet <stof@notk.org>
  */
-class SymfonySuiteGenerator implements SuiteGenerator
+final class SymfonySuiteGenerator implements SuiteGenerator
 {
     private $kernel;
     private $pathSuffix;
@@ -50,19 +50,19 @@ class SymfonySuiteGenerator implements SuiteGenerator
      */
     public function generateSuite($suiteName, array $settings)
     {
-        if (!isset($settings['bundle'])) {
-            throw new SuiteConfigurationException('The "bundle" setting is mandatory for "symfony_bundle" suites', $suiteName);
-        }
+        $bundleName = isset($settings['bundle']) ? $settings['bundle'] : $suiteName;
 
         try {
-            $bundle = $this->kernel->getBundle($settings['bundle']);
+            $bundle = $this->kernel->getBundle($bundleName);
         } catch (InvalidArgumentException $e) {
             throw new SuiteConfigurationException(
-                sprintf('The bundle "%s" does not exist in the project', $settings['bundle']),
+                sprintf('The bundle "%s" does not exist in the project', $bundleName),
                 $suiteName,
                 $e
             );
         }
+
+        $settings['bundle'] = $bundleName;
 
         return new SymfonyBundleSuite($suiteName, $bundle, $this->mergeDefaultSettings($bundle, $settings));
     }

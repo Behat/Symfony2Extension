@@ -11,16 +11,44 @@
 
 namespace Behat\Symfony2Extension\Specification;
 
-use Behat\Behat\Gherkin\Specification\Locator\FilesystemFeatureLocator;
 use Behat\Symfony2Extension\Suite\SymfonyBundleSuite;
+use Behat\Testwork\Specification\Locator\SpecificationLocator;
 use Behat\Testwork\Specification\NoSpecificationsIterator;
 use Behat\Testwork\Suite\Suite;
 
 /**
  * @author Christophe Coevoet <stof@notk.org>
  */
-class BundleFeatureLocator extends FilesystemFeatureLocator
+final class BundleFeatureLocator implements SpecificationLocator
 {
+    /**
+     * SpecificationLocator
+     */
+    private $baseLocator;
+
+    /**
+     * Initializes locator.
+     *
+     * @param SpecificationLocator $baseLocator
+     */
+    public function __construct(SpecificationLocator $baseLocator)
+    {
+        $this->baseLocator = $baseLocator;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLocatorExamples()
+    {
+        return array(
+            "a Symfony2 bundle path <comment>(@BundleName/)</comment>"
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function locateSpecifications(Suite $suite, $locator)
     {
         if (!$suite instanceof SymfonyBundleSuite) {
@@ -35,6 +63,6 @@ class BundleFeatureLocator extends FilesystemFeatureLocator
 
         $locatorSuffix = substr($locator, strlen($bundle->getName()) + 1);
 
-        return parent::locateSpecifications($suite, $bundle->getPath() . '/Features' . $locatorSuffix);
+        return $this->baseLocator->locateSpecifications($suite, $bundle->getPath() . '/Features' . $locatorSuffix);
     }
 }
