@@ -46,40 +46,40 @@ The easiest way to keep your suite updated is to use `Composer <http://getcompos
 
 1. Define dependencies in your `composer.json`:
 
-    .. code-block:: js
+   .. code-block:: js
 
-        {
-            "require": {
-                ...
-
-                "behat/symfony2-extension": "~2.0@dev"
-            }
-        }
+       {
+           "require": {
+               ...
+               
+               "behat/symfony2-extension": "~2.0@dev"
+           }
+       }
 
 2. Install/update your vendors:
 
-    .. code-block:: bash
+   .. code-block:: bash
 
-        $ composer update behat/symfony2-extension
+       $ composer update behat/symfony2-extension
 
 3. Activate extension in your ``behat.yml``:
 
-    .. code-block:: yaml
+   .. code-block:: yaml
 
-        default:
-            # ...
-            extensions:
-                Behat\Symfony2Extension\Extension: ~
+       default:
+           # ...
+           extensions:
+               Behat\Symfony2Extension\Extension: ~
 
 4. Register a suite for your bundle:
 
-    .. code-block:: yaml
+   .. code-block:: yaml
 
-        default:
-            suites:
-                my_suite:
-                    type: symfony_bundle
-                    bundle: AcmeDemoBundle
+       default:
+           suites:
+               my_suite:
+                   type: symfony_bundle
+                   bundle: AcmeDemoBundle
 
 .. note::
 
