@@ -31,12 +31,12 @@ First, download phar archives:
 After downloading and placing ``*.phar`` into project directory, you need to
 activate ``Symfony2Extension`` in your ``behat.yml``:
 
-    .. code-block:: yaml
+  .. code-block:: yaml
 
-        default:
-          # ...
-          extensions:
-            symfony2_extension.phar: ~
+      default:
+        # ...
+        extensions:
+          symfony2_extension.phar: ~
 
 
 Through Composer
