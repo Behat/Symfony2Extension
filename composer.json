@@ -9,12 +9,16 @@
         {
             "name": "Konstantin Kudryashov",
             "email": "ever.zet@gmail.com"
+        },
+        {
+            "name": "Christophe Coevoet",
+            "email": "stof@notk.org"
         }
     ],
 
     "require": {
         "php":                       ">=5.3.3",
-        "behat/behat":               "~3.0.0-RC3@dev",
+        "behat/behat":               "~3.0.0,>=3.0.4",
         "symfony/framework-bundle":  "~2.0"
     },
 
@@ -22,8 +26,8 @@
         "symfony/symfony":               "~2.1",
         "behat/mink-extension":          "~2.0@dev",
         "behat/mink-browserkit-driver":  "~1.0",
-        "phpspec/phpspec":               "2.0.*@dev",
-        "phpunit/phpunit":               "~3.7"
+        "phpspec/phpspec":               "~2.0",
+        "phpunit/phpunit":               "~4.0"
     },
 
     "autoload": {
