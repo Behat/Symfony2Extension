@@ -11,16 +11,17 @@ branches:
 matrix:
   allow_failures:
     - php: hhvm
-
-env:
-  - SYMFONY_VERSION='2.2.*'
-  - SYMFONY_VERSION='2.3.*'
-  - SYMFONY_VERSION='2.4.*'
+  include:
+    - php: 5.5
+      env: SYMFONY_VERSION='2.3.*'
+    - php: 5.5
+      env: SYMFONY_VERSION='2.5.*@dev'
 
 before_script:
-  - composer require --dev --no-update symfony/symfony=$SYMFONY_VERSION
+  - sh -c 'if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update symfony/symfony=$SYMFONY_VERSION; fi;'
   - composer install --prefer-source --no-interaction --no-progress
+  - export PATH=./vendor/bin:$PATH
 
 script:
-  - vendor/bin/phpspec run -f pretty --no-interaction
-  - vendor/bin/behat --strict
+  - phpspec run -f pretty --no-interaction
+  - behat --strict
