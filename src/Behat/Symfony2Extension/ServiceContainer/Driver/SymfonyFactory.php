@@ -12,7 +12,7 @@
 namespace Behat\Symfony2Extension\ServiceContainer\Driver;
 
 use Behat\MinkExtension\ServiceContainer\Driver\DriverFactory;
-use Behat\Symfony2Extension\Extension;
+use Behat\Symfony2Extension\ServiceContainer\Symfony2Extension;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -57,7 +57,7 @@ final class SymfonyFactory implements DriverFactory
         }
 
         return new Definition('Behat\Symfony2Extension\Driver\KernelDriver', array(
-            new Reference(Extension::KERNEL_ID),
+            new Reference(Symfony2Extension::KERNEL_ID),
             '%mink.base_url%',
         ));
     }

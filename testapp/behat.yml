@@ -3,8 +3,8 @@ default:
         progress:
             paths: false
     extensions:
-        Behat\Symfony2Extension\Extension: ~
-        Behat\MinkExtension\Extension:
+        Behat\Symfony2Extension: ~
+        Behat\MinkExtension:
             default_session: 'symfony2'
             sessions:
                 symfony2:

@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Behat\Symfony2Extension;
+namespace Behat\Symfony2Extension\ServiceContainer;
 
 use Behat\Behat\Context\ServiceContainer\ContextExtension;
 use Behat\Behat\Gherkin\ServiceContainer\GherkinExtension;
@@ -28,8 +28,9 @@ use Symfony\Component\DependencyInjection\Reference;
  * Symfony2 extension for Behat class.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
+ * @author Christophe Coevoet <stof@notk.org>
  */
-class Extension implements ExtensionInterface
+class Symfony2Extension implements ExtensionInterface
 {
     const KERNEL_ID = 'symfony2_extension.kernel';
 

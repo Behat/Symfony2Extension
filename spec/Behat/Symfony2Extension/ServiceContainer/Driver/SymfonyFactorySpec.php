@@ -2,7 +2,7 @@
 
 namespace spec\Behat\Symfony2Extension\ServiceContainer\Driver;
 
-use Behat\Symfony2Extension\Extension;
+use Behat\Symfony2Extension\ServiceContainer\Symfony2Extension;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
@@ -36,6 +36,6 @@ class SymfonyFactorySpec extends ObjectBehavior
         $definition->getClass()->shouldBe('Behat\Symfony2Extension\Driver\KernelDriver');
         $args = $definition->getArguments();
         $args[0]->shouldBeAnInstanceOf('Symfony\Component\DependencyInjection\Reference');
-        $args[0]->__toString()->shouldBe(Extension::KERNEL_ID);
+        $args[0]->__toString()->shouldBe(Symfony2Extension::KERNEL_ID);
     }
 }

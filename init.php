@@ -16,4 +16,4 @@ spl_autoload_register(function($class) {
     }
 }, true, false);
 
-return new Behat\Symfony2Extension\Extension;
+return new Behat\Symfony2Extension\ServiceContainer\Symfony2Extension;
