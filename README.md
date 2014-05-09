@@ -1,11 +1,11 @@
 # Symfony2Extension
 
-master version, for Behat 3.x: 
-[![Build Status](https://secure.travis-ci.org/Behat/Symfony2Extension.png?branch=master)](http://travis-ci.org/Behat/Symfony2Extension)
+master version, for Behat 3.x:
+[![Build Status](https://travis-ci.org/Behat/Symfony2Extension.svg?branch=master)](https://travis-ci.org/Behat/Symfony2Extension)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Behat/Symfony2Extension/badges/quality-score.png?s=b49d2ecf9c3e9de8cc33df444d248154ac11db44)](https://scrutinizer-ci.com/g/Behat/Symfony2Extension/)
 
-older 1.1.x version for Behat 2.5: 
-[![Build Status](https://secure.travis-ci.org/Behat/Symfony2Extension.png?branch=1.1.x)](http://travis-ci.org/Behat/Symfony2Extension)
+older 1.1.x version for Behat 2.5:
+[![Build Status](https://travis-ci.org/Behat/Symfony2Extension.svg?branch=1.1.x)](https://travis-ci.org/Behat/Symfony2Extension)
 
 Provides integration layer for Symfony2:
 
