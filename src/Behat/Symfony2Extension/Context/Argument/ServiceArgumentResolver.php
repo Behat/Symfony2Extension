@@ -39,7 +39,7 @@ final class ServiceArgumentResolver implements ArgumentResolver
      */
     public function resolveArguments(ReflectionClass $classReflection, array $arguments)
     {
-        $newArguments = $arguments;
+        $newArguments = array();
 
         foreach ($arguments as $key => $argument) {
             $newArguments[$key] = $this->resolveArgument($argument);

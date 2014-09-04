@@ -19,10 +19,11 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
     }
 
     function it_resolves_arguments_starting_from_at_sign_if_they_point_to_existing_service(
-        ReflectionClass $reflectionClass, ContainerInterface $container, stdClass $service
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container
     ) {
         $container->has('service')->willReturn(true);
-        $container->get('service')->willReturn($service);
+        $container->get('service')->willReturn($service = new stdClass());
 
         $this->resolveArguments($reflectionClass, array('service' => '@service'))->shouldReturn(
             array('service' => $service)
