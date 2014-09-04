@@ -106,6 +106,7 @@ class Symfony2Extension implements ExtensionInterface
         $this->loadFeatureLocator($container);
         $this->loadKernel($container, $config['kernel']);
         $this->loadSuiteGenerator($container, $config['context']);
+        $this->loadServiceArgumentResolver($container);
     }
 
     /**
@@ -185,5 +186,14 @@ class Symfony2Extension implements ExtensionInterface
         ));
         $definition->addTag(SuiteExtension::GENERATOR_TAG, array('priority' => 100));
         $container->setDefinition('symfony2_extension.suite.generator', $definition);
+    }
+
+    private function loadServiceArgumentResolver(ContainerBuilder $container)
+    {
+        $definition = new Definition('Behat\Symfony2Extension\Context\Argument\ServiceArgumentResolver', array(
+            new Reference(self::KERNEL_ID)
+        ));
+        $definition->addTag(ContextExtension::ARGUMENT_RESOLVER_TAG, array('priority' => 0));
+        $container->setDefinition('symfony2_extension.context.argument.service_resolver', $definition);
     }
 }
