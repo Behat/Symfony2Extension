@@ -26,7 +26,7 @@ class KernelAwareInitializerSpec extends ObjectBehavior
 
     function it_subscribes_to_events()
     {
-        $this->getSubscribedEvents()->shouldHaveCount(4);
+        $this->getSubscribedEvents()->shouldHaveCount(2);
     }
 
     function it_does_nothing_for_non_kernel_aware_contexts(Context $context)
