@@ -63,7 +63,7 @@ final class ServiceArgumentResolver implements ArgumentResolver
             return $argument;
         }
 
-        $serviceId = mb_substr($argument, 1, null, 'utf8');
+        $serviceId = mb_substr($argument, 1, mb_strlen($argument, 'utf8'), 'utf8');
 
         return $container->has($serviceId) ? $container->get($serviceId) : $argument;
     }
