@@ -74,12 +74,12 @@ First, download phar archives:
 After downloading and placing ``*.phar`` into project directory, you need to
 activate ``Symfony2Extension`` in your ``behat.yml``:
 
-  .. code-block:: yaml
+.. code-block:: yaml
 
-      default:
-        # ...
-        extensions:
-          symfony2_extension.phar: ~
+    default:
+      # ...
+       extensions:
+         symfony2_extension.phar: ~
 
 .. note::
 
@@ -100,28 +100,68 @@ activate ``Symfony2Extension`` in your ``behat.yml``:
 Usage
 -----
 
-After installing the extension, there are 2 usage options available:
+After installing the extension, there are 3 usage options available:
 
-1. If you're using PHP 5.4+, you can simply use the
+1 Implement Context as normal and inject services to the Context's constructor configuration (see below)
+
+2. If you're using PHP 5.4+, you can simply use the
    ``Behat\Symfony2Extension\Context\KernelDictionary`` trait inside your
    ``FeatureContext`` or any of its subcontexts. This trait will provide the
    ``getKernel()`` and ``getContainer()`` methods for you.
 
-2. Implementing ``Behat\Symfony2Extension\Context\KernelAwareContext`` with
+3. Implementing ``Behat\Symfony2Extension\Context\KernelAwareContext`` with
    your context or its subcontexts. This will give you more customization options.
    Also, you can use this mechanism on multiple contexts avoiding the need to call
    parent contexts from subcontexts when the only thing you need is a kernel instance.
 
-There's a common thing between those 2 methods. In each of those, target context
-will implement the ``setKernel(KernelInterface $kernel)`` method. This method would be
+There's a common thing between options 2 and 3. In each of those, the target context
+will implement the ``setKernel(KernelInterface $kernel)`` method. This method will be
 automatically called **immediately after** each context creation before each scenario.
-After context constructor, but before any instance hook or definition call.
+After the context constructor, but before any instance hook or definition call.
 
 .. note::
 
     The application kernel will be automatically rebooted between scenarios, so your
     scenarios would have almost absolutely isolated state.
+    
+Injecting Services
+------------------
 
+The extension will automatically convert parameters injected into a context that start with '@' into 
+services:
+
+.. code-block:: yaml
+  
+  default:
+    suites:
+      default:
+          contexts:
+              - FeatureContext:
+                  simpleArg: 'string'
+                  session:   '@session'
+      extensions:
+        Behat\Symfony2Extension: ~
+
+The FeatureContext will then be initialised with the Symfony2 session from the container:
+
+.. code-block:: php
+  
+ <?php
+
+ namespace FeatureContext;
+
+  use Behat\Behat\Context\Context;
+  use Symfony\Component\HttpFoundation\Session\Session;
+
+  class FeatureContext implements Context
+  {
+      public function __construct(Session $session, $simpleArg)
+      {
+          // $session is your Symfony2 @session
+      }
+  }
+    
+    
 Initialize Bundle Suite
 ~~~~~~~~~~~~~~~~~~~~~~~
 
