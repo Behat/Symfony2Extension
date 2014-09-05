@@ -138,7 +138,7 @@ services:
             contexts:
                 - FeatureContext:
                     simpleArg: 'string'
-                    session:   @session
+                    session:   '@session'
         extensions:
           Behat\Symfony2Extension: ~
 
