@@ -13,6 +13,7 @@ namespace Behat\Symfony2Extension\Context\Argument;
 
 use Behat\Behat\Context\Argument\ArgumentResolver;
 use ReflectionClass;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -61,6 +62,25 @@ final class ServiceArgumentResolver implements ArgumentResolver
     {
         $container = $this->kernel->getContainer();
 
+        if ($service = $this->getService($container, $argument)) {
+            return $service;
+        }
+
+        if ($parameter = $this->getParameter($container, $argument)) {
+            return $parameter;
+        }
+
+        return $this->escape($argument);
+    }
+
+    /**
+     * @param ContainerInterface $container
+     * @param string $argument
+     * @return object|false
+     * @throws ServiceNotFoundException
+     */
+    private function getService(ContainerInterface $container, $argument)
+    {
         if ($serviceName = $this->getServiceName($argument)) {
             if (!$container->has($serviceName)) {
                 throw new ServiceNotFoundException(sprintf('Undefined service "%s"', $serviceName));
@@ -69,15 +89,7 @@ final class ServiceArgumentResolver implements ArgumentResolver
             return $container->get($serviceName);
         }
 
-        if ($argumentName = $this->getParameterName($argument)) {
-            if (!$container->hasParameter($argumentName)) {
-                throw new ParameterNotFoundException(sprintf('Undefined parameter "%s"', $argumentName));
-            }
-
-            return $container->getParameter($argumentName);
-        }
-
-        return $this->escape($argument);
+        return false;
     }
 
     /**
@@ -88,6 +100,25 @@ final class ServiceArgumentResolver implements ArgumentResolver
     {
         if (preg_match('/^@([^@].*)$/', $argument, $matches)) {
             return $matches[1];
+        }
+
+        return false;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     * @param string $argument
+     * @return bool
+     * @throws ParameterNotFoundException
+     */
+    private function getParameter(ContainerInterface $container, $argument)
+    {
+        if ($argumentName = $this->getParameterName($argument)) {
+            if (!$container->hasParameter($argumentName)) {
+                throw new ParameterNotFoundException(sprintf('Undefined parameter "%s"', $argumentName));
+            }
+
+            return $container->getParameter($argumentName);
         }
 
         return false;
