@@ -74,12 +74,12 @@ First, download phar archives:
 After downloading and placing ``*.phar`` into project directory, you need to
 activate ``Symfony2Extension`` in your ``behat.yml``:
 
-  .. code-block:: yaml
+.. code-block:: yaml
 
-      default:
-        # ...
-        extensions:
-          symfony2_extension.phar: ~
+    default:
+      # ...
+       extensions:
+         symfony2_extension.phar: ~
 
 .. note::
 
@@ -130,36 +130,36 @@ Injecting Services
 The extension will automatically convert parameters injected into a context that start with '@' into 
 services:
 
-  .. code-block:: yaml
+.. code-block:: yaml
   
-    default:
-      suites:
-        default:
-            contexts:
-                - FeatureContext:
-                    simpleArg: 'string'
-                    session:   '@session'
-        extensions:
-          Behat\Symfony2Extension: ~
+  default:
+    suites:
+      default:
+          contexts:
+              - FeatureContext:
+                  simpleArg: 'string'
+                  session:   '@session'
+      extensions:
+        Behat\Symfony2Extension: ~
 
 The FeatureContext will then be initialised with the Symfony2 session from the container:
 
-  .. code-block:: php
+.. code-block:: php
   
-    <?php
+ <?php
 
-    namespace FeatureContext;
+ namespace FeatureContext;
 
-    use Behat\Behat\Context\Context;
-    use Symfony\Component\HttpFoundation\Session\Session;
+  use Behat\Behat\Context\Context;
+  use Symfony\Component\HttpFoundation\Session\Session;
 
-    class FeatureContext implements Context
-    {
-        public function __construct(Session $session, $simpleArg)
-        {
-            // $session is your Symfony2 @session
-        }
-    }
+  class FeatureContext implements Context
+  {
+      public function __construct(Session $session, $simpleArg)
+      {
+          // $session is your Symfony2 @session
+      }
+  }
     
     
 Initialize Bundle Suite
