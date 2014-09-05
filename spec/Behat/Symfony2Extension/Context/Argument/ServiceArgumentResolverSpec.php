@@ -18,7 +18,30 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
         $this->beConstructedWith($kernel);
     }
 
-    function it_resolves_arguments_starting_from_at_sign_if_they_point_to_existing_service(
+    function it_resolves_parameters_starting_and_ending_with_percentage_sign_if_they_point_to_parameter(
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container
+    ) {
+        $container->hasParameter('parameter')->willReturn(true);
+        $container->getParameter('parameter')->willReturn('param_value');
+
+        $this->resolveArguments($reflectionClass, array('parameter' => '%parameter%'))->shouldReturn(
+            array('parameter' => 'param_value')
+        );
+    }
+
+    function it_throws_an_exception_for_undefined_parameters(
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container
+    ) {
+        $container->hasParameter('parameter')->willReturn(false);
+        $container->getParameter(Argument::any())->shouldNotBeCalled();
+
+        $this->shouldThrow('Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException')
+            ->duringResolveArguments($reflectionClass, array('parameter' => '%parameter%'));
+    }
+
+    function it_resolves_arguments_starting_with_at_sign_if_they_point_to_existing_service(
         ReflectionClass $reflectionClass,
         ContainerInterface $container
     ) {
@@ -30,26 +53,40 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
         );
     }
 
-    function it_does_not_resolve_arguments_starting_from_at_sign_if_they_do_not_point_to_existing_service(
+    function it_throws_an_exception_for_undefined_services(
         ReflectionClass $reflectionClass,
         ContainerInterface $container
     ) {
         $container->has('service')->willReturn(false);
         $container->get(Argument::any())->shouldNotBeCalled();
 
-        $this->resolveArguments($reflectionClass, array('service' => '@service'))->shouldReturn(
-            array('service' => '@service')
-        );
+        $this->shouldThrow('Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException')
+            ->duringResolveArguments($reflectionClass, array('service' => '@service'));
     }
 
-    function it_does_not_resolve_arguments_not_starting_from_at_sign(
+    function it_does_not_resolve_plain_string_arguments(
         ReflectionClass $reflectionClass,
         ContainerInterface $container
     ) {
         $container->get(Argument::any())->shouldNotBeCalled();
+        $container->getParameter(Argument::any())->shouldNotBeCalled();
 
         $this->resolveArguments($reflectionClass, array('service' => 'my_service'))->shouldReturn(
             array('service' => 'my_service')
+        );
+    }
+
+    function it_unescapes_string_arguments_that_start_with_double_at_sign(ReflectionClass $reflectionClass)
+    {
+        $this->resolveArguments($reflectionClass, array('service' => '@@service'))->shouldReturn(
+            array('service' => '@service')
+        );
+    }
+
+    function it_unescapes_string_arguments_with_escaped_percentages(ReflectionClass $reflectionClass)
+    {
+        $this->resolveArguments($reflectionClass, array('parameter' => 'percent%%percent'))->shouldReturn(
+            array('parameter' => 'percent%percent')
         );
     }
 }
