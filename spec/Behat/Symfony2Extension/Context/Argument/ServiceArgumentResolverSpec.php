@@ -30,17 +30,6 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
         );
     }
 
-    function it_throws_an_exception_for_undefined_parameters(
-        ReflectionClass $reflectionClass,
-        ContainerInterface $container
-    ) {
-        $container->hasParameter('parameter')->willReturn(false);
-        $container->getParameter(Argument::any())->shouldNotBeCalled();
-
-        $this->shouldThrow('Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException')
-            ->duringResolveArguments($reflectionClass, array('parameter' => '%parameter%'));
-    }
-
     function it_resolves_arguments_starting_with_at_sign_if_they_point_to_existing_service(
         ReflectionClass $reflectionClass,
         ContainerInterface $container
@@ -51,17 +40,6 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
         $this->resolveArguments($reflectionClass, array('service' => '@service'))->shouldReturn(
             array('service' => $service)
         );
-    }
-
-    function it_throws_an_exception_for_undefined_services(
-        ReflectionClass $reflectionClass,
-        ContainerInterface $container
-    ) {
-        $container->has('service')->willReturn(false);
-        $container->get(Argument::any())->shouldNotBeCalled();
-
-        $this->shouldThrow('Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException')
-            ->duringResolveArguments($reflectionClass, array('service' => '@service'));
     }
 
     function it_does_not_resolve_plain_string_arguments(

@@ -114,10 +114,6 @@ final class ServiceArgumentResolver implements ArgumentResolver
     private function getParameter(ContainerInterface $container, $argument)
     {
         if ($argumentName = $this->getParameterName($argument)) {
-            if (!$container->hasParameter($argumentName)) {
-                throw new ParameterNotFoundException(sprintf('Undefined parameter "%s"', $argumentName));
-            }
-
             return $container->getParameter($argumentName);
         }
 
