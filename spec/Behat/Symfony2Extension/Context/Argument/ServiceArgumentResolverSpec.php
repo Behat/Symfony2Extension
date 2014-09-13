@@ -22,7 +22,6 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
         ReflectionClass $reflectionClass,
         ContainerInterface $container
     ) {
-        $container->hasParameter('parameter')->willReturn(true);
         $container->getParameter('parameter')->willReturn('param_value');
 
         $this->resolveArguments($reflectionClass, array('parameter' => '%parameter%'))->shouldReturn(
@@ -34,7 +33,6 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
         ReflectionClass $reflectionClass,
         ContainerInterface $container
     ) {
-        $container->has('service')->willReturn(true);
         $container->get('service')->willReturn($service = new stdClass());
 
         $this->resolveArguments($reflectionClass, array('service' => '@service'))->shouldReturn(

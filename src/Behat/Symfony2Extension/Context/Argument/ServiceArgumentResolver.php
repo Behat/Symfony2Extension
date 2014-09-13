@@ -82,10 +82,6 @@ final class ServiceArgumentResolver implements ArgumentResolver
     private function getService(ContainerInterface $container, $argument)
     {
         if ($serviceName = $this->getServiceName($argument)) {
-            if (!$container->has($serviceName)) {
-                throw new ServiceNotFoundException(sprintf('Undefined service "%s"', $serviceName));
-            }
-
             return $container->get($serviceName);
         }
 
