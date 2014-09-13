@@ -76,7 +76,7 @@ final class ServiceArgumentResolver implements ArgumentResolver
     /**
      * @param ContainerInterface $container
      * @param string $argument
-     * @return object|false
+     * @return object|null
      * @throws ServiceNotFoundException
      */
     private function getService(ContainerInterface $container, $argument)
@@ -89,12 +89,12 @@ final class ServiceArgumentResolver implements ArgumentResolver
             return $container->get($serviceName);
         }
 
-        return false;
+        return null;
     }
 
     /**
      * @param string $argument
-     * @return string|false
+     * @return string|null
      */
     private function getServiceName($argument)
     {
@@ -102,13 +102,13 @@ final class ServiceArgumentResolver implements ArgumentResolver
             return $matches[1];
         }
 
-        return false;
+        return null;
     }
 
     /**
      * @param ContainerInterface $container
      * @param string $argument
-     * @return bool
+     * @return string|null
      * @throws ParameterNotFoundException
      */
     private function getParameter(ContainerInterface $container, $argument)
@@ -121,12 +121,12 @@ final class ServiceArgumentResolver implements ArgumentResolver
             return $container->getParameter($argumentName);
         }
 
-        return false;
+        return null;
     }
 
     /**
      * @param string $argument
-     * @return string|false
+     * @return string|null
      */
     private function getParameterName($argument)
     {
@@ -134,7 +134,7 @@ final class ServiceArgumentResolver implements ArgumentResolver
             return $matches[1];
         }
 
-        return false;
+        return null;
     }
 
     /**
