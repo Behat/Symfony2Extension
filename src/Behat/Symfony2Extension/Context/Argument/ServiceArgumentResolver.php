@@ -94,7 +94,7 @@ final class ServiceArgumentResolver implements ArgumentResolver
      */
     private function getServiceName($argument)
     {
-        if (preg_match('/^@([^@].*)$/', $argument, $matches)) {
+        if (preg_match('/^@[?]?([^@].*)$/', $argument, $matches)) {
             return $matches[1];
         }
 

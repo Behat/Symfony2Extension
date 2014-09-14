@@ -40,6 +40,17 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
         );
     }
 
+    function it_resolves_arguments_starting_with_at_sign_and_optional_dependency(
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container
+    ){
+        $container->get('service')->willReturn($service = new stdClass());
+
+        $this->resolveArguments($reflectionClass, array('service' => '@?service'))->shouldReturn(
+            array('service' => $service)
+        );
+    }
+
     function it_does_not_resolve_plain_string_arguments(
         ReflectionClass $reflectionClass,
         ContainerInterface $container
