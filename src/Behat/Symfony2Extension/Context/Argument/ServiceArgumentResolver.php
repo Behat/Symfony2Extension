@@ -66,11 +66,9 @@ final class ServiceArgumentResolver implements ArgumentResolver
             return $service;
         }
 
-        if ($parameter = $this->getParameter($container, $argument)) {
-            return $parameter;
-        }
+        $withParameters = $this->replaceParameters($container, $argument);
 
-        return $this->escape($argument);
+        return $this->escape($withParameters);
     }
 
     /**
@@ -104,29 +102,13 @@ final class ServiceArgumentResolver implements ArgumentResolver
     /**
      * @param ContainerInterface $container
      * @param string $argument
-     * @return string|null
-     * @throws ParameterNotFoundException
+     * @return string
      */
-    private function getParameter(ContainerInterface $container, $argument)
+    private function replaceParameters(ContainerInterface $container, $argument)
     {
-        if ($argumentName = $this->getParameterName($argument)) {
-            return $container->getParameter($argumentName);
-        }
-
-        return null;
-    }
-
-    /**
-     * @param string $argument
-     * @return string|null
-     */
-    private function getParameterName($argument)
-    {
-        if (preg_match('/^%(.*)%$/', $argument, $matches)) {
-            return $matches[1];
-        }
-
-        return null;
+        return preg_replace_callback('/(?<!%)%([^%]+)%(?!%)/', function($matches) use ($container) {
+            return $container->getParameter($matches[1]);
+        }, $argument);
     }
 
     /**
