@@ -59,6 +59,13 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
         );
     }
 
+    function it_does_not_escape_other_at_signs_in_arguments(ReflectionClass $reflectionClass)
+    {
+        $this->resolveArguments($reflectionClass, array('service' => 'service@@'))->shouldReturn(
+            array('service' => 'service@@')
+        );
+    }
+
     function it_unescapes_string_arguments_with_escaped_percentages(ReflectionClass $reflectionClass)
     {
         $this->resolveArguments($reflectionClass, array('parameter' => 'percent%%percent'))->shouldReturn(

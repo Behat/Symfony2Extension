@@ -135,6 +135,8 @@ final class ServiceArgumentResolver implements ArgumentResolver
      */
     private function escape($argument)
     {
-        return str_replace(array('@@', '%%'), array('@', '%'), $argument);
+        $argument = preg_replace('/^@/', '', $argument);
+
+        return str_replace('%%', '%', $argument);
     }
 }
