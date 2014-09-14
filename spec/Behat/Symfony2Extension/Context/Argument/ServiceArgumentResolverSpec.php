@@ -18,11 +18,63 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
         $this->beConstructedWith($kernel);
     }
 
-    function it_resolves_arguments_starting_from_at_sign_if_they_point_to_existing_service(
+    function it_resolves_parameters_starting_and_ending_with_percentage_sign_if_they_point_to_parameter(
         ReflectionClass $reflectionClass,
         ContainerInterface $container
     ) {
-        $container->has('service')->willReturn(true);
+        $container->getParameter('parameter')->willReturn('param_value');
+
+        $this->resolveArguments($reflectionClass, array('parameter' => '%parameter%'))->shouldReturn(
+            array('parameter' => 'param_value')
+        );
+    }
+
+    function it_resolves_parameters_inside_strings(
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container
+    ) {
+        $container->getParameter('parameter')->willReturn('param_value');
+
+        $this->resolveArguments($reflectionClass, array('parameter' => 'my_%parameter%_is_here'))->shouldReturn(
+            array('parameter' => 'my_param_value_is_here')
+        );
+    }
+
+    function it_can_handle_multiple_parameters(
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container
+    ) {
+        $container->getParameter('parameter1')->willReturn('param_value_1');
+        $container->getParameter('parameter2')->willReturn('param_value_2');
+
+        $this->resolveArguments($reflectionClass, array('parameter' => 'first_%parameter1%_then_%parameter2%'))->shouldReturn(
+            array('parameter' => 'first_param_value_1_then_param_value_2')
+        );
+    }
+
+    function it_unescapes_string_arguments_with_escaped_percentages(ReflectionClass $reflectionClass)
+    {
+        $this->resolveArguments($reflectionClass, array('parameter' => 'percent%%percent'))->shouldReturn(
+            array('parameter' => 'percent%percent')
+        );
+    }
+
+    function it_does_not_match_arguments_that_are_escaped(
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container
+    ) {
+        $container->getParameter('parameter')->willReturn('param_value');
+
+        $this->resolveArguments($reflectionClass, array('parameter' => '%%parameter%%'))->shouldReturn(
+            array('parameter' => '%parameter%')
+        );
+    }
+
+
+    function it_resolves_arguments_starting_with_at_sign_if_they_point_to_existing_service(
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container
+    ) {
         $container->get('service')->willReturn($service = new stdClass());
 
         $this->resolveArguments($reflectionClass, array('service' => '@service'))->shouldReturn(
@@ -30,26 +82,40 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
         );
     }
 
-    function it_does_not_resolve_arguments_starting_from_at_sign_if_they_do_not_point_to_existing_service(
+    function it_resolves_arguments_starting_with_at_sign_and_optional_dependency(
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container
+    ){
+        $container->get('service')->willReturn($service = new stdClass());
+
+        $this->resolveArguments($reflectionClass, array('service' => '@?service'))->shouldReturn(
+            array('service' => $service)
+        );
+    }
+
+    function it_does_not_resolve_plain_string_arguments(
         ReflectionClass $reflectionClass,
         ContainerInterface $container
     ) {
-        $container->has('service')->willReturn(false);
         $container->get(Argument::any())->shouldNotBeCalled();
+        $container->getParameter(Argument::any())->shouldNotBeCalled();
 
-        $this->resolveArguments($reflectionClass, array('service' => '@service'))->shouldReturn(
+        $this->resolveArguments($reflectionClass, array('service' => 'my_service'))->shouldReturn(
+            array('service' => 'my_service')
+        );
+    }
+
+    function it_unescapes_string_arguments_that_start_with_double_at_sign(ReflectionClass $reflectionClass)
+    {
+        $this->resolveArguments($reflectionClass, array('service' => '@@service'))->shouldReturn(
             array('service' => '@service')
         );
     }
 
-    function it_does_not_resolve_arguments_not_starting_from_at_sign(
-        ReflectionClass $reflectionClass,
-        ContainerInterface $container
-    ) {
-        $container->get(Argument::any())->shouldNotBeCalled();
-
-        $this->resolveArguments($reflectionClass, array('service' => 'my_service'))->shouldReturn(
-            array('service' => 'my_service')
+    function it_does_not_escape_other_at_signs_in_arguments(ReflectionClass $reflectionClass)
+    {
+        $this->resolveArguments($reflectionClass, array('service' => 'service@@'))->shouldReturn(
+            array('service' => 'service@@')
         );
     }
 }

@@ -13,6 +13,9 @@ namespace Behat\Symfony2Extension\Context\Argument;
 
 use Behat\Behat\Context\Argument\ArgumentResolver;
 use ReflectionClass;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -51,20 +54,71 @@ final class ServiceArgumentResolver implements ArgumentResolver
     /**
      * Resolves single argument using container.
      *
-     * @param mixed $argument
+     * @param string $argument
      *
-     * @return object
+     * @return mixed
      */
     private function resolveArgument($argument)
     {
         $container = $this->kernel->getContainer();
 
-        if (!is_string($argument) || '@' != $argument[0]) {
-            return $argument;
+        if ($service = $this->getService($container, $argument)) {
+            return $service;
         }
 
-        $serviceId = mb_substr($argument, 1, mb_strlen($argument, 'utf8'), 'utf8');
+        $withParameters = $this->replaceParameters($container, $argument);
 
-        return $container->has($serviceId) ? $container->get($serviceId) : $argument;
+        return $this->escape($withParameters);
+    }
+
+    /**
+     * @param ContainerInterface $container
+     * @param string $argument
+     * @return object|null
+     * @throws ServiceNotFoundException
+     */
+    private function getService(ContainerInterface $container, $argument)
+    {
+        if ($serviceName = $this->getServiceName($argument)) {
+            return $container->get($serviceName);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $argument
+     * @return string|null
+     */
+    private function getServiceName($argument)
+    {
+        if (preg_match('/^@[?]?([^@].*)$/', $argument, $matches)) {
+            return $matches[1];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     * @param string $argument
+     * @return string
+     */
+    private function replaceParameters(ContainerInterface $container, $argument)
+    {
+        return preg_replace_callback('/(?<!%)%([^%]+)%(?!%)/', function($matches) use ($container) {
+            return $container->getParameter($matches[1]);
+        }, $argument);
+    }
+
+    /**
+     * @param string $argument
+     * @return string
+     */
+    private function escape($argument)
+    {
+        $argument = preg_replace('/^@/', '', $argument);
+
+        return str_replace('%%', '%', $argument);
     }
 }
