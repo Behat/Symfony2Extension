@@ -19,7 +19,7 @@ between Behat 3.0+ and Symfony2+
 
 ## Documentation
 
-[Official documentation](http://extensions.behat.org/symfony2/index.html)
+[Official documentation](https://github.com/Behat/Symfony2Extension/blob/master/doc/index.rst)
 
 ## Copyright
 
