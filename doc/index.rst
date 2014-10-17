@@ -102,7 +102,7 @@ Usage
 
 After installing the extension, there are 3 usage options available:
 
-1 Implement Context as normal and inject services to the Context's constructor configuration (see below)
+1. Implement Context as usual and inject services to the Context's constructor configuration (see below)
 
 2. If you're using PHP 5.4+, you can simply use the
    ``Behat\Symfony2Extension\Context\KernelDictionary`` trait inside your
@@ -127,8 +127,8 @@ After the context constructor, but before any instance hook or definition call.
 Injecting Services
 ------------------
 
-The extension will automatically convert parameters injected into a context that start with '@' into 
-services:
+The extension will automatically convert parameters injected into a context that
+start with '@' into services:
 
 .. code-block:: yaml
   
@@ -142,7 +142,7 @@ services:
       extensions:
         Behat\Symfony2Extension: ~
 
-The FeatureContext will then be initialised with the Symfony2 session from the container:
+The FeatureContext will then be initialized with the Symfony2 session from the container:
 
 .. code-block:: php
   
