@@ -256,6 +256,6 @@ configure Symfony2 kernel inside Behat to fulfil all your needs.
 * ``context`` - specifies options, used to guess the context class:
 
   - ``path_suffix`` - suffix from bundle directory for features. Defaults to
-    ``Features\Context\FeatureContext``.
-  - ``class_suffix`` - suffix from bundle classname for context class. Defaults to
     ``Features``.
+  - ``class_suffix`` - suffix from bundle classname for context class. Defaults to
+    ``Features\Context\FeatureContext``.
