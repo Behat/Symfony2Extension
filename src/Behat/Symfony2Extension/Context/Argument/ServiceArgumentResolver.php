@@ -60,6 +60,10 @@ final class ServiceArgumentResolver implements ArgumentResolver
      */
     private function resolveArgument($argument)
     {
+        if (!is_string($argument)) {
+            return $argument;
+        }
+
         $container = $this->kernel->getContainer();
 
         if ($service = $this->getService($container, $argument)) {

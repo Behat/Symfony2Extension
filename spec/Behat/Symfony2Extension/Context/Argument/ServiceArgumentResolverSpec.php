@@ -118,4 +118,11 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
             array('service' => 'service@@')
         );
     }
+
+    function it_does_not_try_and_parse_arrays(ReflectionClass $reflectionClass)
+    {
+        $this->resolveArguments($reflectionClass, array('array' => array(1,2,3)))->shouldReturn(
+            array('array' => array(1,2,3))
+        );
+    }
 }
