@@ -19,31 +19,13 @@ This extension requires:
 
 * Behat 3.0+
 
+The recommended installation method is through `Composer <http://getcomposer.org>`_:
 
-Through Composer
-~~~~~~~~~~~~~~~~
+.. code-block:: bash
 
-The easiest way to keep your suite updated is to use `Composer <http://getcomposer.org>`_:
+    $ composer require behat/symfony2-extension '~2.0'
 
-1. Define dependencies in your `composer.json`:
-
-   .. code-block:: js
-
-       {
-           "require": {
-               ...
-
-               "behat/symfony2-extension": "~2.0@dev"
-           }
-       }
-
-2. Install/update your vendors:
-
-   .. code-block:: bash
-
-       $ composer update behat/symfony2-extension
-
-3. Activate extension in your ``behat.yml``:
+You can then activate the extension in your ``behat.yml``:
 
    .. code-block:: yaml
 
@@ -52,7 +34,7 @@ The easiest way to keep your suite updated is to use `Composer <http://getcompos
            extensions:
                Behat\Symfony2Extension: ~
 
-4. Register a suite for your bundle:
+The last (optional) step is to register a suite for your bundle:
 
    .. code-block:: yaml
 
@@ -62,40 +44,10 @@ The easiest way to keep your suite updated is to use `Composer <http://getcompos
                    type: symfony_bundle
                    bundle: AcmeDemoBundle
 
-Through PHAR
-~~~~~~~~~~~~
-
-First, download phar archives:
-
-* `behat.phar <http://behat.org/downloads/behat.phar>`_ - Behat itself
-* `symfony2_extension.phar <http://behat.org/downloads/symfony2_extension.phar>`_
-  - integration extension
-
-After downloading and placing ``*.phar`` into project directory, you need to
-activate ``Symfony2Extension`` in your ``behat.yml``:
-
-.. code-block:: yaml
-
-    default:
-      # ...
-       extensions:
-         symfony2_extension.phar: ~
-
 .. note::
 
-    Most of the examples in this document show behat being run via ``php behat.phar``.
-    However, if you install via Composer, you have the option of running via ``bin/behat``
-    instead.  To make this possible, add the following into your `composer.json` before
-    installing or updating vendors:
-
-    .. code-block:: js
-
-        "config": {
-            "bin-dir": "bin/"
-        },
-
-    This will make the ``behat`` command available from the ``bin`` directory.  If you run
-    behat this way, you do not need to download ``behat.phar``
+    Most of the examples in this document show behat being run via ``vendor/bin/behat``,
+    which is the default location when installing it through Composer.
 
 Usage
 -----
@@ -123,7 +75,7 @@ After the context constructor, but before any instance hook or definition call.
 
     The application kernel will be automatically rebooted between scenarios, so your
     scenarios would have almost absolutely isolated state.
-    
+
 Injecting Services
 ------------------
 
@@ -131,7 +83,7 @@ The extension will automatically convert parameters injected into a context that
 start with '@' into services:
 
 .. code-block:: yaml
-  
+
   default:
     suites:
       default:
@@ -145,7 +97,7 @@ start with '@' into services:
 The FeatureContext will then be initialized with the Symfony2 session from the container:
 
 .. code-block:: php
-  
+
  <?php
 
  namespace FeatureContext;
@@ -160,8 +112,8 @@ The FeatureContext will then be initialized with the Symfony2 session from the c
           // $session is your Symfony2 @session
       }
   }
-    
-    
+
+
 Initialize Bundle Suite
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -169,7 +121,7 @@ In order to start with your feature suite for specific bundle, execute:
 
 .. code-block:: bash
 
-    $ php behat.phar --init --suite=my_suite
+    $ vendor/bin/behat --init --suite=my_suite
 
 Run Bundle Suite
 ~~~~~~~~~~~~~~~~
@@ -178,21 +130,21 @@ In order to run the feature suite for a specific bundle, execute:
 
 .. code-block:: bash
 
-    $ php behat.phar -s my_suite
+    $ vendor/bin/behat -s my_suite
 
 You can also use the bundle name to limit the features being run when using the default
 convention for features files (putting them in the ``Features`` folder of the bundle):
 
 .. code-block:: bash
 
-    $ php behat.phar "@AcmeDemoBundle"
+    $ vendor/bin/behat "@AcmeDemoBundle"
 
 This can also be used to run specific features in the bundle:
 
 .. code-block:: bash
 
-    $ php behat.phar "@AcmeDemoBundle/registration.feature"
-    $ php behat.phar src/Acme/DemoBundle/Features/registration.feature
+    $ vendor/bin/behat "@AcmeDemoBundle/registration.feature"
+    $ vendor/bin/behat src/Acme/DemoBundle/Features/registration.feature
 
 ``symfony2`` Mink Session
 ~~~~~~~~~~~~~~~~~~~~~~~~~
