@@ -23,107 +23,26 @@ This extension requires:
 
 * Behat 2.4+
 
-Through PHAR
-~~~~~~~~~~~~
+The recommended installation method is through `Composer <http://getcomposer.org>`_:
 
-First, download phar archives:
+.. code-block:: bash
 
-* `behat.phar <http://behat.org/downloads/behat.phar>`_ - Behat itself
-* `symfony2_extension.phar <http://behat.org/downloads/symfony2_extension.phar>`_
-  - integration extension
+    $ composer require behat/symfony2-extension '~1.1'
 
-After downloading and placing ``*.phar`` into project directory, you need to
-activate ``Symfony2Extension`` in your ``behat.yml``:
+You can then activate the extension in your ``behat.yml``:
 
-    .. code-block:: yaml
+.. code-block:: yaml
 
-        default:
-          # ...
-          extensions:
-            symfony2_extension.phar: ~
-
-
-Through Composer
-~~~~~~~~~~~~~~~~
-
-The easiest way to keep your suite updated is to use `Composer <http://getcomposer.org>`_:
-
-1. Define dependencies in your `composer.json`:
-
-    .. code-block:: js
-
-        {
-            "require": {
-                ...
-
-                "behat/symfony2-extension": "*"
-            }
-        }
-
-2. Install/update your vendors:
-
-    .. code-block:: bash
-
-        $ curl http://getcomposer.org/installer | php
-        $ php composer.phar install
-
-3. Activate extension in your ``behat.yml``:
-
-    .. code-block:: yaml
-
-        default:
-            # ...
-            extensions:
-                Behat\Symfony2Extension\Extension: ~
+    default:
+        # ...
+        extensions:
+            Behat\Symfony2Extension\Extension: ~
 
 .. note::
 
-    If you're using Symfony2.1 with Composer, there could be a conflict of
-    Symfony2 with Behat, that will prevent Symfony2 from loading Doctrine
-    or Validation annotations. This is not a problem with the latest version
-    of Composer, but if you are running an older version and see errors,
-    just update your ``app/autoload.php``:
+    Most of the examples in this document show behat being run via ``vendor/bin/behat``,
+    which is the default location when installing it through Composer.
 
-    .. code-block:: php
-
-        <?php
-
-        use Doctrine\Common\Annotations\AnnotationRegistry;
-
-        if (!class_exists('Composer\\Autoload\\ClassLoader', false)) {
-            $loader = require __DIR__.'/../vendor/autoload.php';
-        } else {
-            $loader = new Composer\Autoload\ClassLoader();
-            $loader->register();
-        }
-
-        // intl
-        if (!function_exists('intl_get_error_code')) {
-            require_once __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs/functions.php';
-
-            $loader->add('', __DIR__.'/../vendor/symfony/symfony/src/Symfony/Component/Locale/Resources/stubs');
-        }
-
-        AnnotationRegistry::registerLoader('class_exists');
-
-        return $loader;
-
-.. note::
-
-    Most of the examples in this document show behat being run via ``php behat.phar``.
-    However, if you install via Composer, you have the option of running via ``/bin/behat``
-    instead.  To make this possible, add the following into your `composer.json` before
-    installing or updating vendors:
-    
-    .. code-block:: js
-    
-        "config": {
-            "bin-dir": "bin/"
-        },
-        
-    This will make the ``behat`` command available from the ``/bin`` directory.  If you run
-    behat this way, you do not need to download ``behat.phar``.
-    
 Usage
 -----
 
@@ -156,7 +75,7 @@ In order to start with your feature suite for specific bundle, execute:
 
 .. code-block:: bash
 
-    $ php behat.phar --init "@YourBundleName"
+    $ vendor/bin/behat --init "@YourBundleName"
 
 .. note::
 
@@ -164,7 +83,7 @@ In order to start with your feature suite for specific bundle, execute:
 
     .. code-block:: bash
 
-        $ php behat.phar --init src/YourCompany/YourBundleName
+        $ vendor/bin/behat --init src/YourCompany/YourBundleName
 
 Run Bundle Suite
 ~~~~~~~~~~~~~~~~
@@ -173,7 +92,7 @@ In order to run the feature suite for a specific bundle, execute:
 
 .. code-block:: bash
 
-    $ php behat.phar "@YourBundleName"
+    $ vendor/bin/behat "@YourBundleName"
 
 .. note::
 
@@ -182,11 +101,11 @@ In order to run the feature suite for a specific bundle, execute:
 
     .. code-block:: bash
 
-        $ php behat.phar "@YourBundleName/registration.feature"
-        $ php behat.phar src/YourCompany/YourBundleName/Features/registration.feature
+        $ vendor/bin/behat "@YourBundleName/registration.feature"
+        $ vendor/bin/behat src/YourCompany/YourBundleName/Features/registration.feature
 
-If you regularly run the specific bundle suite, it might be useful to
-use Behat profile for that:
+If you regularly run the specific bundle suite, it might be useful to use
+Behat profiles for that:
 
 .. code-block:: yaml
 
@@ -206,14 +125,14 @@ Now if you need to run the ``UserBundle`` feature suite, you could just execute:
 
 .. code-block:: bash
 
-    $ php behat.phar -p=user
+    $ vendor/bin/behat -p=user
 
 Notice that in this case, you also can avoid bundlename specification for a single
 feature run:
 
 .. code-block:: bash
 
-    $ php behat.phar -p=user registration.feature
+    $ vendor/bin/behat -p=user registration.feature
 
 This will run ``registration.feature`` tests inside ``UserBundle``.
 
@@ -221,7 +140,7 @@ This will run ``registration.feature`` tests inside ``UserBundle``.
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Symfony2Extension comes bundled with a custom ``symfony2`` session (driver) for Mink,
-which is disabled by default. In order to use it you should download/install/activate 
+which is disabled by default. In order to use it you should download/install/activate
 MinkExtension and BrowserKit driver for Mink:
 
 .. code-block:: js
@@ -230,9 +149,9 @@ MinkExtension and BrowserKit driver for Mink:
         "require": {
             ...
 
-            "behat/symfony2-extension":      "*",
-            "behat/mink-extension":          "*",
-            "behat/mink-browserkit-driver":  "*"
+            "behat/symfony2-extension":      "~1.1",
+            "behat/mink-extension":          "~1.3",
+            "behat/mink-browserkit-driver":  "~1.1"
         }
     }
 
@@ -243,24 +162,12 @@ Now just enable ``mink_driver`` in Symfony2Extension:
     default:
         # ...
         extensions:
-             symfony2_extension.phar:
+             Behat\Symfony2Extension\Extension:
                  mink_driver: true
-             mink_extension.phar: ~
+             Behat\MinkExtension\Extension: ~
 
 Also, you can make the ``symfony2`` session the default one by setting ``default_session``
 option in MinkExtension:
-
-.. code-block:: yaml
-
-    default:
-        # ...
-        extensions:
-            symfony2_extension.phar:
-                mink_driver: true
-            mink_extension.phar:
-                default_session: 'symfony2'
-                
-If you installed via Composer, your ``behat.yml`` would instead look something like the below:
 
 .. code-block:: yaml
 
@@ -305,15 +212,15 @@ a proper ``features`` path and ``context.class`` in your ``behat.yml``:
     Here's what's happening:
 
     1. Behat tries to check existence of FeatureContext class (default) with
-       `PredefinedClassGuesser <https://github.com/Behat/Behat/blob/master/src/Behat/Behat/Context/ClassGuesser/PredefinedClassGuesser.php>`_
+       `PredefinedClassGuesser <https://github.com/Behat/Behat/blob/2.5/src/Behat/Behat/Context/ClassGuesser/PredefinedClassGuesser.php>`_
        and obviously can't.
-    2. Behat `tries other guessers <https://github.com/Behat/Behat/blob/master/src/Behat/Behat/Context/ContextDispatcher.php#L62-66>`_
+    2. Behat `tries other guessers <https://github.com/Behat/Behat/blob/2.5/src/Behat/Behat/Context/ContextDispatcher.php#L62-66>`_
        with lower priorities.
     3. `There is one
-       <https://github.com/Behat/MinkExtension/blob/master/src/Behat/MinkExtension/Context/ClassGuesser/MinkContextClassGuesser.php#L20>`_
+       <https://github.com/Behat/MinkExtension/blob/v1.3.3/src/Behat/MinkExtension/Context/ClassGuesser/MinkContextClassGuesser.php#L20>`_
        defined by ``MinkExtension``, which gets matched and tells Behat to use
        ``Behat\MinkExtension\Context\MinkContext`` as main context class.
-        
+
     So, your ``FeatureContext`` isn't used, and ``Behat\MinkExtension\Context\MinkContext`` is
     used instead.
 
