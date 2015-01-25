@@ -14,7 +14,7 @@ Symfony2Extension provides:
 
 Symfony2Extension is here to replace the obsolete BehatBundle. To migrate
 your Behat 2.3 + Symfony2 feature suite,
-`read the migration guide </symfony2/migrating_from_2.3_to_2.4.html>`_.
+:doc:`read the migration guide </migrating_from_2.3_to_2.4.html>`.
 
 Installation
 ------------

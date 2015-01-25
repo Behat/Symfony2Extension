@@ -14,10 +14,10 @@ for Symfony users introduced in Behat 2.4.
 
 Since Behat got its own extension system there's simply no need for bundles
 anymore. So instead of the ``BehatBundle`` you'll need to install the
-`Symfony2Extension <http://extensions.behat.org/symfony2/>`_.
-``MinkBundle`` was replaced by the `MinkExtension <http://extensions.behat.org/mink/>`_
-and several drivers (like `MinkSeleniumDriver <https://github.com/Behat/MinkSeleniumDriver>`_,
-`MinkBrowserkitDriver <https://github.com/Behat/MinkBrowserkitDriver>`_).
+`Symfony2Extension <https://github.com/Behat/Symfony2Extension/>`_.
+``MinkBundle`` was replaced by the `MinkExtension <https://github.com/Behat/MinkExtension/>`_
+and several drivers (like `MinkSeleniumDriver <https://github.com/minkphp/MinkSeleniumDriver>`_,
+`MinkBrowserkitDriver <https://github.com/minkphp/MinkBrowserkitDriver>`_).
 
 Here's an example ``composer.json`` snippet taken from a Symfony project using
 both ``selenium2`` and ``browserkit`` drivers:
@@ -26,8 +26,8 @@ both ``selenium2`` and ``browserkit`` drivers:
 
     {
         "require": {
-            "behat/behat":  "2.4.*@stable",
-            "behat/mink":   "1.4.*@stable",
+            "behat/behat":  "~2.4",
+            "behat/mink":   "~1.4",
 
             "behat/symfony2-extension":      "*",
             "behat/mink-extension":          "*",
@@ -158,9 +158,9 @@ Accessing Mink session
 
 It's possible to inject Mink into the context just like it's possible with the
 Symfony kernel. All you need to do is to implement the
-`MinkAwareInterface <https://github.com/Behat/MinkExtension/blob/master/src/Behat/MinkExtension/Context/MinkAwareInterface.php>`_.
+`MinkAwareInterface <https://github.com/Behat/MinkExtension/blob/1.3/src/Behat/MinkExtension/Context/MinkAwareInterface.php>`_.
 
-Alternatively you can extend the `RawMinkContext <https://github.com/Behat/MinkExtension/blob/master/src/Behat/MinkExtension/Context/RawMinkContext.php>`_.
+Alternatively you can extend the `RawMinkContext <https://github.com/Behat/MinkExtension/blob/1.3/src/Behat/MinkExtension/Context/RawMinkContext.php>`_.
 It has an additional benefit of gaining access to several handy methods
 (like ``getSession()``, ``assertSession()``, ``getMinkParameter()``).
 
@@ -177,7 +177,7 @@ It has an additional benefit of gaining access to several handy methods
          */
         public function iGoToHomepage()
         {
-            $this->getSession()->visit('/');
+            $this->getSession()->visit($this->locatePath('/'));
         }
     }
 
@@ -215,7 +215,7 @@ To use PHPUnit's assertions you'll need to include them first:
     require_once 'PHPUnit/Framework/Assert/Functions.php';
 
 It's good for a start but later you'd probably prefer to use new
-`WebAssert <https://github.com/Behat/Mink/blob/master/src/Behat/Mink/WebAssert.php>`_
+`WebAssert <https://github.com/minkphp/Mink/blob/v1.6.0/src/Behat/Mink/WebAssert.php>`_
 class. Assertions it provides are more suitable for web needs (you should get
 more meaningful error messages).
 
