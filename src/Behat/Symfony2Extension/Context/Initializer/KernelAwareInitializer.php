@@ -82,7 +82,7 @@ final class KernelAwareInitializer implements ContextInitializer, EventSubscribe
     {
         $refl = new \ReflectionObject($context);
         
-        return $this->detectRecursivelyKernelDictionnary($refl);
+        return $this->detectRecursivelyKernelDictionary($refl);
     }
     
     /**
@@ -92,7 +92,7 @@ final class KernelAwareInitializer implements ContextInitializer, EventSubscribe
      * @return boolean
      * @throws \LogicException if the class is not loadable
      */
-    private function detectRecursivelyKernelDictionnary(\ReflectionClass $refl)
+    private function detectRecursivelyKernelDictionary(\ReflectionClass $refl)
     {
         foreach($refl->getTraits() as $trait) {
             //trait KernelDictionnary is detected
@@ -105,7 +105,7 @@ final class KernelAwareInitializer implements ContextInitializer, EventSubscribe
             try {
                 $subclassReflection = new \ReflectionClass($trait->name);
                 
-                return $this->detectRecursivelyKernelTrait($subclassReflection);
+                return $this->detectRecursivelyKernelDictionary($subclassReflection);
             } catch (\ReflectionException $ex) {
                 throw new \LogicException(sprintf("The class '%s' could not be loaded", $trait->name), 0, $ex);
             }
