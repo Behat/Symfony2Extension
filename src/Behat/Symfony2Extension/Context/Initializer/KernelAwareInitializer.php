@@ -75,18 +75,42 @@ final class KernelAwareInitializer implements ContextInitializer, EventSubscribe
      * Checks whether the context uses the KernelDictionary trait.
      *
      * @param Context $context
-     *
+     * @uses detectRecursivelyKernelTrait Description
      * @return boolean
      */
     private function usesKernelDictionary(Context $context)
     {
         $refl = new \ReflectionObject($context);
-        if (method_exists($refl, 'getTraitNames')) {
-            if (in_array('Behat\\Symfony2Extension\\Context\\KernelDictionary', $refl->getTraitNames())) {
+        
+        return $this->detectRecursivelyKernelDictionnary($refl);
+    }
+    
+    /**
+     * Loop through Traits recursively to find the KernelDictionnary trait
+     * 
+     * @param \ReflectionClass $refl
+     * @return boolean
+     * @throws \LogicException if the class is not loadable
+     */
+    private function detectRecursivelyKernelDictionnary(\ReflectionClass $refl)
+    {
+        foreach($refl->getTraits() as $trait) {
+            //trait KernelDictionnary is detected
+            if ($trait->name === 'Behat\\Symfony2Extension\\Context\\KernelDictionary') {
+                
                 return true;
             }
+            
+            //trait is not detected : we loop through subtraits
+            try {
+                $subclassReflection = new \ReflectionClass($trait->name);
+                
+                return $this->detectRecursivelyKernelTrait($subclassReflection);
+            } catch (\ReflectionException $ex) {
+                throw new \LogicException(sprintf("The class '%s' could not be loaded", $trait->name), 0, $ex);
+            }
         }
-
+        
         return false;
     }
 }
