@@ -10,9 +10,11 @@ use Symfony\Component\HttpKernel\KernelInterface;
 class WebContext extends MinkContext implements KernelAwareContext
 {
     private $kernel;
+    private $session;
 
     public function __construct(Session $session, $simpleArg)
     {
+        $this->session = $session;
     }
 
     /**
@@ -24,5 +26,15 @@ class WebContext extends MinkContext implements KernelAwareContext
     public function setKernel(KernelInterface $kernel)
     {
         $this->kernel = $kernel;
+    }
+
+
+    /**
+     * @Given /^I start with a correct session object$/
+     * @Then /^I should have the same instance of session$/
+     */
+    public function iShouldHaveTheSameInstanceOfSession()
+    {
+        \PHPUnit_Framework_Assert::assertSame($this->session, $this->kernel->getContainer()->get('session'));
     }
 }
