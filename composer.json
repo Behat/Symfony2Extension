@@ -24,7 +24,7 @@
 
     "require-dev": {
         "symfony/symfony":               "~2.1",
-        "behat/mink-extension":          "~2.0@dev",
+        "behat/mink-extension":          "~2.0",
         "behat/mink-browserkit-driver":  "~1.0",
         "phpspec/phpspec":               "~2.0",
         "phpunit/phpunit":               "~4.0"
