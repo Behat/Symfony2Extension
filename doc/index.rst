@@ -42,7 +42,7 @@ The last (optional) step is to register a suite for your bundle:
             suites:
                 my_suite:
                     type: symfony_bundle
-                    bundle: AcmeDemoBundle
+                    bundle: AppBundle
 
 .. note::
 
@@ -137,13 +137,13 @@ convention for features files (putting them in the ``Features`` folder of the bu
 
 .. code-block:: bash
 
-    $ vendor/bin/behat "@AcmeDemoBundle"
+    $ vendor/bin/behat "@AppBundle"
 
 This can also be used to run specific features in the bundle:
 
 .. code-block:: bash
 
-    $ vendor/bin/behat "@AcmeDemoBundle/registration.feature"
+    $ vendor/bin/behat "@AppBundle/registration.feature"
     $ vendor/bin/behat src/Acme/DemoBundle/Features/registration.feature
 
 ``symfony2`` Mink Session
