@@ -23,7 +23,7 @@ The recommended installation method is through `Composer <http://getcomposer.org
 
 .. code-block:: bash
 
-    $ composer require behat/symfony2-extension
+    $ composer require --dev behat/symfony2-extension
 
 You can then activate the extension in your ``behat.yml``:
 
@@ -156,7 +156,7 @@ BrowserKit driver for Mink:
 
 .. code-block:: bash
 
-    $ composer require behat/mink-extension behat/mink-browserkit-driver
+    $ composer require --dev behat/mink-extension behat/mink-browserkit-driver
 
 The new Mink driver will be available for usage:
 
