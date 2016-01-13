@@ -20,7 +20,7 @@ default:
             contexts:
                 - Behat\Sf2DemoBundle\Features\Context\WebContext:
                     simpleArg: 'string'
-                    session:   @session
+                    session:   '@session'
             bundle: 'BehatSf2DemoBundle'
             filters:
                 tags: '@web'

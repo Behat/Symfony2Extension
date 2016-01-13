@@ -3,8 +3,7 @@ framework:
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: "%kernel.debug%"
-    form:            true
-    csrf_protection: true
+    form: true
     validation:      { enable_annotations: true }
     default_locale:  en
     trusted_proxies: ~
