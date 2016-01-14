@@ -29,20 +29,20 @@ You can then activate the extension in your ``behat.yml``:
 
    .. code-block:: yaml
 
-       default:
-           # ...
-           extensions:
-               Behat\Symfony2Extension: ~
+        default:
+            # ...
+            extensions:
+                Behat\Symfony2Extension: ~
 
 The last (optional) step is to register a suite for your bundle:
 
    .. code-block:: yaml
 
-       default:
-           suites:
-               my_suite:
-                   type: symfony_bundle
-                   bundle: AcmeDemoBundle
+        default:
+            suites:
+                my_suite:
+                    type: symfony_bundle
+                    bundle: AcmeDemoBundle
 
 .. note::
 
@@ -84,15 +84,15 @@ start with '@' into services:
 
 .. code-block:: yaml
 
-  default:
-    suites:
-      default:
-          contexts:
-              - FeatureContext:
-                  simpleArg: 'string'
-                  session:   '@session'
-      extensions:
-        Behat\Symfony2Extension: ~
+    default:
+        suites:
+            default:
+                contexts:
+                    - FeatureContext:
+                        simpleArg: 'string'
+                        session:   '@session'
+            extensions:
+                Behat\Symfony2Extension: ~
 
 The FeatureContext will then be initialized with the Symfony2 session from the container:
 
