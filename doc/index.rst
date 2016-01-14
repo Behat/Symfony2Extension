@@ -98,20 +98,20 @@ The FeatureContext will then be initialized with the Symfony2 session from the c
 
 .. code-block:: php
 
- <?php
-
- namespace FeatureContext;
-
-  use Behat\Behat\Context\Context;
-  use Symfony\Component\HttpFoundation\Session\Session;
-
-  class FeatureContext implements Context
-  {
-      public function __construct(Session $session, $simpleArg)
-      {
-          // $session is your Symfony2 @session
-      }
-  }
+    <?php
+    
+    namespace FeatureContext;
+    
+    use Behat\Behat\Context\Context;
+    use Symfony\Component\HttpFoundation\Session\Session;
+    
+    class FeatureContext implements Context
+    {
+        public function __construct(Session $session, $simpleArg)
+        {
+            // $session is your Symfony2 @session
+        }
+    }
 
 
 Initialize Bundle Suite
