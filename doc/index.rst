@@ -113,6 +113,27 @@ The FeatureContext will then be initialized with the Symfony2 session from the c
       }
   }
 
+Injecting Parameters
+--------------------
+
+You can also inject parameters of your Symfony application into a context if you escape
+the parameter name.
+
+The following example will inject the :code:`kernel.environment` parameter into the :code:`simpleArg`
+argument of the :code:`FeatureContext` context.
+
+.. code-block:: yaml
+
+  default:
+    suites:
+      default:
+          contexts:
+              - FeatureContext:
+                  simpleArg: '%%kernel.environment%%'
+                  session:   '@session'
+      extensions:
+        Behat\Symfony2Extension: ~
+
 
 Initialize Bundle Suite
 ~~~~~~~~~~~~~~~~~~~~~~~
