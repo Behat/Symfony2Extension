@@ -19,6 +19,7 @@ default:
             type: symfony_bundle
             contexts:
                 - Behat\Sf2DemoBundle\Features\Context\WebContext:
+                    simpleParameter: "%%custom_app%%"
                     simpleArg: 'string'
                     session:   '@session'
             bundle: 'BehatSf2DemoBundle'
