@@ -10,8 +10,6 @@ Symfony2Extension is an integration layer between Behat 3.0+ and Symfony2+ and i
   for your contexts
 * Additional `symfony2` driver for Mink (if `MinkExtension` is installed)
 
-older 1.1.x version for Behat 2.5:
-[![Build Status](https://travis-ci.org/Behat/Symfony2Extension.svg?branch=1.1.x)](https://travis-ci.org/Behat/Symfony2Extension)
 ## Documentation
 
 [Official documentation](doc/index.rst).
