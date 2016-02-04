@@ -11,7 +11,7 @@ class WebContext extends MinkContext implements KernelAwareContext
 {
     private $kernel;
 
-    public function __construct(Session $session, $simpleParameter, $simpleArg)
+    public function __construct(Session $session, $simpleParameter, $simpleArg, array $services, array $params)
     {
     }
 
