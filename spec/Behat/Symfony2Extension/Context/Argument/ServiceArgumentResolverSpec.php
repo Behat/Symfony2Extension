@@ -125,4 +125,16 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
             array('array' => array(1,2,3))
         );
     }
+
+    function it_resolves_arrays_of_strings_starting_with_at_sign(
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container
+    ) {
+        $container->get('service1')->willReturn($service1 = new stdClass());
+        $container->get('service2')->willReturn($service2 = new stdClass());
+
+        $this->resolveArguments($reflectionClass, array('array' => array('@service1', '@service2')))->shouldReturn(
+            array('array' => array($service1, $service2))
+        );
+    }
 }

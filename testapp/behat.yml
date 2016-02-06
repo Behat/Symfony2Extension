@@ -22,6 +22,14 @@ default:
                     simpleParameter: "%%custom_app%%"
                     simpleArg: 'string'
                     session:   '@session'
+                    services:
+                      - '@session'
+                      - '@session.storage.filesystem'
+                    params:
+                      - "%%kernel.root_dir%%"
+                      - "%%kernel.environment%%"
+                      - "%%kernel.debug%%"
+                      - "%%kernel.name%%"
             bundle: 'BehatSf2DemoBundle'
             filters:
                 tags: '@web'
