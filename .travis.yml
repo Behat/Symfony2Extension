@@ -21,10 +21,9 @@ matrix:
     - php: 5.6
       env: SYMFONY_VERSION='2.8.*'
     - php: 7.0
-      env: SYMFONY_VERSION='3.0.*'
-    - php: 7.0
-      env: DEPS=dev
+      env: DEPS=dev SYMFONY_VERSION='3.0.*'
     - php: hhvm
+      env: DEPS=dev SYMFONY_VERSION='3.0.*'
   allow_failures:
     - env: DEPS='dev'
 
