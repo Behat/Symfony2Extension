@@ -25,7 +25,8 @@ matrix:
     - php: hhvm
       env: DEPS=dev SYMFONY_VERSION='3.0.*'
   allow_failures:
-    - env: DEPS='dev'
+    - php: 7.0
+      env: SYMFONY_VERSION='3.0.*'
 
 before_install:
   - composer self-update
