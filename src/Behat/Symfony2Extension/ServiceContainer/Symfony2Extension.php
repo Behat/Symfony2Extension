@@ -15,6 +15,7 @@ use Behat\Behat\Context\ServiceContainer\ContextExtension;
 use Behat\Behat\Gherkin\ServiceContainer\GherkinExtension;
 use Behat\Symfony2Extension\ServiceContainer\Driver\SymfonyFactory;
 use Behat\Testwork\EventDispatcher\ServiceContainer\EventDispatcherExtension;
+use Behat\Testwork\ServiceContainer\Exception\ProcessingException;
 use Behat\Testwork\ServiceContainer\Extension as ExtensionInterface;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
 use Behat\Testwork\Specification\ServiceContainer\SpecificationExtension;
@@ -124,6 +125,10 @@ class Symfony2Extension implements ExtensionInterface
                 require_once($bootstrap);
             } elseif (file_exists($bootstrapPath)) {
                 require_once($bootstrapPath);
+            } else {
+                throw new ProcessingException(
+                    'Could not load bootstrap file. Please check your configuration at "kernel.bootstrap"'
+                );
             }
         }
 
