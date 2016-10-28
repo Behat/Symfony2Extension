@@ -91,8 +91,8 @@ start with '@' into services:
                     - FeatureContext:
                         simpleArg: 'string'
                         session:   '@session'
-            extensions:
-                Behat\Symfony2Extension: ~
+        extensions:
+            Behat\Symfony2Extension: ~
 
 The FeatureContext will then be initialized with the Symfony2 session from the container:
 
@@ -124,15 +124,15 @@ argument of the :code:`FeatureContext` context.
 
 .. code-block:: yaml
 
-  default:
-    suites:
-      default:
-          contexts:
-              - FeatureContext:
-                  simpleArg: '%%kernel.environment%%'
-                  session:   '@session'
-      extensions:
-        Behat\Symfony2Extension: ~
+    default:
+        suites:
+            default:
+                contexts:
+                    - FeatureContext:
+                        simpleArg: '%%kernel.environment%%'
+                        session:   '@session'
+        extensions:
+            Behat\Symfony2Extension: ~
 
 
 Initialize Bundle Suite
