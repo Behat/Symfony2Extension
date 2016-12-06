@@ -50,6 +50,8 @@ trait KernelDictionary
      */
     public function getContainer()
     {
+        $this->kernel->boot();
+        
         return $this->kernel->getContainer();
     }
 }
