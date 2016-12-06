@@ -21,6 +21,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 trait KernelDictionary
 {
+    /**
+     * @var KernelInterface
+     */
     private $kernel;
 
     /**

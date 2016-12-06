@@ -21,10 +21,26 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 final class SymfonySuiteGenerator implements SuiteGenerator
 {
+    /**
+     * @var KernelInterface
+     */
     private $kernel;
+
+    /**
+     * @var string
+     */
     private $pathSuffix;
+
+    /**
+     * @var string
+     */
     private $contextClassSuffix;
 
+    /**
+     * @param KernelInterface $kernel
+     * @param string $pathSuffix
+     * @param string $contextClassSuffix
+     */
     public function __construct(KernelInterface $kernel, $pathSuffix = 'Features', $contextClassSuffix = 'Features\\Context\\FeatureContext')
     {
         $this->kernel = $kernel;
@@ -67,6 +83,11 @@ final class SymfonySuiteGenerator implements SuiteGenerator
         return new SymfonyBundleSuite($suiteName, $bundle, $this->mergeDefaultSettings($bundle, $settings));
     }
 
+    /**
+     * @param BundleInterface $bundle
+     * @param array $settings
+     * @return array
+     */
     private function mergeDefaultSettings(BundleInterface $bundle, array $settings)
     {
         if (empty($settings['contexts'])) {
