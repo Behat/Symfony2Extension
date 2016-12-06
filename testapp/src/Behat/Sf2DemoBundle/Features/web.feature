@@ -12,3 +12,9 @@ Feature: Web definitions
     Given I am on "/"
     When I follow "Orc"
     Then I should see "Hello, orc"
+
+  Scenario: Container services injected into Context classes should be the same as the application for the whole scenario
+    Given I start with a correct session object
+    When I am on "/"
+    And I follow "Orc"
+    Then I should have the same instance of session
