@@ -23,9 +23,22 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
         ContainerInterface $container
     ) {
         $container->getParameter('parameter')->willReturn('param_value');
+        $container->hasParameter('parameter')->willReturn(true);
 
         $this->resolveArguments($reflectionClass, array('parameter' => '%parameter%'))->shouldReturn(
             array('parameter' => 'param_value')
+        );
+    }
+
+    function it_resolves_parameters_starting_and_ending_with_percentage_sign_if_they_point_to_parameter_collection(
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container
+    ) {
+        $container->getParameter('parameter')->willReturn(array('Param 1', 'Param 2'));
+        $container->hasParameter('parameter')->willReturn(true);
+
+        $this->resolveArguments($reflectionClass, array('parameter' => '%parameter%'))->shouldReturn(
+            array('parameter' => array('Param 1', 'Param 2'))
         );
     }
 

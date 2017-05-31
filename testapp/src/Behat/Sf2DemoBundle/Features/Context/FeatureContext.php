@@ -62,4 +62,23 @@ class FeatureContext implements KernelAwareContext
     {
         \PHPUnit_Framework_Assert::assertSame($val, $this->containerParameters[$this->parameterKey]);
     }
+
+    /**
+     * @Then the value should be an array
+     */
+    public function theValueShouldBeAnArray()
+    {
+        \PHPUnit_Framework_Assert::assertInternalType('array', $this->containerParameters[$this->parameterKey]);
+    }
+
+    /**
+     * @Then the array should contain only the values :arg
+     * @param  string $arg Comma delimited string, to represent an array's values
+     */
+    public function theArrayShouldContainOnlyTheValues($arg)
+    {
+        $values = explode(',', $arg);
+        
+        \PHPUnit_Framework_Assert::assertSame($values, $this->containerParameters[$this->parameterKey]);
+    }
 }

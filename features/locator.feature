@@ -7,7 +7,7 @@ Feature: Bundle locator
     When I run "behat --no-colors '@BehatSf2DemoBundle'"
     Then it should pass with:
       """
-      3 scenarios (3 passed)
+      4 scenarios (4 passed)
       """
 
   Scenario: Specific features should be loaded from the bundle
