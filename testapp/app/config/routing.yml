@@ -1,3 +1,7 @@
 test:
     path:  /
     defaults: { _controller: BehatSf2DemoBundle:Test:index }
+
+test-service:
+    path:  /set-name/{name}
+    defaults: { _controller: BehatSf2DemoBundle:Test:setName }

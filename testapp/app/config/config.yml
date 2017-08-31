@@ -1,3 +1,6 @@
+imports:
+    - { resource: services.yml }
+
 framework:
     secret:          test_blah
     router:

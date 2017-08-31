@@ -14,7 +14,7 @@ default:
             type: symfony_bundle
             bundle: 'BehatSf2DemoBundle'
             filters:
-                tags: '~@web'
+                tags: '~@web && ~@shared-kernel'
         web:
             type: symfony_bundle
             contexts:
@@ -30,6 +30,28 @@ default:
                       - "%%kernel.environment%%"
                       - "%%kernel.debug%%"
                       - "%%kernel.name%%"
+                    nameService: '@name.service'
+
             bundle: 'BehatSf2DemoBundle'
             filters:
-                tags: '@web'
+                tags: '@web && ~@shared-kernel'
+
+shared-kernel:
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                shared: true
+    suites:
+        web:
+            filters:
+                tags: '@shared-kernel'
+
+no-shared-kernel:
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                shared: false
+    suites:
+        web:
+            filters:
+                tags: '@shared-kernel'

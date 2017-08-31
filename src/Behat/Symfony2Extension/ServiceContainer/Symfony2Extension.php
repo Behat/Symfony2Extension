@@ -80,6 +80,12 @@ class Symfony2Extension implements ExtensionInterface
                             ->end()
                             ->defaultTrue()
                         ->end()
+                        ->booleanNode('shared')
+                            ->beforeNormalization()
+                                ->ifString()->then($boolFilter)
+                            ->end()
+                            ->defaultFalse()
+                        ->end()
                     ->end()
                 ->end()
                 ->arrayNode('context')
@@ -180,6 +186,7 @@ class Symfony2Extension implements ExtensionInterface
         $container->setDefinition(self::KERNEL_ID, $definition);
         $container->setParameter(self::KERNEL_ID . '.path', $config['path']);
         $container->setParameter(self::KERNEL_ID . '.bootstrap', $config['bootstrap']);
+        $container->setParameter(self::KERNEL_ID . '.shared', $config['shared']);
     }
 
     private function loadSuiteGenerator(ContainerBuilder $container, array $config)
