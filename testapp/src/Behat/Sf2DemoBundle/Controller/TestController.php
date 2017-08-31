@@ -26,4 +26,11 @@ class TestController extends Controller
 RESPONSE
         );
     }
+
+    public function setNameAction($name)
+    {
+        $this->container->get('name.service')->setName($name);
+
+        return new Response();
+    }
 }

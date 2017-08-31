@@ -34,6 +34,21 @@ class FeatureContext implements SnippetAcceptingContext
         $this->process = new Process(null);
     }
 
+
+    /**
+     * @Given I have not configured behat to use shared kernel
+     */
+    public function iHaveNotConfiguredBehatToUseSharedKernel()
+    {
+    }
+
+    /**
+     * @Given I have configured behat to use shared kernel
+     */
+    public function iHaveConfiguredBehatToUseSharedKernel()
+    {
+    }
+
     /**
      * Runs behat command with provided parameters
      *

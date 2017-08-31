@@ -59,6 +59,7 @@ final class SymfonyFactory implements DriverFactory
         return new Definition('Behat\Symfony2Extension\Driver\KernelDriver', array(
             new Reference(Symfony2Extension::KERNEL_ID),
             '%mink.base_url%',
+            '%symfony2_extension.kernel.shared%'
         ));
     }
 }

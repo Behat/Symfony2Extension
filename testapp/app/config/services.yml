@@ -1,0 +1,3 @@
+services:
+    name.service:
+        class: Behat\Sf2DemoBundle\Service\NameService
