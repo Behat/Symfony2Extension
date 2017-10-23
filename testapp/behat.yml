@@ -30,6 +30,8 @@ default:
                       - "%%kernel.environment%%"
                       - "%%kernel.debug%%"
                       - "%%kernel.name%%"
+                    nestedParam: 'nested_parameter_%%custom_app%%'
+                    collectionParam: '%%collection_param%%'
             bundle: 'BehatSf2DemoBundle'
             filters:
                 tags: '@web'

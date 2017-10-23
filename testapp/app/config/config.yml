@@ -11,3 +11,6 @@ framework:
 
 parameters:
     custom_app: 'behat-test-app'
+    collection_param:
+        - 'Param 1'
+        - 'Param 2'

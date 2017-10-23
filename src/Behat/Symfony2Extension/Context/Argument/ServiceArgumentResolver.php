@@ -16,6 +16,7 @@ use ReflectionClass;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -74,9 +75,13 @@ final class ServiceArgumentResolver implements ArgumentResolver
             return $service;
         }
 
-        $withParameters = $this->replaceParameters($container, $argument);
+        $resolvedParam = $this->replaceParameters($container, $argument);
 
-        return $this->escape($withParameters);
+        if (!is_string($resolvedParam)) {
+            return $resolvedParam;
+        }
+
+        return $this->escape($resolvedParam);
     }
 
     /**
@@ -108,15 +113,49 @@ final class ServiceArgumentResolver implements ArgumentResolver
     }
 
     /**
-     * @param ContainerInterface $container
-     * @param string $argument
-     * @return string
+     * Sanitise the container key given by the Behat config file,
+     * and retrieve the parameter from the Container.
+     *
+     * First, check if the whole string is one substitution, if it is, then pull it from the container.
+     *
+     * Secondly, iterate over all substitutions in the string. Exception is thrown if referencing a
+     * collection-type parameter when the key is not an entire substitution.
+     *
+     * This is to handle the case where we're given an argument which should return a
+     * collection-type parameter from the container.
+     *
+     * @param  ContainerInterface $container
+     * @param  string $argument
+     * @throws InvalidArgumentException
+     * @return mixed
      */
     private function replaceParameters(ContainerInterface $container, $argument)
     {
-        return preg_replace_callback('/(?<!%)%([^%]+)%(?!%)/', function($matches) use ($container) {
-            return $container->getParameter($matches[1]);
-        }, $argument);
+        if (preg_match('/^(?<!%)%([^%]+)%(?!%)$/', $argument, $matches)) {
+            $replaced = $matches[1];
+
+            if ($container->hasParameter($replaced)) {
+                return $container->getParameter($replaced);
+            }
+
+            return $replaced;
+        }
+        
+        return preg_replace_callback(
+            '/(?<!%)%([^%]+)%(?!%)/',
+            function ($matches) use ($container) {
+                $parameter = $container->getParameter($matches[1]);
+
+                if (is_array($parameter)) {
+                    throw new InvalidArgumentException(
+                        'Cannot reference a collection-type parameter with string interpolation.'
+                    );
+                }
+
+                return $parameter;
+            },
+            $argument
+        );
     }
 
     /**

@@ -7,12 +7,12 @@ Feature: Bundle suites
     When I run "behat -s simple --no-colors"
     Then it should pass with:
       """
-      1 scenario (1 passed)
+      2 scenarios (2 passed)
       """
 
   Scenario: Features should be loaded from all bundle suites
     When I run "behat --no-colors"
     Then it should pass with:
       """
-      3 scenarios (3 passed)
+      4 scenarios (4 passed)
       """
