@@ -27,7 +27,7 @@
         "behat/mink-extension":          "~2.0",
         "behat/mink-browserkit-driver":  "~1.0",
         "phpspec/phpspec":               "~2.0",
-        "phpunit/phpunit":               "~4.0"
+        "phpunit/phpunit":               "~4.0|~5.0"
     },
 
     "autoload": {
