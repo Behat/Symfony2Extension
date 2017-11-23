@@ -19,19 +19,19 @@ default:
             type: symfony_bundle
             contexts:
                 - Behat\Sf2DemoBundle\Features\Context\WebContext:
-                    simpleParameter: "%%custom_app%%"
+                    simpleParameter: "%%%%custom_app%%%%"
                     simpleArg: 'string'
                     session:   '@session'
                     services:
                       - '@session'
                       - '@session.storage.filesystem'
                     params:
-                      - "%%kernel.root_dir%%"
-                      - "%%kernel.environment%%"
-                      - "%%kernel.debug%%"
-                      - "%%kernel.name%%"
-                    nestedParam: 'nested_parameter_%%custom_app%%'
-                    collectionParam: '%%collection_param%%'
+                      - "%%%%kernel.root_dir%%%%"
+                      - "%%%%kernel.environment%%%%"
+                      - "%%%%kernel.debug%%%%"
+                      - "%%%%kernel.name%%%%"
+                    nestedParam: 'nested_parameter_%%%%custom_app%%%%'
+                    collectionParam: '%%%%collection_param%%%%'
             bundle: 'BehatSf2DemoBundle'
             filters:
                 tags: '@web'

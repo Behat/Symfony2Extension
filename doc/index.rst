@@ -129,7 +129,7 @@ argument of the :code:`FeatureContext` context.
             default:
                 contexts:
                     - FeatureContext:
-                        simpleArg: '%%kernel.environment%%'
+                        simpleArg: '%%%%kernel.environment%%%%'
                         session:   '@session'
         extensions:
             Behat\Symfony2Extension: ~
