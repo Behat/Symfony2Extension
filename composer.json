@@ -18,7 +18,7 @@
 
     "require": {
         "php":                       ">=5.3.3",
-        "behat/behat":               "~3.4.0",
+        "behat/behat":               "~3.0,>=3.0.4",
         "symfony/framework-bundle":  "~2.0|~3.0|~4.0"
     },
 
