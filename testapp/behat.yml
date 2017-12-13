@@ -24,7 +24,6 @@ default:
                     session:   '@session'
                     services:
                       - '@session'
-                      - '@session.storage.filesystem'
                     params:
                       - "%%kernel.root_dir%%"
                       - "%%kernel.environment%%"
