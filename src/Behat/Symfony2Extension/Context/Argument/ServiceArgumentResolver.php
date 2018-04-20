@@ -70,6 +70,7 @@ final class ServiceArgumentResolver implements ArgumentResolver
         }
 
         $container = $this->kernel->getContainer();
+        $container = $container->has('test.service_container') ? $container->get('test.service_container') : $container;
 
         if ($service = $this->getService($container, $argument)) {
             return $service;

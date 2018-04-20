@@ -14,6 +14,7 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
     function let(KernelInterface $kernel, ContainerInterface $container)
     {
         $kernel->getContainer()->willReturn($container);
+        $container->has('test.service_container')->willReturn(false);
 
         $this->beConstructedWith($kernel);
     }
@@ -148,6 +149,22 @@ class ServiceArgumentResolverSpec extends ObjectBehavior
 
         $this->resolveArguments($reflectionClass, array('array' => array('@service1', '@service2')))->shouldReturn(
             array('array' => array($service1, $service2))
+        );
+    }
+
+    function it_uses_the_test_service_container(
+        ReflectionClass $reflectionClass,
+        ContainerInterface $container,
+        ContainerInterface $testContainer
+    ) {
+        $testContainer->getParameter('parameter')->willReturn('param_value');
+        $testContainer->hasParameter('parameter')->willReturn(true);
+
+        $container->has('test.service_container')->willReturn(true);
+        $container->get('test.service_container')->willReturn($testContainer);
+
+        $this->resolveArguments($reflectionClass, array('parameter' => '%parameter%'))->shouldReturn(
+            array('parameter' => 'param_value')
         );
     }
 }
