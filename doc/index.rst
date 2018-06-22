@@ -211,8 +211,9 @@ configure Symfony2 kernel inside Behat to fulfil all your needs.
     or a path relative to the Behat configuration file. Defaults to ``app/autoload.php``.
   - ``path`` - defines the path to the kernel class file in order to instantiate it. It
     can be an absolute path or a path relative to the Behat configuration file. Defaults
-    to ``app/AppKernel.php``.
-  - ``class`` - defines the name of the kernel class. Defaults to ``AppKernel``.
+    to ``app/AppKernel.php`` or ``src/Kernel.php``, whichever exists.
+  - ``class`` - defines the name of the kernel class. Defaults to
+    ``AppKernel`` or ``App\Kernel``, whichever exists.
   - ``env`` - defines the environment in which kernel should be instantiated and used
     inside suite. Defaults to ``test``.
   - ``debug`` - defines whether kernel should be instantiated with ``debug`` option
