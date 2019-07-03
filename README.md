@@ -14,7 +14,7 @@ Symfony2Extension is an integration layer between Behat 3.0+ and Symfony2+ and i
 
 [Official documentation](doc/index.rst).
 
-## Copyright
+## Copyright 
 
 Copyright (c) 2012-2014 Konstantin Kudryashov (ever.zet). See LICENSE for details.
 
