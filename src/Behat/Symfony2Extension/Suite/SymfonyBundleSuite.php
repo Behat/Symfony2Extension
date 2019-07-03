@@ -89,7 +89,7 @@ class SymfonyBundleSuite implements Suite
     {
         if (!$this->hasSetting($key)) {
             throw new ParameterNotFoundException(sprintf(
-                '`%s` suite does not have a `%s` setting.',
+                '`%s` suite does not have a `%s` setting',
                 $this->getName(),
                 $key
             ), $this->getName(), $key);
