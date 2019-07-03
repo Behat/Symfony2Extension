@@ -13,6 +13,9 @@ namespace Behat\Symfony2Extension\Driver;
 
 use Behat\Mink\Driver\BrowserKitDriver;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\BrowserKit\CookieJar;
+use Symfony\Component\BrowserKit\History;
+use Symfony\Bundle\FrameworkBundle\Client;
 
 /**
  * Kernel driver for Mink.
@@ -23,6 +26,18 @@ class KernelDriver extends BrowserKitDriver
 {
     public function __construct(KernelInterface $kernel, $baseUrl = null)
     {
-        parent::__construct($kernel->getContainer()->get('test.client'), $baseUrl);
+        $client = $this->getClientInstance($kernel);
+
+        parent::__construct($client, $baseUrl);
+    }
+
+    private function getClientInstance(KernelInterface $kernel)
+    {
+        $clientName = 'test.client';
+        if ($kernel->getContainer() && $kernel->getContainer()->has($clientName)) {
+            return $kernel->getContainer()->get($clientName);
+        }
+
+        return new Client($kernel, array(), new History(), new CookieJar());
     }
 }
