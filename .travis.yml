@@ -14,17 +14,11 @@ cache:
 
 matrix:
   include:
-    - php: 5.5
-      env: SYMFONY_VERSION='2.7.*'
-    - php: 5.6
-      env: SYMFONY_VERSION='2.8.*'
-    - php: 7.1
-      env: SYMFONY_VERSION='3.3.*'
-    - php: 7.1
-      env: DEPS=dev SYMFONY_VERSION='3.4.*'
-    - php: 7.1
-      env: DEVS=dev SYMFONY_VERSION='4.0.*'
     - php: 7.2
+      env: DEVS=dev SYMFONY_VERSION='5.0.*'
+    - php: 7.3
+      env: DEVS=dev SYMFONY_VERSION='5.0.*'
+    - php: 7.4
       env: DEVS=dev SYMFONY_VERSION='5.0.*'
   allow_failures:
     - php: 7.1
