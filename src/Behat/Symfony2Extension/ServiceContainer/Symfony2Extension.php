@@ -135,10 +135,12 @@ class Symfony2Extension implements ExtensionInterface
 
         // find and require kernel
         $kernelPath = $container->getParameter('symfony2_extension.kernel.path');
-        if (file_exists($kernel = $basePath . '/' . $kernelPath)) {
-            $container->getDefinition(self::KERNEL_ID)->setFile($kernel);
-        } elseif (file_exists($kernelPath)) {
-            $container->getDefinition(self::KERNEL_ID)->setFile($kernelPath);
+        if ($kernelPath) {
+            if (file_exists($kernel = $basePath . '/' . $kernelPath)) {
+                $container->getDefinition(self::KERNEL_ID)->setFile($kernel);
+            } elseif (file_exists($kernelPath)) {
+                $container->getDefinition(self::KERNEL_ID)->setFile($kernelPath);
+            }
         }
     }
 
