@@ -1,4 +1,6 @@
 default:
+    translation:
+        locale: en
     formatters:
         progress:
             paths: false
