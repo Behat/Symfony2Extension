@@ -1,5 +1,6 @@
 {
     "name": "behat/symfony2-extension",
+    "abandoned": "friends-of-behat/symfony-extension",
     "type": "behat-extension",
     "description": "Symfony2 framework extension for Behat",
     "keywords": ["symfony", "framework", "bdd"],
